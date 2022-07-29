@@ -337,11 +337,21 @@ class _MeditationWidgetState extends State<MeditationWidget> {
                                             shape: BoxShape.circle,
                                           ),
                                           alignment: AlignmentDirectional(0, 0),
-                                          child: Image.asset(
-                                            'assets/images/Vector.png',
-                                            width: 11,
-                                            height: 16,
-                                            fit: BoxFit.contain,
+                                          child: Stack(
+                                            children: [
+                                              Image.asset(
+                                                'assets/images/Vector-2.png',
+                                                width: 11,
+                                                height: 16,
+                                                fit: BoxFit.contain,
+                                              ),
+                                              Image.asset(
+                                                'assets/images/Vector.png',
+                                                width: 11,
+                                                height: 16,
+                                                fit: BoxFit.contain,
+                                              ),
+                                            ],
                                           ),
                                         ),
                                       ],

@@ -207,10 +207,7 @@ class _MeditationListWidgetState extends State<MeditationListWidget> {
                     padding: EdgeInsetsDirectional.fromSTEB(24, 20, 24, 4),
                     child: Builder(
                       builder: (context) {
-                        final audio = widget.meditation!.audios!
-                            .toList()
-                            .map((e) => e)
-                            .toList();
+                        final audio = widget.meditation!.audios!.toList();
                         return ListView.builder(
                           padding: EdgeInsets.zero,
                           scrollDirection: Axis.vertical,
@@ -220,108 +217,164 @@ class _MeditationListWidgetState extends State<MeditationListWidget> {
                             return Padding(
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(0, 0, 0, 11),
-                              child: InkWell(
-                                onTap: () async {
-                                  await Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          MeditationPageWidget(),
-                                    ),
-                                  );
-                                },
-                                child: Container(
-                                  width: 100,
-                                  height: 80,
-                                  decoration: BoxDecoration(
-                                    color: Color(0xFF33325C),
-                                    borderRadius: BorderRadius.circular(25),
-                                  ),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      ClipRRect(
-                                        borderRadius: BorderRadius.only(
-                                          bottomLeft: Radius.circular(25),
-                                          bottomRight: Radius.circular(0),
-                                          topLeft: Radius.circular(25),
-                                          topRight: Radius.circular(0),
-                                        ),
-                                        child: Image.network(
-                                          audioItem.cover!,
-                                          width: 111,
-                                          height: 100,
-                                          fit: BoxFit.cover,
+                              child: StreamBuilder<AudiosRecord>(
+                                stream: AudiosRecord.getDocument(audioItem),
+                                builder: (context, snapshot) {
+                                  // Customize what your widget looks like when it's loading.
+                                  if (!snapshot.hasData) {
+                                    return Center(
+                                      child: SizedBox(
+                                        width: 30,
+                                        height: 30,
+                                        child: CircularProgressIndicator(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryColor,
                                         ),
                                       ),
-                                      Expanded(
-                                        child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  20, 0, 0, 0),
-                                          child: Column(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(0, 0, 18, 0),
-                                                child: Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    Text(
-                                                      audioItem.title!,
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .bodyText1
-                                                          .override(
-                                                            fontFamily:
-                                                                'montserrat',
-                                                            color: Colors.white,
-                                                            useGoogleFonts:
-                                                                false,
+                                    );
+                                  }
+                                  final containerAudiosRecord = snapshot.data!;
+                                  return InkWell(
+                                    onTap: () async {
+                                      await Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              MeditationPageWidget(
+                                            audio: containerAudiosRecord,
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                    child: Container(
+                                      width: 100,
+                                      height: 80,
+                                      decoration: BoxDecoration(
+                                        color: Color(0xFF33325C),
+                                        borderRadius: BorderRadius.circular(25),
+                                      ),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          ClipRRect(
+                                            borderRadius: BorderRadius.only(
+                                              bottomLeft: Radius.circular(25),
+                                              bottomRight: Radius.circular(0),
+                                              topLeft: Radius.circular(25),
+                                              topRight: Radius.circular(0),
+                                            ),
+                                            child: Image.network(
+                                              containerAudiosRecord.cover!,
+                                              width: 111,
+                                              height: 100,
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child: Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(20, 0, 0, 0),
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(
+                                                                0, 0, 18, 0),
+                                                    child: Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: [
+                                                        Text(
+                                                          containerAudiosRecord
+                                                              .title!,
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyText1
+                                                              .override(
+                                                                fontFamily:
+                                                                    'montserrat',
+                                                                color: Colors
+                                                                    .white,
+                                                                useGoogleFonts:
+                                                                    false,
+                                                              ),
+                                                        ),
+                                                        Padding(
+                                                          padding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(5,
+                                                                      0, 0, 0),
+                                                          child: Container(
+                                                            width: 30,
+                                                            height: 30,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              color: Color(
+                                                                  0x82C4C4C4),
+                                                              shape: BoxShape
+                                                                  .circle,
+                                                            ),
+                                                            alignment:
+                                                                AlignmentDirectional(
+                                                                    0, 0),
+                                                            child: Stack(
+                                                              children: [
+                                                                if ((currentUserDocument
+                                                                            ?.listenAudio
+                                                                            ?.toList() ??
+                                                                        [])
+                                                                    .contains(
+                                                                        containerAudiosRecord
+                                                                            .reference))
+                                                                  AuthUserStreamWidget(
+                                                                    child: Image
+                                                                        .asset(
+                                                                      'assets/images/Vector-2.png',
+                                                                      width: 11,
+                                                                      height:
+                                                                          16,
+                                                                      fit: BoxFit
+                                                                          .contain,
+                                                                    ),
+                                                                  ),
+                                                                if (!(currentUserDocument
+                                                                            ?.listenAudio
+                                                                            ?.toList() ??
+                                                                        [])
+                                                                    .contains(
+                                                                        containerAudiosRecord
+                                                                            .reference))
+                                                                  AuthUserStreamWidget(
+                                                                    child: Image
+                                                                        .asset(
+                                                                      'assets/images/Vector.png',
+                                                                      width: 11,
+                                                                      height:
+                                                                          16,
+                                                                      fit: BoxFit
+                                                                          .contain,
+                                                                    ),
+                                                                  ),
+                                                              ],
+                                                            ),
                                                           ),
-                                                    ),
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  5, 0, 0, 0),
-                                                      child: Container(
-                                                        width: 30,
-                                                        height: 30,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color:
-                                                              Color(0x82C4C4C4),
-                                                          shape:
-                                                              BoxShape.circle,
                                                         ),
-                                                        alignment:
-                                                            AlignmentDirectional(
-                                                                0, 0),
-                                                        child: Image.asset(
-                                                          'assets/images/Vector.png',
-                                                          width: 11,
-                                                          height: 16,
-                                                          fit: BoxFit.contain,
-                                                        ),
-                                                      ),
+                                                      ],
                                                     ),
-                                                  ],
-                                                ),
-                                              ),
-                                              Text(
-                                                'Длительность: 17 минут',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
+                                                  ),
+                                                  Text(
+                                                    'Длительность: 17 минут',
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
                                                         .bodyText1
                                                         .override(
                                                           fontFamily:
@@ -329,14 +382,16 @@ class _MeditationListWidgetState extends State<MeditationListWidget> {
                                                           fontSize: 12,
                                                           useGoogleFonts: false,
                                                         ),
+                                                  ),
+                                                ],
                                               ),
-                                            ],
+                                            ),
                                           ),
-                                        ),
+                                        ],
                                       ),
-                                    ],
-                                  ),
-                                ),
+                                    ),
+                                  );
+                                },
                               ),
                             );
                           },

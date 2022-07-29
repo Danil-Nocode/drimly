@@ -31,6 +31,9 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
 
   double? get rating;
 
+  @BuiltValueField(wireName: 'listen_audio')
+  BuiltList<DocumentReference>? get listenAudio;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -43,7 +46,8 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
     ..phoneNumber = ''
     ..question1 = ''
     ..question2 = ''
-    ..rating = 0.0;
+    ..rating = 0.0
+    ..listenAudio = ListBuilder();
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('users');
@@ -89,7 +93,8 @@ Map<String, dynamic> createUsersRecordData({
         ..phoneNumber = phoneNumber
         ..question1 = question1
         ..question2 = question2
-        ..rating = rating,
+        ..rating = rating
+        ..listenAudio = null,
     ),
   );
 

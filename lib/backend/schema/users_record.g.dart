@@ -82,6 +82,16 @@ class _$UsersRecordSerializer implements StructuredSerializer<UsersRecord> {
         ..add(serializers.serialize(value,
             specifiedType: const FullType(double)));
     }
+    value = object.listenAudio;
+    if (value != null) {
+      result
+        ..add('listen_audio')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(BuiltList, const [
+              const FullType(
+                  DocumentReference, const [const FullType.nullable(Object)])
+            ])));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -140,6 +150,13 @@ class _$UsersRecordSerializer implements StructuredSerializer<UsersRecord> {
           result.rating = serializers.deserialize(value,
               specifiedType: const FullType(double)) as double?;
           break;
+        case 'listen_audio':
+          result.listenAudio.replace(serializers.deserialize(value,
+              specifiedType: const FullType(BuiltList, const [
+                const FullType(
+                    DocumentReference, const [const FullType.nullable(Object)])
+              ]))! as BuiltList<Object?>);
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -173,6 +190,8 @@ class _$UsersRecord extends UsersRecord {
   @override
   final double? rating;
   @override
+  final BuiltList<DocumentReference<Object?>>? listenAudio;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$UsersRecord([void Function(UsersRecordBuilder)? updates]) =>
@@ -188,6 +207,7 @@ class _$UsersRecord extends UsersRecord {
       this.question1,
       this.question2,
       this.rating,
+      this.listenAudio,
       this.ffRef})
       : super._();
 
@@ -211,6 +231,7 @@ class _$UsersRecord extends UsersRecord {
         question1 == other.question1 &&
         question2 == other.question2 &&
         rating == other.rating &&
+        listenAudio == other.listenAudio &&
         ffRef == other.ffRef;
   }
 
@@ -224,15 +245,17 @@ class _$UsersRecord extends UsersRecord {
                         $jc(
                             $jc(
                                 $jc(
-                                    $jc($jc(0, email.hashCode),
-                                        displayName.hashCode),
-                                    photoUrl.hashCode),
-                                uid.hashCode),
-                            createdTime.hashCode),
-                        phoneNumber.hashCode),
-                    question1.hashCode),
-                question2.hashCode),
-            rating.hashCode),
+                                    $jc(
+                                        $jc($jc(0, email.hashCode),
+                                            displayName.hashCode),
+                                        photoUrl.hashCode),
+                                    uid.hashCode),
+                                createdTime.hashCode),
+                            phoneNumber.hashCode),
+                        question1.hashCode),
+                    question2.hashCode),
+                rating.hashCode),
+            listenAudio.hashCode),
         ffRef.hashCode));
   }
 
@@ -248,6 +271,7 @@ class _$UsersRecord extends UsersRecord {
           ..add('question1', question1)
           ..add('question2', question2)
           ..add('rating', rating)
+          ..add('listenAudio', listenAudio)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -292,6 +316,12 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
   double? get rating => _$this._rating;
   set rating(double? rating) => _$this._rating = rating;
 
+  ListBuilder<DocumentReference<Object?>>? _listenAudio;
+  ListBuilder<DocumentReference<Object?>> get listenAudio =>
+      _$this._listenAudio ??= new ListBuilder<DocumentReference<Object?>>();
+  set listenAudio(ListBuilder<DocumentReference<Object?>>? listenAudio) =>
+      _$this._listenAudio = listenAudio;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -312,6 +342,7 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
       _question1 = $v.question1;
       _question2 = $v.question2;
       _rating = $v.rating;
+      _listenAudio = $v.listenAudio?.toBuilder();
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -333,18 +364,32 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
   UsersRecord build() => _build();
 
   _$UsersRecord _build() {
-    final _$result = _$v ??
-        new _$UsersRecord._(
-            email: email,
-            displayName: displayName,
-            photoUrl: photoUrl,
-            uid: uid,
-            createdTime: createdTime,
-            phoneNumber: phoneNumber,
-            question1: question1,
-            question2: question2,
-            rating: rating,
-            ffRef: ffRef);
+    _$UsersRecord _$result;
+    try {
+      _$result = _$v ??
+          new _$UsersRecord._(
+              email: email,
+              displayName: displayName,
+              photoUrl: photoUrl,
+              uid: uid,
+              createdTime: createdTime,
+              phoneNumber: phoneNumber,
+              question1: question1,
+              question2: question2,
+              rating: rating,
+              listenAudio: _listenAudio?.build(),
+              ffRef: ffRef);
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'listenAudio';
+        _listenAudio?.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'UsersRecord', _$failedField, e.toString());
+      }
+      rethrow;
+    }
     replace(_$result);
     return _$result;
   }
