@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "628719281378",
+    "project_id": "drimly-f4e70",
+    "storage_bucket": "drimly-f4e70.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:628719281378:android:50809fa2f19243df94eabb",
+        "android_client_info": {
+          "package_name": "com.mycompany.drimly"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "628719281378-3qiqanpqegrga1rek48871ivti7q3lh3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mycompany.drimly",
+            "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
+          }
+        },
+        {
+          "client_id": "628719281378-hjrq3ktn1k734cb32gbu98t1cp833kmu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCKyQ6IWjeLC28Q5ZomRMnLWi7NroipdpA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "628719281378-hjrq3ktn1k734cb32gbu98t1cp833kmu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "628719281378-mmpr2dd2icfq3l2fjkgev8c62g68pq3c.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mycompany.drimly"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
