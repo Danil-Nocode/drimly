@@ -133,6 +133,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                                   borderRadius: BorderRadius.circular(12),
                                 ),
                                 child: TextFormField(
+                                  textAlignVertical: TextAlignVertical.center,
                                   controller: textFieldPasswordController,
                                   autofocus: true,
                                   obscureText: !textFieldPasswordVisibility,

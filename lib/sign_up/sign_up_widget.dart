@@ -186,6 +186,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                     borderRadius: BorderRadius.circular(12),
                                   ),
                                   child: TextFormField(
+                                    textAlignVertical: TextAlignVertical.center,
                                     controller: textFieldPasswordController,
                                     obscureText: !textFieldPasswordVisibility,
                                     decoration: InputDecoration(
@@ -210,8 +211,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                         borderRadius: BorderRadius.circular(12),
                                       ),
                                       contentPadding:
-                                          EdgeInsetsDirectional.fromSTEB(
-                                              18, 0, 0, 0),
+                                          EdgeInsetsDirectional.only(start: 18),
                                       suffixIcon: InkWell(
                                         onTap: () => setState(
                                           () => textFieldPasswordVisibility =
@@ -243,6 +243,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                   borderRadius: BorderRadius.circular(12),
                                 ),
                                 child: TextFormField(
+                                  textAlignVertical: TextAlignVertical.center,
                                   controller: textFieldRepeatPasswordController,
                                   obscureText:
                                       !textFieldRepeatPasswordVisibility,

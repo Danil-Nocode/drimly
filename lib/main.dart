@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:just_audio/just_audio.dart';
 import 'auth/firebase_user_provider.dart';
 import 'auth/auth_util.dart';
 
@@ -11,6 +12,13 @@ import 'flutter_flow/internationalization.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.dart';
 import 'index.dart';
+
+import 'package:audio_session/audio_session.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:just_audio/just_audio.dart';
+import 'components/common.dart';
+import 'package:rxdart/rxdart.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -48,6 +56,12 @@ class _MyAppState extends State<MyApp> {
       Duration(seconds: 1),
       () => setState(() => displaySplashImage = false),
     );
+    initAudioPlayer();
+  }
+
+  void initAudioPlayer() async {
+    final session = await AudioSession.instance;
+    await session.configure(AudioSessionConfiguration.music());
   }
 
   @override
@@ -121,7 +135,6 @@ class _NavBarPageState extends State<NavBarPage> {
   Widget build(BuildContext context) {
     final tabs = {
       'Meditation': MeditationWidget(),
-      'meditationList': MeditationListWidget(),
       'Sound': SoundWidget(),
       'Practice': PracticeWidget(),
       'Profile': ProfileWidget(),
@@ -148,11 +161,31 @@ class _NavBarPageState extends State<NavBarPage> {
             customWidget: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(
-                  FFIcons.kmeditationSvgrepoCom,
-                  color:
-                      currentIndex == 0 ? Color(0xFFEE3957) : Color(0xFF565A7D),
-                  size: 24,
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 6),
+                  child: Container(
+                    width: 22,
+                    height: 22,
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          blurRadius: 15,
+                          color: currentIndex == 0
+                              ? Color.fromARGB(255, 238, 57, 87)
+                              : Color.fromARGB(0, 204, 138, 254),
+                          offset: Offset(0, 4),
+                        )
+                      ],
+                      image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: Image.asset(
+                          currentIndex == 0
+                              ? 'assets/images/meditation_fill.png'
+                              : 'assets/images/meditation_unfill.png',
+                        ).image,
+                      ),
+                    ),
+                  ),
                 ),
                 Text(
                   FFLocalizations.of(context).getText(
@@ -160,10 +193,9 @@ class _NavBarPageState extends State<NavBarPage> {
                   ),
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
-                    color: currentIndex == 0
-                        ? Color(0xFFEE3957)
-                        : Color(0xFF565A7D),
-                    fontSize: 11.0,
+                    color: currentIndex == 0 ? Colors.white : Color(0xFF565A7D),
+                    fontSize: 8.0,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
               ],
@@ -173,36 +205,31 @@ class _NavBarPageState extends State<NavBarPage> {
             customWidget: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(
-                  FFIcons.kmeditationSvgrepoCom,
-                  color:
-                      currentIndex == 1 ? Color(0xFFEE3957) : Color(0xFF565A7D),
-                  size: 24,
-                ),
-                Text(
-                  FFLocalizations.of(context).getText(
-                    'uja6ngkz' /* Медитация */,
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 6),
+                  child: Container(
+                    width: 22,
+                    height: 22,
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          blurRadius: 15,
+                          color: currentIndex == 1
+                              ? Color.fromARGB(255, 238, 57, 87)
+                              : Color.fromARGB(0, 204, 138, 254),
+                          offset: Offset(0, 4),
+                        )
+                      ],
+                      image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: Image.asset(
+                          currentIndex == 1
+                              ? 'assets/images/music_fill.png'
+                              : 'assets/images/music_unfill.png',
+                        ).image,
+                      ),
+                    ),
                   ),
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    color: currentIndex == 1
-                        ? Color(0xFFEE3957)
-                        : Color(0xFF565A7D),
-                    fontSize: 11.0,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          FloatingNavbarItem(
-            customWidget: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  FFIcons.kmusicSvgrepoCom1,
-                  color:
-                      currentIndex == 2 ? Color(0xFFEE3957) : Color(0xFF565A7D),
-                  size: 24,
                 ),
                 Text(
                   FFLocalizations.of(context).getText(
@@ -210,10 +237,9 @@ class _NavBarPageState extends State<NavBarPage> {
                   ),
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
-                    color: currentIndex == 2
-                        ? Color(0xFFEE3957)
-                        : Color(0xFF565A7D),
-                    fontSize: 11.0,
+                    color: currentIndex == 1 ? Colors.white : Color(0xFF565A7D),
+                    fontSize: 8.0,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
               ],
@@ -223,11 +249,31 @@ class _NavBarPageState extends State<NavBarPage> {
             customWidget: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(
-                  FFIcons.kmeditationSvgrepoCom21,
-                  color:
-                      currentIndex == 3 ? Color(0xFFEE3957) : Color(0xFF565A7D),
-                  size: 24,
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 6),
+                  child: Container(
+                    width: 22,
+                    height: 22,
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          blurRadius: 15,
+                          color: currentIndex == 2
+                              ? Color.fromARGB(255, 238, 57, 87)
+                              : Color.fromARGB(0, 204, 138, 254),
+                          offset: Offset(0, 4),
+                        )
+                      ],
+                      image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: Image.asset(
+                          currentIndex == 2
+                              ? 'assets/images/practice_fill.png'
+                              : 'assets/images/practice_unfill.png',
+                        ).image,
+                      ),
+                    ),
+                  ),
                 ),
                 Text(
                   FFLocalizations.of(context).getText(
@@ -235,10 +281,9 @@ class _NavBarPageState extends State<NavBarPage> {
                   ),
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
-                    color: currentIndex == 3
-                        ? Color(0xFFEE3957)
-                        : Color(0xFF565A7D),
-                    fontSize: 11.0,
+                    color: currentIndex == 2 ? Colors.white : Color(0xFF565A7D),
+                    fontSize: 8.0,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
               ],
@@ -248,11 +293,31 @@ class _NavBarPageState extends State<NavBarPage> {
             customWidget: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(
-                  FFIcons.kuserProfileSvgrepoCom2,
-                  color:
-                      currentIndex == 4 ? Color(0xFFEE3957) : Color(0xFF565A7D),
-                  size: 24,
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 6),
+                  child: Container(
+                    width: 22,
+                    height: 22,
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          blurRadius: 15,
+                          color: currentIndex == 3
+                              ? Color.fromARGB(255, 238, 57, 87)
+                              : Color.fromARGB(0, 204, 138, 254),
+                          offset: Offset(0, 4),
+                        )
+                      ],
+                      image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: Image.asset(
+                          currentIndex == 3
+                              ? 'assets/images/user_fill.png'
+                              : 'assets/images/user_unfill.png',
+                        ).image,
+                      ),
+                    ),
+                  ),
                 ),
                 Text(
                   FFLocalizations.of(context).getText(
@@ -260,10 +325,9 @@ class _NavBarPageState extends State<NavBarPage> {
                   ),
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
-                    color: currentIndex == 4
-                        ? Color(0xFFEE3957)
-                        : Color(0xFF565A7D),
-                    fontSize: 11.0,
+                    color: currentIndex == 3 ? Colors.white : Color(0xFF565A7D),
+                    fontSize: 8.0,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
               ],
