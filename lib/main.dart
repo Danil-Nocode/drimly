@@ -6,6 +6,7 @@ import 'package:just_audio/just_audio.dart';
 import 'auth/firebase_user_provider.dart';
 import 'auth/auth_util.dart';
 
+import 'backend/schema/meditation_record.dart';
 import 'flutter_flow/flutter_flow_theme.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 import 'flutter_flow/internationalization.dart';
@@ -113,9 +114,11 @@ class _MyAppState extends State<MyApp> {
 }
 
 class NavBarPage extends StatefulWidget {
-  NavBarPage({Key? key, this.initialPage}) : super(key: key);
+  NavBarPage({Key? key, this.initialPage, this.meditationRecord})
+      : super(key: key);
 
   final String? initialPage;
+  final MeditationRecord? meditationRecord;
 
   @override
   _NavBarPageState createState() => _NavBarPageState();
@@ -138,6 +141,9 @@ class _NavBarPageState extends State<NavBarPage> {
       'Sound': SoundWidget(),
       'Practice': PracticeWidget(),
       'Profile': ProfileWidget(),
+      'MeditationList': MeditationListWidget(
+        meditation: widget.meditationRecord,
+      ),
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPage);
     return Scaffold(
@@ -170,7 +176,7 @@ class _NavBarPageState extends State<NavBarPage> {
                       boxShadow: [
                         BoxShadow(
                           blurRadius: 15,
-                          color: currentIndex == 0
+                          color: currentIndex == 0 || currentIndex == 4
                               ? Color.fromARGB(255, 238, 57, 87)
                               : Color.fromARGB(0, 204, 138, 254),
                           offset: Offset(0, 4),
@@ -179,7 +185,7 @@ class _NavBarPageState extends State<NavBarPage> {
                       image: DecorationImage(
                         fit: BoxFit.cover,
                         image: Image.asset(
-                          currentIndex == 0
+                          currentIndex == 0 || currentIndex == 4
                               ? 'assets/images/meditation_fill.png'
                               : 'assets/images/meditation_unfill.png',
                         ).image,
@@ -332,7 +338,7 @@ class _NavBarPageState extends State<NavBarPage> {
                 ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );

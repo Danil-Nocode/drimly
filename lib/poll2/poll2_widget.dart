@@ -17,67 +17,72 @@ class Poll2Widget extends StatefulWidget {
 
 class _Poll2WidgetState extends State<Poll2Widget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  String choice2 = '5';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-      body: SafeArea(
-        child: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Stack(
-                alignment: AlignmentDirectional(0, -0.4),
-                children: [
-                  Image.asset(
-                    'assets/images/Rectangle_209.png',
-                    width: MediaQuery.of(context).size.width,
-                    fit: BoxFit.cover,
-                  ),
-                  Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Image.asset(
-                        'assets/images/question-mark-button-svgrepo-com_1.png',
-                        width: 64,
-                        height: 64,
-                        fit: BoxFit.cover,
-                      ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(30, 3, 30, 0),
-                        child: Text(
-                          FFLocalizations.of(context).getText(
-                            'm2mr7hwh' /* Какую сферу жизни Вы бы хотели... */,
-                          ),
-                          textAlign: TextAlign.center,
-                          style:
-                              FlutterFlowTheme.of(context).bodyText1.override(
-                                    fontFamily: 'montserrat',
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w500,
-                                    useGoogleFonts: false,
-                                  ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(37, 0, 37, 0),
-                child: Column(
+      body: GestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            Stack(
+              alignment: AlignmentDirectional(0, -0.4),
+              children: [
+                Image.asset(
+                  'assets/images/Rectangle_209.png',
+                  width: MediaQuery.of(context).size.width,
+                  fit: BoxFit.cover,
+                ),
+                Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
+                    Image.asset(
+                      'assets/images/question-mark-button-svgrepo-com_1.png',
+                      width: 64,
+                      height: 64,
+                      fit: BoxFit.cover,
+                    ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 18),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
+                      padding: EdgeInsetsDirectional.fromSTEB(30, 3, 30, 0),
+                      child: Text(
+                        FFLocalizations.of(context).getText(
+                          'm2mr7hwh' /* Какую сферу жизни Вы бы хотели... */,
+                        ),
+                        textAlign: TextAlign.center,
+                        style: FlutterFlowTheme.of(context).bodyText1.override(
+                              fontFamily: 'montserrat',
+                              color: Colors.white,
+                              fontWeight: FontWeight.w500,
+                              useGoogleFonts: false,
+                            ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(37, 0, 37, 0),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 18),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            setState(() {
+                              choice2 = '5';
+                            });
+                          },
+                          child: Container(
                             width: 140,
                             height: 113,
                             decoration: BoxDecoration(
@@ -85,7 +90,9 @@ class _Poll2WidgetState extends State<Poll2Widget> {
                                   .secondaryBackground,
                               borderRadius: BorderRadius.circular(12),
                               border: Border.all(
-                                color: Color(0xFF959CD8),
+                                color: choice2 == '5'
+                                    ? Color(0xFF959CD8)
+                                    : Color(0xFFDCDCDC),
                                 width: 2,
                               ),
                             ),
@@ -115,7 +122,9 @@ class _Poll2WidgetState extends State<Poll2Widget> {
                                           width: 13,
                                           height: 13,
                                           decoration: BoxDecoration(
-                                            color: Color(0xFFDCDFFF),
+                                            color: choice2 == '5'
+                                                ? Color(0xFFDCDFFF)
+                                                : Colors.white,
                                             shape: BoxShape.circle,
                                           ),
                                         ),
@@ -131,7 +140,9 @@ class _Poll2WidgetState extends State<Poll2Widget> {
                                               .bodyText1
                                               .override(
                                                 fontFamily: 'montserrat',
-                                                color: Color(0xFF959CD8),
+                                                color: choice2 == '5'
+                                                    ? Color(0xFF959CD8)
+                                                    : Color(0xFFDCDCDC),
                                                 fontWeight: FontWeight.w500,
                                                 useGoogleFonts: false,
                                               ),
@@ -148,7 +159,9 @@ class _Poll2WidgetState extends State<Poll2Widget> {
                                       .bodyText1
                                       .override(
                                         fontFamily: 'montserrat',
-                                        color: Color(0xFF959CD8),
+                                        color: choice2 == '5'
+                                            ? Color(0xFF959CD8)
+                                            : Color(0xFFDCDCDC),
                                         fontSize: 50,
                                         useGoogleFonts: false,
                                       ),
@@ -156,9 +169,15 @@ class _Poll2WidgetState extends State<Poll2Widget> {
                               ],
                             ),
                           ),
-                          Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(18, 0, 0, 0),
+                        ),
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(18, 0, 0, 0),
+                          child: InkWell(
+                            onTap: () {
+                              setState(() {
+                                choice2 = '10';
+                              });
+                            },
                             child: Container(
                               width: 140,
                               height: 113,
@@ -167,7 +186,9 @@ class _Poll2WidgetState extends State<Poll2Widget> {
                                     .secondaryBackground,
                                 borderRadius: BorderRadius.circular(12),
                                 border: Border.all(
-                                  color: Color(0xFFDCDCDC),
+                                  color: choice2 == '10'
+                                      ? Color(0xFF959CD8)
+                                      : Color(0xFFDCDCDC),
                                   width: 2,
                                 ),
                               ),
@@ -197,7 +218,9 @@ class _Poll2WidgetState extends State<Poll2Widget> {
                                             width: 13,
                                             height: 13,
                                             decoration: BoxDecoration(
-                                              color: Colors.white,
+                                              color: choice2 == '10'
+                                                  ? Color(0xFFDCDFFF)
+                                                  : Colors.white,
                                               shape: BoxShape.circle,
                                             ),
                                           ),
@@ -214,7 +237,9 @@ class _Poll2WidgetState extends State<Poll2Widget> {
                                                 .bodyText1
                                                 .override(
                                                   fontFamily: 'montserrat',
-                                                  color: Color(0xFFDCDCDC),
+                                                  color: choice2 == '10'
+                                                      ? Color(0xFF959CD8)
+                                                      : Color(0xFFDCDCDC),
                                                   fontWeight: FontWeight.w500,
                                                   useGoogleFonts: false,
                                                 ),
@@ -231,7 +256,9 @@ class _Poll2WidgetState extends State<Poll2Widget> {
                                         .bodyText1
                                         .override(
                                           fontFamily: 'montserrat',
-                                          color: Color(0xFF959CD8),
+                                          color: choice2 == '10'
+                                              ? Color(0xFF959CD8)
+                                              : Color(0xFFDCDCDC),
                                           fontSize: 50,
                                           useGoogleFonts: false,
                                         ),
@@ -240,14 +267,21 @@ class _Poll2WidgetState extends State<Poll2Widget> {
                               ),
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                    Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
+                  ),
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          setState(() {
+                            choice2 = '20';
+                          });
+                        },
+                        child: Container(
                           width: 140,
                           height: 113,
                           decoration: BoxDecoration(
@@ -255,7 +289,9 @@ class _Poll2WidgetState extends State<Poll2Widget> {
                                 .secondaryBackground,
                             borderRadius: BorderRadius.circular(12),
                             border: Border.all(
-                              color: Color(0xFF959CD8),
+                              color: choice2 == '20'
+                                  ? Color(0xFF959CD8)
+                                  : Color(0xFFDCDCDC),
                               width: 2,
                             ),
                           ),
@@ -285,7 +321,9 @@ class _Poll2WidgetState extends State<Poll2Widget> {
                                         width: 13,
                                         height: 13,
                                         decoration: BoxDecoration(
-                                          color: Color(0xFFDCDFFF),
+                                          color: choice2 == '20'
+                                              ? Color(0xFFDCDFFF)
+                                              : Colors.white,
                                           shape: BoxShape.circle,
                                         ),
                                       ),
@@ -301,7 +339,9 @@ class _Poll2WidgetState extends State<Poll2Widget> {
                                             .bodyText1
                                             .override(
                                               fontFamily: 'montserrat',
-                                              color: Color(0xFF959CD8),
+                                              color: choice2 == '20'
+                                                  ? Color(0xFF959CD8)
+                                                  : Color(0xFFDCDCDC),
                                               fontWeight: FontWeight.w500,
                                               useGoogleFonts: false,
                                             ),
@@ -318,7 +358,9 @@ class _Poll2WidgetState extends State<Poll2Widget> {
                                     .bodyText1
                                     .override(
                                       fontFamily: 'montserrat',
-                                      color: Color(0xFF959CD8),
+                                      color: choice2 == '20'
+                                          ? Color(0xFF959CD8)
+                                          : Color(0xFFDCDCDC),
                                       fontSize: 50,
                                       useGoogleFonts: false,
                                     ),
@@ -326,8 +368,15 @@ class _Poll2WidgetState extends State<Poll2Widget> {
                             ],
                           ),
                         ),
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(18, 0, 0, 0),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(18, 0, 0, 0),
+                        child: InkWell(
+                          onTap: () {
+                            setState(() {
+                              choice2 = '30';
+                            });
+                          },
                           child: Container(
                             width: 140,
                             height: 113,
@@ -336,7 +385,9 @@ class _Poll2WidgetState extends State<Poll2Widget> {
                                   .secondaryBackground,
                               borderRadius: BorderRadius.circular(12),
                               border: Border.all(
-                                color: Color(0xFF959CD8),
+                                color: choice2 == '30'
+                                    ? Color(0xFF959CD8)
+                                    : Color(0xFFDCDCDC),
                                 width: 2,
                               ),
                             ),
@@ -366,7 +417,9 @@ class _Poll2WidgetState extends State<Poll2Widget> {
                                           width: 13,
                                           height: 13,
                                           decoration: BoxDecoration(
-                                            color: Color(0xFFDCDFFF),
+                                            color: choice2 == '30'
+                                                ? Color(0xFFDCDFFF)
+                                                : Colors.white,
                                             shape: BoxShape.circle,
                                           ),
                                         ),
@@ -382,7 +435,9 @@ class _Poll2WidgetState extends State<Poll2Widget> {
                                               .bodyText1
                                               .override(
                                                 fontFamily: 'montserrat',
-                                                color: Color(0xFF959CD8),
+                                                color: choice2 == '30'
+                                                    ? Color(0xFF959CD8)
+                                                    : Color(0xFFDCDCDC),
                                                 fontWeight: FontWeight.w500,
                                                 useGoogleFonts: false,
                                               ),
@@ -399,7 +454,9 @@ class _Poll2WidgetState extends State<Poll2Widget> {
                                       .bodyText1
                                       .override(
                                         fontFamily: 'montserrat',
-                                        color: Color(0xFF959CD8),
+                                        color: choice2 == '30'
+                                            ? Color(0xFF959CD8)
+                                            : Color(0xFFDCDCDC),
                                         fontSize: 50,
                                         useGoogleFonts: false,
                                       ),
@@ -408,65 +465,64 @@ class _Poll2WidgetState extends State<Poll2Widget> {
                             ),
                           ),
                         ),
-                      ],
-                    ),
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 41, 0, 0),
-                      child: InkWell(
-                        onTap: () async {
-                          final usersUpdateData = createUsersRecordData(
-                            question2: '123',
-                          );
-                          await currentUserReference!.update(usersUpdateData);
-                          await Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => Poll3Widget(),
-                            ),
-                          );
-                        },
-                        child: ButtonWidget(
-                          text: 'Продолжить',
-                        ),
                       ),
-                    ),
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
-                      child: InkWell(
-                        onTap: () async {
-                          await Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => Poll3Widget(),
-                            ),
-                          );
-                        },
-                        child: Text(
-                          FFLocalizations.of(context).getText(
-                            '2mz33oug' /* Пропустить */,
+                    ],
+                  ),
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(0, 41, 0, 0),
+                    child: InkWell(
+                      onTap: () async {
+                        final usersUpdateData = createUsersRecordData(
+                          question2: choice2,
+                        );
+                        await currentUserReference!.update(usersUpdateData);
+                        await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Poll3Widget(),
                           ),
-                          style:
-                              FlutterFlowTheme.of(context).bodyText1.override(
-                                    fontFamily: 'montserrat',
-                                    decoration: TextDecoration.underline,
-                                    useGoogleFonts: false,
-                                  ),
+                        );
+                      },
+                      child: ButtonWidget(
+                        text: 'Продолжить',
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                    child: InkWell(
+                      onTap: () async {
+                        await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Poll3Widget(),
+                          ),
+                        );
+                      },
+                      child: Text(
+                        FFLocalizations.of(context).getText(
+                          '2mz33oug' /* Пропустить */,
                         ),
+                        style: FlutterFlowTheme.of(context).bodyText1.override(
+                              fontFamily: 'montserrat',
+                              decoration: TextDecoration.underline,
+                              useGoogleFonts: false,
+                            ),
                       ),
                     ),
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
-                      child: Image.asset(
-                        'assets/images/stage2.png',
-                        width: 195,
-                        fit: BoxFit.cover,
-                      ),
+                  ),
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                    child: Image.asset(
+                      'assets/images/stage2.png',
+                      width: 195,
+                      fit: BoxFit.cover,
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

@@ -1,7 +1,11 @@
+import 'package:drimly/auth/auth_util.dart';
+
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../sign_in/sign_in_widget.dart';
 
 class ProfileWidget extends StatefulWidget {
   const ProfileWidget({Key? key}) : super(key: key);
@@ -18,9 +22,18 @@ class _ProfileWidgetState extends State<ProfileWidget> {
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-      body: SafeArea(
-        child: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
+      body: GestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: InkWell(
+          onTap: () async {
+            signOut();
+            await Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => SignInWidget(),
+              ),
+            );
+          },
           child: Container(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height * 1,

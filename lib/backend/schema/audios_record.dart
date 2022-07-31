@@ -16,6 +16,8 @@ abstract class AudiosRecord
 
   String? get cover;
 
+  int? get minute;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -23,6 +25,7 @@ abstract class AudiosRecord
   static void _initializeBuilder(AudiosRecordBuilder builder) => builder
     ..title = ''
     ..audio = ''
+    ..minute = 0
     ..cover = '';
 
   static CollectionReference get collection =>
@@ -50,6 +53,7 @@ Map<String, dynamic> createAudiosRecordData({
   String? title,
   String? audio,
   String? cover,
+  int? minute,
 }) {
   final firestoreData = serializers.toFirestore(
     AudiosRecord.serializer,
@@ -57,6 +61,7 @@ Map<String, dynamic> createAudiosRecordData({
       (a) => a
         ..title = title
         ..audio = audio
+        ..minute = minute
         ..cover = cover,
     ),
   );

@@ -2,6 +2,7 @@ import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
+import '../main.dart';
 import '../meditation_list/meditation_list_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -240,12 +241,22 @@ class _MeditationWidgetState extends State<MeditationWidget> {
                               children: [
                                 InkWell(
                                   onTap: () async {
+                                    // await Navigator.push(
+                                    //   context,
+                                    //   MaterialPageRoute(
+                                    //     builder: (context) =>
+                                    //         MeditationListWidget(
+                                    //       meditation: gridViewMeditationRecord,
+                                    //     ),
+                                    //   ),
+                                    // );
                                     await Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) =>
-                                            MeditationListWidget(
-                                          meditation: gridViewMeditationRecord,
+                                        builder: (context) => NavBarPage(
+                                          initialPage: 'MeditationList',
+                                          meditationRecord:
+                                              gridViewMeditationRecord,
                                         ),
                                       ),
                                     );

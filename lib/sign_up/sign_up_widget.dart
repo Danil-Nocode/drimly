@@ -4,6 +4,7 @@ import '../components/button_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../main.dart';
+import '../poll1/poll1_widget.dart';
 import '../sign_in/sign_in_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -331,8 +332,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                     await Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => NavBarPage(
-                                            initialPage: 'Meditation'),
+                                        builder: (context) => Poll1Widget(),
                                       ),
                                     );
                                   },
