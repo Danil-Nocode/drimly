@@ -9,6 +9,8 @@ import 'schema/practices_record.dart';
 import 'schema/notes_record.dart';
 import 'schema/audios_record.dart';
 import 'schema/meditation_record.dart';
+import 'schema/sections_record.dart';
+import 'schema/sounds_record.dart';
 import 'schema/serializers.dart';
 
 export 'dart:async' show StreamSubscription;
@@ -21,6 +23,8 @@ export 'schema/practices_record.dart';
 export 'schema/notes_record.dart';
 export 'schema/audios_record.dart';
 export 'schema/meditation_record.dart';
+export 'schema/sections_record.dart';
+export 'schema/sounds_record.dart';
 
 /// Functions to query UsersRecords (as a Stream and as a Future).
 Stream<List<UsersRecord>> queryUsersRecord({
@@ -226,6 +230,90 @@ Future<FFFirestorePage<MeditationRecord>> queryMeditationRecordPage({
     queryCollectionPage(
       MeditationRecord.collection,
       MeditationRecord.serializer,
+      queryBuilder: queryBuilder,
+      nextPageMarker: nextPageMarker,
+      pageSize: pageSize,
+      isStream: isStream,
+    );
+
+/// Functions to query SectionsRecords (as a Stream and as a Future).
+Stream<List<SectionsRecord>> querySectionsRecord({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      SectionsRecord.collection,
+      SectionsRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<SectionsRecord>> querySectionsRecordOnce({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      SectionsRecord.collection,
+      SectionsRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<FFFirestorePage<SectionsRecord>> querySectionsRecordPage({
+  Query Function(Query)? queryBuilder,
+  DocumentSnapshot? nextPageMarker,
+  required int pageSize,
+  required bool isStream,
+}) =>
+    queryCollectionPage(
+      SectionsRecord.collection,
+      SectionsRecord.serializer,
+      queryBuilder: queryBuilder,
+      nextPageMarker: nextPageMarker,
+      pageSize: pageSize,
+      isStream: isStream,
+    );
+
+/// Functions to query SoundsRecords (as a Stream and as a Future).
+Stream<List<SoundsRecord>> querySoundsRecord({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      SoundsRecord.collection,
+      SoundsRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<SoundsRecord>> querySoundsRecordOnce({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      SoundsRecord.collection,
+      SoundsRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<FFFirestorePage<SoundsRecord>> querySoundsRecordPage({
+  Query Function(Query)? queryBuilder,
+  DocumentSnapshot? nextPageMarker,
+  required int pageSize,
+  required bool isStream,
+}) =>
+    queryCollectionPage(
+      SoundsRecord.collection,
+      SoundsRecord.serializer,
       queryBuilder: queryBuilder,
       nextPageMarker: nextPageMarker,
       pageSize: pageSize,

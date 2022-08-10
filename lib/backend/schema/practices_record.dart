@@ -13,7 +13,15 @@ abstract class PracticesRecord
 
   String? get title;
 
-  BuiltList<DocumentReference>? get audios;
+  String? get desctiption;
+
+  String? get cover;
+
+  String? get duration;
+
+  BuiltList<DocumentReference>? get sections;
+
+  String? get coverBig;
 
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
@@ -21,7 +29,11 @@ abstract class PracticesRecord
 
   static void _initializeBuilder(PracticesRecordBuilder builder) => builder
     ..title = ''
-    ..audios = ListBuilder();
+    ..desctiption = ''
+    ..cover = ''
+    ..duration = ''
+    ..sections = ListBuilder()
+    ..coverBig = '';
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('practices');
@@ -46,13 +58,21 @@ abstract class PracticesRecord
 
 Map<String, dynamic> createPracticesRecordData({
   String? title,
+  String? desctiption,
+  String? cover,
+  String? duration,
+  String? coverBig,
 }) {
   final firestoreData = serializers.toFirestore(
     PracticesRecord.serializer,
     PracticesRecord(
       (p) => p
         ..title = title
-        ..audios = null,
+        ..desctiption = desctiption
+        ..cover = cover
+        ..duration = duration
+        ..sections = null
+        ..coverBig = coverBig,
     ),
   );
 

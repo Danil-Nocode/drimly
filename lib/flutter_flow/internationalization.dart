@@ -264,8 +264,12 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
   },
   // Sound
   {
-    '2vvw655k': {
-      'ru': 'Page Title',
+    'cp9qr0lk': {
+      'ru': '5.0',
+      'en': '',
+    },
+    '7j92z0p8': {
+      'ru': 'Звуки',
       'en': '',
     },
     'd8s51ob6': {
@@ -275,8 +279,12 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
   },
   // Practice
   {
-    'fmdvmr0k': {
-      'ru': 'Page Title',
+    'dm53c3gs': {
+      'ru': 'Практики',
+      'en': '',
+    },
+    'i97m60r9': {
+      'ru': '5.0',
       'en': '',
     },
     '77l0vuay': {
@@ -284,10 +292,94 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': '',
     },
   },
+  // PracticePage
+  {
+    'uteaq7wc': {
+      'ru': 'Последний урок',
+      'en': '',
+    },
+    'kmgrjs63': {
+      'ru': 'Практики',
+      'en': '',
+    },
+  },
   // Profile
   {
+    'phlk9xak': {
+      'ru': 'Александра Волова',
+      'en': '',
+    },
+    'bbbz5xot': {
+      'ru': '5.0',
+      'en': '',
+    },
+    '5l5zu8u2': {
+      'ru': '5 минут',
+      'en': '',
+    },
+    'lui6xu5t': {
+      'ru': '34 сессии',
+      'en': '',
+    },
+    '40tf6otp': {
+      'ru': 'Открыть полный доступ',
+      'en': '',
+    },
+    'txayiqmd': {
+      'ru': 'Мои заметки',
+      'en': '',
+    },
+    'ogwzirt4': {
+      'ru': 'RU версия',
+      'en': '',
+    },
     '7lefkiyy': {
       'ru': 'Профиль',
+      'en': '',
+    },
+  },
+  // allNotice
+  {
+    'urc0xrej': {
+      'ru': 'Мои заметки',
+      'en': '',
+    },
+    '2z9uuno2': {
+      'ru': 'Home',
+      'en': '',
+    },
+  },
+  // NoticePage
+  {
+    'i0psr6wf': {
+      'ru': 'Заметка',
+      'en': '',
+    },
+    'xh6kxkb3': {
+      'ru': 'Опишите свои чувства',
+      'en': '',
+    },
+    '54qgvbii': {
+      'ru': 'Home',
+      'en': '',
+    },
+  },
+  // createNotice
+  {
+    'd6sq9ndo': {
+      'ru': 'Заметка',
+      'en': '',
+    },
+    'w63m61eo': {
+      'ru': 'Опишите свои чувства',
+      'en': '',
+    },
+    '2f0yhd16': {
+      'ru': 'Введите текст...',
+      'en': '',
+    },
+    'jz1nsaf1': {
+      'ru': 'Home',
       'en': '',
     },
   },

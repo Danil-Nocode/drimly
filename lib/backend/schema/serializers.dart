@@ -5,6 +5,8 @@ import 'practices_record.dart';
 import 'notes_record.dart';
 import 'audios_record.dart';
 import 'meditation_record.dart';
+import 'sections_record.dart';
+import 'sounds_record.dart';
 
 import 'index.dart';
 
@@ -20,6 +22,8 @@ const kDocumentReferenceField = 'Document__Reference__Field';
   NotesRecord,
   AudiosRecord,
   MeditationRecord,
+  SectionsRecord,
+  SoundsRecord,
 ])
 final Serializers serializers = (_$serializers.toBuilder()
       ..add(DocumentReferenceSerializer())
@@ -95,10 +99,12 @@ class FirestoreUtilData {
   const FirestoreUtilData({
     this.fieldValues = const {},
     this.clearUnsetFields = true,
+    this.create = false,
     this.delete = false,
   });
   final Map<String, dynamic> fieldValues;
   final bool clearUnsetFields;
+  final bool create;
   final bool delete;
   static String get name => 'firestoreUtilData';
 }
@@ -132,20 +138,30 @@ Map<String, dynamic> mapFromFirestore(Map<String, dynamic> data) =>
     mergeNestedFields(data)
         .where((k, _) => k != FirestoreUtilData.name)
         .map((key, value) {
+      // Handle Timestamp
       if (value is Timestamp) {
         value = value.toDate();
       }
+      // Handle list of Timestamp
+      if (value is Iterable && value.isNotEmpty && value.first is Timestamp) {
+        value = value.map((v) => (v as Timestamp).toDate()).toList();
+      }
+      // Handle GeoPoint
       if (value is GeoPoint) {
         value = value.toLatLng();
       }
+      // Handle list of GeoPoint
+      if (value is Iterable && value.isNotEmpty && value.first is GeoPoint) {
+        value = value.map((v) => (v as GeoPoint).toLatLng()).toList();
+      }
       // Handle nested data.
       if (value is Map) {
-        value = mergeNestedFields(value as Map<String, dynamic>);
+        value = mapFromFirestore(value as Map<String, dynamic>);
       }
       // Handle list of nested data.
       if (value is Iterable && value.isNotEmpty && value.first is Map) {
         value = value
-            .map((v) => mergeNestedFields(v as Map<String, dynamic>))
+            .map((v) => mapFromFirestore(v as Map<String, dynamic>))
             .toList();
       }
       return MapEntry(key, value);
@@ -153,8 +169,13 @@ Map<String, dynamic> mapFromFirestore(Map<String, dynamic> data) =>
 
 Map<String, dynamic> mapToFirestore(Map<String, dynamic> data) =>
     data.where((k, v) => k != FirestoreUtilData.name).map((key, value) {
+      // Handle GeoPoint
       if (value is LatLng) {
         value = value.toGeoPoint();
+      }
+      // Handle list of GeoPoint
+      if (value is Iterable && value.isNotEmpty && value.first is LatLng) {
+        value = value.map((v) => (v as LatLng).toGeoPoint()).toList();
       }
       // Handle nested data.
       if (value is Map) {

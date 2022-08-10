@@ -328,42 +328,13 @@ class _MeditationListWidgetState extends State<MeditationListWidget> {
                                                                     0, 0),
                                                             child: Stack(
                                                               children: [
-                                                                if ((currentUserDocument
-                                                                            ?.listenAudio
-                                                                            ?.toList() ??
-                                                                        [])
-                                                                    .contains(
-                                                                        containerAudiosRecord
-                                                                            .reference))
-                                                                  AuthUserStreamWidget(
-                                                                    child: Image
-                                                                        .asset(
-                                                                      'assets/images/Vector-2.png',
-                                                                      width: 11,
-                                                                      height:
-                                                                          16,
-                                                                      fit: BoxFit
-                                                                          .contain,
-                                                                    ),
-                                                                  ),
-                                                                if (!(currentUserDocument
-                                                                            ?.listenAudio
-                                                                            ?.toList() ??
-                                                                        [])
-                                                                    .contains(
-                                                                        containerAudiosRecord
-                                                                            .reference))
-                                                                  AuthUserStreamWidget(
-                                                                    child: Image
-                                                                        .asset(
-                                                                      'assets/images/Vector.png',
-                                                                      width: 11,
-                                                                      height:
-                                                                          16,
-                                                                      fit: BoxFit
-                                                                          .contain,
-                                                                    ),
-                                                                  ),
+                                                                Image.asset(
+                                                                  'assets/images/Vector.png',
+                                                                  width: 11,
+                                                                  height: 16,
+                                                                  fit: BoxFit
+                                                                      .contain,
+                                                                ),
                                                               ],
                                                             ),
                                                           ),
