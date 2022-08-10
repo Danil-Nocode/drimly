@@ -250,10 +250,7 @@ class _PracticePageWidgetState extends State<PracticePageWidget> {
                   padding: EdgeInsetsDirectional.fromSTEB(24, 20, 24, 0),
                   child: Builder(
                     builder: (context) {
-                      final sections = widget.practice!.sections!
-                          .toList()
-                          .map((e) => e)
-                          .toList();
+                      final sections = widget.practice!.sections!.toList();
                       return ListView.builder(
                         padding: EdgeInsets.zero,
                         scrollDirection: Axis.vertical,
@@ -263,75 +260,97 @@ class _PracticePageWidgetState extends State<PracticePageWidget> {
                           return Padding(
                             padding:
                                 EdgeInsetsDirectional.fromSTEB(0, 0, 0, 12),
-                            child: Container(
-                              width: 100,
-                              height: 55,
-                              decoration: BoxDecoration(
-                                color: Color(0xFFFFF6EF),
-                                borderRadius: BorderRadius.circular(25),
-                              ),
-                              child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    16, 16, 16, 16),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Row(
+                            child: StreamBuilder<SectionsRecord>(
+                              stream: SectionsRecord.getDocument(sectionsItem),
+                              builder: (context, snapshot) {
+                                // Customize what your widget looks like when it's loading.
+                                if (!snapshot.hasData) {
+                                  return Center(
+                                    child: SizedBox(
+                                      width: 30,
+                                      height: 30,
+                                      child: CircularProgressIndicator(
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryColor,
+                                      ),
+                                    ),
+                                  );
+                                }
+                                final containerSectionsRecord = snapshot.data!;
+                                return Container(
+                                  width: 100,
+                                  height: 55,
+                                  decoration: BoxDecoration(
+                                    color: Color(0xFFFFF6EF),
+                                    borderRadius: BorderRadius.circular(25),
+                                  ),
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        16, 16, 16, 16),
+                                    child: Row(
                                       mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Text(
-                                          '${sectionsIndex.toString()}. ',
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyText1
-                                              .override(
-                                                fontFamily: 'montserrat',
-                                                color: Color(0xFF9B9B9B),
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.w500,
-                                                useGoogleFonts: false,
-                                              ),
+                                        Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            Text(
+                                              '${sectionsIndex.toString()}. ',
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .bodyText1
+                                                  .override(
+                                                    fontFamily: 'montserrat',
+                                                    color: Color(0xFF9B9B9B),
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w500,
+                                                    useGoogleFonts: false,
+                                                  ),
+                                            ),
+                                            Text(
+                                              containerSectionsRecord.title!,
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .bodyText1
+                                                  .override(
+                                                    fontFamily: 'montserrat',
+                                                    color: Color(0xFF042433),
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w500,
+                                                    useGoogleFonts: false,
+                                                  ),
+                                            ),
+                                          ],
                                         ),
-                                        Text(
-                                          sectionsItem.title!,
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyText1
-                                              .override(
-                                                fontFamily: 'montserrat',
-                                                color: Color(0xFF042433),
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.w500,
-                                                useGoogleFonts: false,
-                                              ),
+                                        Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            Text(
+                                              containerSectionsRecord.duration!,
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .bodyText1
+                                                  .override(
+                                                    fontFamily: 'montserrat',
+                                                    color: Color(0xFFC4C4C4),
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w500,
+                                                    useGoogleFonts: false,
+                                                  ),
+                                            ),
+                                            Icon(
+                                              Icons.chevron_right_rounded,
+                                              color: Colors.black,
+                                              size: 24,
+                                            ),
+                                          ],
                                         ),
                                       ],
                                     ),
-                                    Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        Text(
-                                          sectionsItem.duration!,
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyText1
-                                              .override(
-                                                fontFamily: 'montserrat',
-                                                color: Color(0xFFC4C4C4),
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.w500,
-                                                useGoogleFonts: false,
-                                              ),
-                                        ),
-                                        Icon(
-                                          Icons.chevron_right_rounded,
-                                          color: Colors.black,
-                                          size: 24,
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
+                                  ),
+                                );
+                              },
                             ),
                           );
                         },
