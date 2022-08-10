@@ -340,45 +340,45 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
   },
   // allNotice
   {
-    'urc0xrej': {
+    'pz7ix6ph': {
       'ru': 'Мои заметки',
       'en': '',
     },
-    '2z9uuno2': {
+    'i6c78p37': {
       'ru': 'Home',
       'en': '',
     },
   },
   // NoticePage
   {
-    'i0psr6wf': {
+    'oekj9q85': {
       'ru': 'Заметка',
       'en': '',
     },
-    'xh6kxkb3': {
+    'zataavwc': {
       'ru': 'Опишите свои чувства',
       'en': '',
     },
-    '54qgvbii': {
+    'd1pacosa': {
       'ru': 'Home',
       'en': '',
     },
   },
   // createNotice
   {
-    'd6sq9ndo': {
+    'z8f6aufv': {
       'ru': 'Заметка',
       'en': '',
     },
-    'w63m61eo': {
+    'ihb3z2h0': {
       'ru': 'Опишите свои чувства',
       'en': '',
     },
-    '2f0yhd16': {
+    'sqge424z': {
       'ru': 'Введите текст...',
       'en': '',
     },
-    'jz1nsaf1': {
+    'vvzdvdlp': {
       'ru': 'Home',
       'en': '',
     },
