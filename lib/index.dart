@@ -10,4 +10,8 @@ export 'meditation_list/meditation_list_widget.dart' show MeditationListWidget;
 export 'meditation_page/meditation_page_widget.dart' show MeditationPageWidget;
 export 'sound/sound_widget.dart' show SoundWidget;
 export 'practice/practice_widget.dart' show PracticeWidget;
+export 'practice_page/practice_page_widget.dart' show PracticePageWidget;
 export 'profile/profile_widget.dart' show ProfileWidget;
+export 'all_notice/all_notice_widget.dart' show AllNoticeWidget;
+export 'notice_page/notice_page_widget.dart' show NoticePageWidget;
+export 'create_notice/create_notice_widget.dart' show CreateNoticeWidget;

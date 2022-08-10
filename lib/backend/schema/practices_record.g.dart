@@ -28,15 +28,43 @@ class _$PracticesRecordSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    value = object.audios;
+    value = object.desctiption;
     if (value != null) {
       result
-        ..add('audios')
+        ..add('desctiption')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.cover;
+    if (value != null) {
+      result
+        ..add('cover')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.duration;
+    if (value != null) {
+      result
+        ..add('duration')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.sections;
+    if (value != null) {
+      result
+        ..add('sections')
         ..add(serializers.serialize(value,
             specifiedType: const FullType(BuiltList, const [
               const FullType(
                   DocumentReference, const [const FullType.nullable(Object)])
             ])));
+    }
+    value = object.coverBig;
+    if (value != null) {
+      result
+        ..add('coverBig')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
     }
     value = object.ffRef;
     if (value != null) {
@@ -65,12 +93,28 @@ class _$PracticesRecordSerializer
           result.title = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
-        case 'audios':
-          result.audios.replace(serializers.deserialize(value,
+        case 'desctiption':
+          result.desctiption = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'cover':
+          result.cover = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'duration':
+          result.duration = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'sections':
+          result.sections.replace(serializers.deserialize(value,
               specifiedType: const FullType(BuiltList, const [
                 const FullType(
                     DocumentReference, const [const FullType.nullable(Object)])
               ]))! as BuiltList<Object?>);
+          break;
+        case 'coverBig':
+          result.coverBig = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
@@ -89,14 +133,30 @@ class _$PracticesRecord extends PracticesRecord {
   @override
   final String? title;
   @override
-  final BuiltList<DocumentReference<Object?>>? audios;
+  final String? desctiption;
+  @override
+  final String? cover;
+  @override
+  final String? duration;
+  @override
+  final BuiltList<DocumentReference<Object?>>? sections;
+  @override
+  final String? coverBig;
   @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$PracticesRecord([void Function(PracticesRecordBuilder)? updates]) =>
       (new PracticesRecordBuilder()..update(updates))._build();
 
-  _$PracticesRecord._({this.title, this.audios, this.ffRef}) : super._();
+  _$PracticesRecord._(
+      {this.title,
+      this.desctiption,
+      this.cover,
+      this.duration,
+      this.sections,
+      this.coverBig,
+      this.ffRef})
+      : super._();
 
   @override
   PracticesRecord rebuild(void Function(PracticesRecordBuilder) updates) =>
@@ -111,21 +171,37 @@ class _$PracticesRecord extends PracticesRecord {
     if (identical(other, this)) return true;
     return other is PracticesRecord &&
         title == other.title &&
-        audios == other.audios &&
+        desctiption == other.desctiption &&
+        cover == other.cover &&
+        duration == other.duration &&
+        sections == other.sections &&
+        coverBig == other.coverBig &&
         ffRef == other.ffRef;
   }
 
   @override
   int get hashCode {
-    return $jf(
-        $jc($jc($jc(0, title.hashCode), audios.hashCode), ffRef.hashCode));
+    return $jf($jc(
+        $jc(
+            $jc(
+                $jc(
+                    $jc($jc($jc(0, title.hashCode), desctiption.hashCode),
+                        cover.hashCode),
+                    duration.hashCode),
+                sections.hashCode),
+            coverBig.hashCode),
+        ffRef.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper(r'PracticesRecord')
           ..add('title', title)
-          ..add('audios', audios)
+          ..add('desctiption', desctiption)
+          ..add('cover', cover)
+          ..add('duration', duration)
+          ..add('sections', sections)
+          ..add('coverBig', coverBig)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -139,11 +215,27 @@ class PracticesRecordBuilder
   String? get title => _$this._title;
   set title(String? title) => _$this._title = title;
 
-  ListBuilder<DocumentReference<Object?>>? _audios;
-  ListBuilder<DocumentReference<Object?>> get audios =>
-      _$this._audios ??= new ListBuilder<DocumentReference<Object?>>();
-  set audios(ListBuilder<DocumentReference<Object?>>? audios) =>
-      _$this._audios = audios;
+  String? _desctiption;
+  String? get desctiption => _$this._desctiption;
+  set desctiption(String? desctiption) => _$this._desctiption = desctiption;
+
+  String? _cover;
+  String? get cover => _$this._cover;
+  set cover(String? cover) => _$this._cover = cover;
+
+  String? _duration;
+  String? get duration => _$this._duration;
+  set duration(String? duration) => _$this._duration = duration;
+
+  ListBuilder<DocumentReference<Object?>>? _sections;
+  ListBuilder<DocumentReference<Object?>> get sections =>
+      _$this._sections ??= new ListBuilder<DocumentReference<Object?>>();
+  set sections(ListBuilder<DocumentReference<Object?>>? sections) =>
+      _$this._sections = sections;
+
+  String? _coverBig;
+  String? get coverBig => _$this._coverBig;
+  set coverBig(String? coverBig) => _$this._coverBig = coverBig;
 
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
@@ -157,7 +249,11 @@ class PracticesRecordBuilder
     final $v = _$v;
     if ($v != null) {
       _title = $v.title;
-      _audios = $v.audios?.toBuilder();
+      _desctiption = $v.desctiption;
+      _cover = $v.cover;
+      _duration = $v.duration;
+      _sections = $v.sections?.toBuilder();
+      _coverBig = $v.coverBig;
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -183,12 +279,18 @@ class PracticesRecordBuilder
     try {
       _$result = _$v ??
           new _$PracticesRecord._(
-              title: title, audios: _audios?.build(), ffRef: ffRef);
+              title: title,
+              desctiption: desctiption,
+              cover: cover,
+              duration: duration,
+              sections: _sections?.build(),
+              coverBig: coverBig,
+              ffRef: ffRef);
     } catch (_) {
       late String _$failedField;
       try {
-        _$failedField = 'audios';
-        _audios?.build();
+        _$failedField = 'sections';
+        _sections?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'PracticesRecord', _$failedField, e.toString());
