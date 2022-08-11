@@ -1,6 +1,7 @@
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
+import '../section_page/section_page_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -135,68 +136,66 @@ class _PracticePageWidgetState extends State<PracticePageWidget> {
                                 child: Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       16, 0, 16, 20),
-                                  child: StreamBuilder<AudiosRecord>(
-                                    stream: AudiosRecord.getDocument(
-                                        FFAppState().lastAudio!),
-                                    builder: (context, snapshot) {
-                                      // Customize what your widget looks like when it's loading.
-                                      if (!snapshot.hasData) {
-                                        return Center(
-                                          child: SizedBox(
-                                            width: 30,
-                                            height: 30,
-                                            child: CircularProgressIndicator(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryColor,
-                                            ),
-                                          ),
-                                        );
-                                      }
-                                      final containerAudiosRecord =
-                                          snapshot.data!;
-                                      return Container(
-                                        width: 100,
-                                        height: 55,
-                                        decoration: BoxDecoration(
-                                          color: Color(0xB5FFF6EF),
-                                          borderRadius:
-                                              BorderRadius.circular(25),
-                                          border: Border.all(
-                                            color: Color(0xFFE7D4C6),
-                                            width: 2,
-                                          ),
-                                        ),
-                                        child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  16, 16, 16, 16),
-                                          child: Row(
+                                  child: Container(
+                                    width: 100,
+                                    height: 55,
+                                    decoration: BoxDecoration(
+                                      color: Color(0xB5FFF6EF),
+                                      borderRadius: BorderRadius.circular(25),
+                                      border: Border.all(
+                                        color: Color(0xFFE7D4C6),
+                                        width: 2,
+                                      ),
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          16, 16, 16, 16),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Row(
                                             mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
                                             children: [
-                                              Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                children: [
-                                                  Text(
-                                                    '${widget.practice!.sections!.toList().length.toString()} уроков',
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyText1
-                                                        .override(
-                                                          fontFamily:
-                                                              'montserrat',
-                                                          color:
-                                                              Color(0xFF042433),
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          useGoogleFonts: false,
-                                                        ),
-                                                  ),
-                                                ],
+                                              Text(
+                                                '${widget.practice!.sections!.toList().length.toString()} уроков',
+                                                style: FlutterFlowTheme.of(
+                                                        context)
+                                                    .bodyText1
+                                                    .override(
+                                                      fontFamily: 'montserrat',
+                                                      color: Color(0xFF042433),
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      useGoogleFonts: false,
+                                                    ),
                                               ),
-                                              Row(
+                                            ],
+                                          ),
+                                          StreamBuilder<AudiosRecord>(
+                                            stream: AudiosRecord.getDocument(
+                                                FFAppState().lastAudio!),
+                                            builder: (context, snapshot) {
+                                              // Customize what your widget looks like when it's loading.
+                                              if (!snapshot.hasData) {
+                                                return Center(
+                                                  child: SizedBox(
+                                                    width: 30,
+                                                    height: 30,
+                                                    child:
+                                                        CircularProgressIndicator(
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primaryColor,
+                                                    ),
+                                                  ),
+                                                );
+                                              }
+                                              final rowAudiosRecord =
+                                                  snapshot.data!;
+                                              return Row(
                                                 mainAxisSize: MainAxisSize.max,
                                                 children: [
                                                   Text(
@@ -227,12 +226,12 @@ class _PracticePageWidgetState extends State<PracticePageWidget> {
                                                     size: 24,
                                                   ),
                                                 ],
-                                              ),
-                                            ],
+                                              );
+                                            },
                                           ),
-                                        ),
-                                      );
-                                    },
+                                        ],
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),
@@ -277,76 +276,93 @@ class _PracticePageWidgetState extends State<PracticePageWidget> {
                                   );
                                 }
                                 final containerSectionsRecord = snapshot.data!;
-                                return Container(
-                                  width: 100,
-                                  height: 55,
-                                  decoration: BoxDecoration(
-                                    color: Color(0xFFFFF6EF),
-                                    borderRadius: BorderRadius.circular(25),
-                                  ),
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        16, 16, 16, 16),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Text(
-                                              '${sectionsIndex.toString()}. ',
-                                              style: FlutterFlowTheme.of(
-                                                      context)
-                                                  .bodyText1
-                                                  .override(
-                                                    fontFamily: 'montserrat',
-                                                    color: Color(0xFF9B9B9B),
-                                                    fontSize: 12,
-                                                    fontWeight: FontWeight.w500,
-                                                    useGoogleFonts: false,
-                                                  ),
-                                            ),
-                                            Text(
-                                              containerSectionsRecord.title!,
-                                              style: FlutterFlowTheme.of(
-                                                      context)
-                                                  .bodyText1
-                                                  .override(
-                                                    fontFamily: 'montserrat',
-                                                    color: Color(0xFF042433),
-                                                    fontSize: 12,
-                                                    fontWeight: FontWeight.w500,
-                                                    useGoogleFonts: false,
-                                                  ),
-                                            ),
-                                          ],
+                                return InkWell(
+                                  onTap: () async {
+                                    await Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => SectionPageWidget(
+                                          section: containerSectionsRecord,
+                                          numlesson: sectionsIndex,
                                         ),
-                                        Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Text(
-                                              containerSectionsRecord.duration!,
-                                              style: FlutterFlowTheme.of(
-                                                      context)
-                                                  .bodyText1
-                                                  .override(
-                                                    fontFamily: 'montserrat',
-                                                    color: Color(0xFFC4C4C4),
-                                                    fontSize: 12,
-                                                    fontWeight: FontWeight.w500,
-                                                    useGoogleFonts: false,
-                                                  ),
-                                            ),
-                                            Icon(
-                                              Icons.chevron_right_rounded,
-                                              color: Colors.black,
-                                              size: 24,
-                                            ),
-                                          ],
-                                        ),
-                                      ],
+                                      ),
+                                    );
+                                  },
+                                  child: Container(
+                                    width: 100,
+                                    height: 55,
+                                    decoration: BoxDecoration(
+                                      color: Color(0xFFFFF6EF),
+                                      borderRadius: BorderRadius.circular(25),
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          16, 16, 16, 16),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Text(
+                                                '${sectionsIndex.toString()}. ',
+                                                style: FlutterFlowTheme.of(
+                                                        context)
+                                                    .bodyText1
+                                                    .override(
+                                                      fontFamily: 'montserrat',
+                                                      color: Color(0xFF9B9B9B),
+                                                      fontSize: 12,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      useGoogleFonts: false,
+                                                    ),
+                                              ),
+                                              Text(
+                                                containerSectionsRecord.title!,
+                                                style: FlutterFlowTheme.of(
+                                                        context)
+                                                    .bodyText1
+                                                    .override(
+                                                      fontFamily: 'montserrat',
+                                                      color: Color(0xFF042433),
+                                                      fontSize: 12,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      useGoogleFonts: false,
+                                                    ),
+                                              ),
+                                            ],
+                                          ),
+                                          Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Text(
+                                                containerSectionsRecord
+                                                    .duration!,
+                                                style: FlutterFlowTheme.of(
+                                                        context)
+                                                    .bodyText1
+                                                    .override(
+                                                      fontFamily: 'montserrat',
+                                                      color: Color(0xFFC4C4C4),
+                                                      fontSize: 12,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      useGoogleFonts: false,
+                                                    ),
+                                              ),
+                                              Icon(
+                                                Icons.chevron_right_rounded,
+                                                color: Colors.black,
+                                                size: 24,
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 );

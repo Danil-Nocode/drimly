@@ -49,7 +49,9 @@ class _NoticePageWidgetState extends State<NoticePageWidget> {
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(11, 0, 0, 0),
                       child: Text(
-                        'Заметка',
+                        FFLocalizations.of(context).getText(
+                          'mxkfkzj7' /* Заметка */,
+                        ),
                         style: FlutterFlowTheme.of(context).bodyText1.override(
                               fontFamily: 'montserrat',
                               color: Color(0xFFBCBCBC),
@@ -92,7 +94,9 @@ class _NoticePageWidgetState extends State<NoticePageWidget> {
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Text(
-                            'Опишите свои чувства',
+                            FFLocalizations.of(context).getText(
+                              'oq4nj7ju' /* Опишите свои чувства */,
+                            ),
                             style:
                                 FlutterFlowTheme.of(context).bodyText1.override(
                                       fontFamily: 'montserrat',

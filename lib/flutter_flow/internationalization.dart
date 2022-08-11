@@ -303,6 +303,13 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': '',
     },
   },
+  // sectionPage
+  {
+    'j1ti9e6c': {
+      'ru': 'Home',
+      'en': '',
+    },
+  },
   // Profile
   {
     'phlk9xak': {
@@ -340,45 +347,45 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
   },
   // allNotice
   {
-    'pz7ix6ph': {
+    'ljf51ck9': {
       'ru': 'Мои заметки',
       'en': '',
     },
-    'i6c78p37': {
+    'nyolegj2': {
       'ru': 'Home',
       'en': '',
     },
   },
   // NoticePage
   {
-    'oekj9q85': {
+    'mxkfkzj7': {
       'ru': 'Заметка',
       'en': '',
     },
-    'zataavwc': {
+    'oq4nj7ju': {
       'ru': 'Опишите свои чувства',
       'en': '',
     },
-    'd1pacosa': {
+    'plkb4lpl': {
       'ru': 'Home',
       'en': '',
     },
   },
   // createNotice
   {
-    'z8f6aufv': {
+    's1l3fip1': {
       'ru': 'Заметка',
       'en': '',
     },
-    'ihb3z2h0': {
+    'coqf9dri': {
       'ru': 'Опишите свои чувства',
       'en': '',
     },
-    'sqge424z': {
+    'ku8fknw1': {
       'ru': 'Введите текст...',
       'en': '',
     },
-    'vvzdvdlp': {
+    '1ix55t6u': {
       'ru': 'Home',
       'en': '',
     },

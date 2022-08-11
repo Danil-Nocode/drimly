@@ -60,7 +60,9 @@ class _CreateNoticeWidgetState extends State<CreateNoticeWidget> {
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(11, 0, 0, 0),
                       child: Text(
-                        'Заметка',
+                        FFLocalizations.of(context).getText(
+                          's1l3fip1' /* Заметка */,
+                        ),
                         style: FlutterFlowTheme.of(context).bodyText1.override(
                               fontFamily: 'montserrat',
                               color: Color(0xFFBCBCBC),
@@ -103,7 +105,9 @@ class _CreateNoticeWidgetState extends State<CreateNoticeWidget> {
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Text(
-                            'Опишите свои чувства',
+                            FFLocalizations.of(context).getText(
+                              'coqf9dri' /* Опишите свои чувства */,
+                            ),
                             style:
                                 FlutterFlowTheme.of(context).bodyText1.override(
                                       fontFamily: 'montserrat',
@@ -133,7 +137,9 @@ class _CreateNoticeWidgetState extends State<CreateNoticeWidget> {
                                         fontWeight: FontWeight.normal,
                                         useGoogleFonts: false,
                                       ),
-                                  hintText: 'Введите текст...',
+                                  hintText: FFLocalizations.of(context).getText(
+                                    'ku8fknw1' /* Введите текст... */,
+                                  ),
                                   hintStyle: FlutterFlowTheme.of(context)
                                       .bodyText1
                                       .override(

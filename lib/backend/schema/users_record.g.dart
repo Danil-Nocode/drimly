@@ -92,6 +92,25 @@ class _$UsersRecordSerializer implements StructuredSerializer<UsersRecord> {
                   DocumentReference, const [const FullType.nullable(Object)])
             ])));
     }
+    value = object.status;
+    if (value != null) {
+      result
+        ..add('status')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.minuteListen;
+    if (value != null) {
+      result
+        ..add('minuteListen')
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
+    }
+    value = object.sessionCount;
+    if (value != null) {
+      result
+        ..add('sessionCount')
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -157,6 +176,18 @@ class _$UsersRecordSerializer implements StructuredSerializer<UsersRecord> {
                     DocumentReference, const [const FullType.nullable(Object)])
               ]))! as BuiltList<Object?>);
           break;
+        case 'status':
+          result.status = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'minuteListen':
+          result.minuteListen = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int?;
+          break;
+        case 'sessionCount':
+          result.sessionCount = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int?;
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -192,6 +223,12 @@ class _$UsersRecord extends UsersRecord {
   @override
   final BuiltList<DocumentReference<Object?>>? listenAudio;
   @override
+  final String? status;
+  @override
+  final int? minuteListen;
+  @override
+  final int? sessionCount;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$UsersRecord([void Function(UsersRecordBuilder)? updates]) =>
@@ -208,6 +245,9 @@ class _$UsersRecord extends UsersRecord {
       this.question2,
       this.rating,
       this.listenAudio,
+      this.status,
+      this.minuteListen,
+      this.sessionCount,
       this.ffRef})
       : super._();
 
@@ -232,6 +272,9 @@ class _$UsersRecord extends UsersRecord {
         question2 == other.question2 &&
         rating == other.rating &&
         listenAudio == other.listenAudio &&
+        status == other.status &&
+        minuteListen == other.minuteListen &&
+        sessionCount == other.sessionCount &&
         ffRef == other.ffRef;
   }
 
@@ -246,16 +289,22 @@ class _$UsersRecord extends UsersRecord {
                             $jc(
                                 $jc(
                                     $jc(
-                                        $jc($jc(0, email.hashCode),
-                                            displayName.hashCode),
-                                        photoUrl.hashCode),
-                                    uid.hashCode),
-                                createdTime.hashCode),
-                            phoneNumber.hashCode),
-                        question1.hashCode),
-                    question2.hashCode),
-                rating.hashCode),
-            listenAudio.hashCode),
+                                        $jc(
+                                            $jc(
+                                                $jc(
+                                                    $jc($jc(0, email.hashCode),
+                                                        displayName.hashCode),
+                                                    photoUrl.hashCode),
+                                                uid.hashCode),
+                                            createdTime.hashCode),
+                                        phoneNumber.hashCode),
+                                    question1.hashCode),
+                                question2.hashCode),
+                            rating.hashCode),
+                        listenAudio.hashCode),
+                    status.hashCode),
+                minuteListen.hashCode),
+            sessionCount.hashCode),
         ffRef.hashCode));
   }
 
@@ -272,6 +321,9 @@ class _$UsersRecord extends UsersRecord {
           ..add('question2', question2)
           ..add('rating', rating)
           ..add('listenAudio', listenAudio)
+          ..add('status', status)
+          ..add('minuteListen', minuteListen)
+          ..add('sessionCount', sessionCount)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -322,6 +374,18 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
   set listenAudio(ListBuilder<DocumentReference<Object?>>? listenAudio) =>
       _$this._listenAudio = listenAudio;
 
+  String? _status;
+  String? get status => _$this._status;
+  set status(String? status) => _$this._status = status;
+
+  int? _minuteListen;
+  int? get minuteListen => _$this._minuteListen;
+  set minuteListen(int? minuteListen) => _$this._minuteListen = minuteListen;
+
+  int? _sessionCount;
+  int? get sessionCount => _$this._sessionCount;
+  set sessionCount(int? sessionCount) => _$this._sessionCount = sessionCount;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -343,6 +407,9 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
       _question2 = $v.question2;
       _rating = $v.rating;
       _listenAudio = $v.listenAudio?.toBuilder();
+      _status = $v.status;
+      _minuteListen = $v.minuteListen;
+      _sessionCount = $v.sessionCount;
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -378,6 +445,9 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
               question2: question2,
               rating: rating,
               listenAudio: _listenAudio?.build(),
+              status: status,
+              minuteListen: minuteListen,
+              sessionCount: sessionCount,
               ffRef: ffRef);
     } catch (_) {
       late String _$failedField;

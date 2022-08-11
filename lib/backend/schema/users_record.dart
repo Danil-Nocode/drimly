@@ -34,6 +34,12 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
   @BuiltValueField(wireName: 'listen_audio')
   BuiltList<DocumentReference>? get listenAudio;
 
+  String? get status;
+
+  int? get minuteListen;
+
+  int? get sessionCount;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -47,7 +53,10 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
     ..question1 = ''
     ..question2 = ''
     ..rating = 0.0
-    ..listenAudio = ListBuilder();
+    ..listenAudio = ListBuilder()
+    ..status = ''
+    ..minuteListen = 0
+    ..sessionCount = 0;
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('users');
@@ -80,6 +89,9 @@ Map<String, dynamic> createUsersRecordData({
   String? question1,
   String? question2,
   double? rating,
+  String? status,
+  int? minuteListen,
+  int? sessionCount,
 }) {
   final firestoreData = serializers.toFirestore(
     UsersRecord.serializer,
@@ -94,7 +106,10 @@ Map<String, dynamic> createUsersRecordData({
         ..question1 = question1
         ..question2 = question2
         ..rating = rating
-        ..listenAudio = null,
+        ..listenAudio = null
+        ..status = status
+        ..minuteListen = minuteListen
+        ..sessionCount = sessionCount,
     ),
   );
 
