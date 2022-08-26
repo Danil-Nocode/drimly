@@ -1,3 +1,5 @@
+import 'package:cached_network_image/cached_network_image.dart';
+
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -47,7 +49,7 @@ class _MeditationWidgetState extends State<MeditationWidget> {
                   children: [
                     Container(
                       width: 140,
-                      height: 53,
+                      //height: 53,
                       decoration: BoxDecoration(
                         color: Color(0xFF020925),
                         borderRadius: BorderRadius.only(
@@ -57,99 +59,125 @@ class _MeditationWidgetState extends State<MeditationWidget> {
                           topRight: Radius.circular(0),
                         ),
                       ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
-                            child: Container(
-                              width: 36,
-                              height: 36,
-                              decoration: BoxDecoration(
-                                color: Color(0xFF33325C),
-                                shape: BoxShape.circle,
-                              ),
-                              alignment: AlignmentDirectional(0, 0),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(0),
-                                child: Image.asset(
-                                  'assets/images/user-profile-svgrepo-com_2-2.png',
-                                  width: 16,
-                                  height: 24,
-                                  fit: BoxFit.contain,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(6, 0, 0, 0),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                AuthUserStreamWidget(
-                                  child: Text(
-                                    currentUserDisplayName,
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyText1
-                                        .override(
-                                          fontFamily: 'montserrat',
-                                          color: Colors.white,
-                                          fontSize: 10,
-                                          useGoogleFonts: false,
-                                        ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 3, 0, 0),
-                                  child: Container(
-                                    width: 32,
-                                    height: 12,
-                                    decoration: BoxDecoration(
-                                      color: Color(0xAB496076),
-                                      borderRadius: BorderRadius.circular(10),
+                      child: Expanded(
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(10, 10, 0, 10),
+                              child: InkWell(
+                                onTap: () async {
+                                  await Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          NavBarPage(initialPage: 'Profile'),
                                     ),
-                                    alignment: AlignmentDirectional(0, 0),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0, 0, 2, 0),
-                                          child: Image.asset(
-                                            'assets/images/Group-4.png',
-                                            width: 6,
-                                            height: 6,
+                                  );
+                                },
+                                child: Container(
+                                  width: 36,
+                                  height: 36,
+                                  decoration: BoxDecoration(
+                                    color: Color(0xFF33325C),
+                                    shape: BoxShape.circle,
+                                  ),
+                                  alignment: AlignmentDirectional(0, 0),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(1000),
+                                    child: currentUserDocument!.photoUrl == ''
+                                        ? Image.asset(
+                                            'assets/images/user-profile-svgrepo-com_2-2.png',
+                                            width: 48,
+                                            height: 64,
+                                            fit: BoxFit.contain,
+                                          )
+                                        : Image.network(
+                                            currentUserDocument!.photoUrl!,
+                                            width: 100,
+                                            height: 100,
                                             fit: BoxFit.cover,
                                           ),
-                                        ),
-                                        Text(
-                                          FFLocalizations.of(context).getText(
-                                            'ekaf78vs' /* 5.0 */,
-                                          ),
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyText1
-                                              .override(
-                                                fontFamily: 'montserrat',
-                                                color: Colors.white,
-                                                fontSize: 8,
-                                                useGoogleFonts: false,
-                                              ),
-                                        ),
-                                      ],
-                                    ),
                                   ),
                                 ),
-                              ],
+                              ),
                             ),
-                          ),
-                        ],
+                            Expanded(
+                              child: Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(6, 0, 0, 0),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    AuthUserStreamWidget(
+                                      child: Text(
+                                        currentUserDisplayName,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1
+                                            .override(
+                                              fontFamily: 'montserrat',
+                                              color: Colors.white,
+                                              fontSize: 10,
+                                              useGoogleFonts: false,
+                                            ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0, 3, 0, 0),
+                                      child: Container(
+                                        width: 32,
+                                        height: 12,
+                                        decoration: BoxDecoration(
+                                          color: Color(0xAB496076),
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                        ),
+                                        alignment: AlignmentDirectional(0, 0),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(0, 0, 2, 0),
+                                              child: Image.asset(
+                                                'assets/images/Group-4.png',
+                                                width: 6,
+                                                height: 6,
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                            Text(
+                                              FFLocalizations.of(context)
+                                                  .getText(
+                                                'ekaf78vs' /* 5.0 */,
+                                              ),
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyText1
+                                                      .override(
+                                                        fontFamily:
+                                                            'montserrat',
+                                                        color: Colors.white,
+                                                        fontSize: 8,
+                                                        useGoogleFonts: false,
+                                                      ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ],
@@ -217,19 +245,42 @@ class _MeditationWidgetState extends State<MeditationWidget> {
                       }
                       List<MeditationRecord> gridViewMeditationRecordList =
                           snapshot.data!;
+
+                      gridViewMeditationRecordList
+                          .sort((a, b) => a.index!.compareTo(b.index!));
+
+                      // if (currentUserDocument!.status == 'free') {
+                      //   return SizedBox(
+                      //     //height: MediaQuery.of(context).size.height * 1,
+                      //     child: Text(
+                      //       'Купите платный пакет, чтобы прослушивать медитации',
+                      //       textAlign: TextAlign.center,
+                      //       style:
+                      //           FlutterFlowTheme.of(context).bodyText1.override(
+                      //                 fontFamily: 'montserrat',
+                      //                 color: Colors.white,
+                      //                 fontSize: 16,
+                      //                 useGoogleFonts: false,
+                      //               ),
+                      //     ),
+                      //   );
+                      // }
                       return GridView.builder(
                         padding: EdgeInsets.zero,
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
                           crossAxisSpacing: 10,
                           mainAxisSpacing: 10,
-                          childAspectRatio: 0.9,
+                          childAspectRatio: 0.92,
                         ),
                         scrollDirection: Axis.vertical,
                         itemCount: gridViewMeditationRecordList.length,
                         itemBuilder: (context, gridViewIndex) {
                           final gridViewMeditationRecord =
                               gridViewMeditationRecordList[gridViewIndex];
+                          if (!gridViewMeditationRecord.isView!) {
+                            return Container();
+                          }
                           return Container(
                             width: 100,
                             height: 100,
@@ -241,25 +292,25 @@ class _MeditationWidgetState extends State<MeditationWidget> {
                               children: [
                                 InkWell(
                                   onTap: () async {
-                                    // await Navigator.push(
-                                    //   context,
-                                    //   MaterialPageRoute(
-                                    //     builder: (context) =>
-                                    //         MeditationListWidget(
-                                    //       meditation: gridViewMeditationRecord,
-                                    //     ),
-                                    //   ),
-                                    // );
                                     await Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => NavBarPage(
-                                          initialPage: 'MeditationList',
-                                          meditationRecord:
-                                              gridViewMeditationRecord,
+                                        builder: (context) =>
+                                            MeditationListWidget(
+                                          meditation: gridViewMeditationRecord,
                                         ),
                                       ),
                                     );
+                                    // await Navigator.push(
+                                    //   context,
+                                    //   MaterialPageRoute(
+                                    //     builder: (context) => NavBarPage(
+                                    //       initialPage: 'MeditationList',
+                                    //       meditationRecord:
+                                    //           gridViewMeditationRecord,
+                                    //     ),
+                                    //   ),
+                                    // );
                                   },
                                   child: Column(
                                     mainAxisSize: MainAxisSize.max,
@@ -273,8 +324,9 @@ class _MeditationWidgetState extends State<MeditationWidget> {
                                           topLeft: Radius.circular(25),
                                           topRight: Radius.circular(25),
                                         ),
-                                        child: Image.network(
-                                          gridViewMeditationRecord.cover!,
+                                        child: CachedNetworkImage(
+                                          imageUrl:
+                                              gridViewMeditationRecord.cover!,
                                           width:
                                               MediaQuery.of(context).size.width,
                                           height: 126,
@@ -294,16 +346,17 @@ class _MeditationWidgetState extends State<MeditationWidget> {
                                                   .fromSTEB(0, 0, 0, 2),
                                               child: Text(
                                                 gridViewMeditationRecord.title!,
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyText1
-                                                        .override(
-                                                          fontFamily:
-                                                              'montserrat',
-                                                          color: Colors.white,
-                                                          fontSize: 10,
-                                                          useGoogleFonts: false,
-                                                        ),
+                                                style: FlutterFlowTheme.of(
+                                                        context)
+                                                    .bodyText1
+                                                    .override(
+                                                        fontFamily:
+                                                            'montserrat',
+                                                        color: Colors.white,
+                                                        fontSize: 12,
+                                                        useGoogleFonts: false,
+                                                        fontWeight:
+                                                            FontWeight.w500),
                                               ),
                                             ),
                                             Text(
@@ -341,12 +394,12 @@ class _MeditationWidgetState extends State<MeditationWidget> {
                                         alignment: AlignmentDirectional(0, 0),
                                         child: Stack(
                                           children: [
-                                            Image.asset(
-                                              'assets/images/Vector-2.png',
-                                              width: 11,
-                                              height: 16,
-                                              fit: BoxFit.contain,
-                                            ),
+                                            // Image.asset(
+                                            //   'assets/images/Vector-2.png',
+                                            //   width: 11,
+                                            //   height: 16,
+                                            //   fit: BoxFit.contain,
+                                            // ),
                                             Image.asset(
                                               'assets/images/Vector.png',
                                               width: 11,

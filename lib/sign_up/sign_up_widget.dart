@@ -108,7 +108,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                         'g455pxgo' /* Имя */,
                                       ),
                                       hintStyle: FlutterFlowTheme.of(context)
-                                          .bodyText2,
+                                          .bodyText1,
                                       enabledBorder: UnderlineInputBorder(
                                         borderSide: BorderSide(
                                           color: Color(0x00000000),
@@ -128,7 +128,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                               18, 0, 0, 0),
                                     ),
                                     style:
-                                        FlutterFlowTheme.of(context).bodyText1,
+                                        FlutterFlowTheme.of(context).bodyText2,
                                   ),
                                 ),
                               ),
@@ -151,7 +151,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                         'jg6ewbdd' /* Email */,
                                       ),
                                       hintStyle: FlutterFlowTheme.of(context)
-                                          .bodyText2,
+                                          .bodyText1,
                                       enabledBorder: UnderlineInputBorder(
                                         borderSide: BorderSide(
                                           color: Color(0x00000000),
@@ -171,7 +171,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                               18, 0, 0, 0),
                                     ),
                                     style:
-                                        FlutterFlowTheme.of(context).bodyText1,
+                                        FlutterFlowTheme.of(context).bodyText2,
                                     keyboardType: TextInputType.emailAddress,
                                   ),
                                 ),
@@ -196,7 +196,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                         '1jnbkjc5' /* Пароль */,
                                       ),
                                       hintStyle: FlutterFlowTheme.of(context)
-                                          .bodyText2,
+                                          .bodyText1,
                                       enabledBorder: UnderlineInputBorder(
                                         borderSide: BorderSide(
                                           color: Color(0x00000000),
@@ -231,7 +231,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                       ),
                                     ),
                                     style:
-                                        FlutterFlowTheme.of(context).bodyText1,
+                                        FlutterFlowTheme.of(context).bodyText2,
                                     keyboardType: TextInputType.visiblePassword,
                                   ),
                                 ),
@@ -254,7 +254,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                       'suu2sprj' /* Повторите пароль */,
                                     ),
                                     hintStyle:
-                                        FlutterFlowTheme.of(context).bodyText2,
+                                        FlutterFlowTheme.of(context).bodyText1,
                                     enabledBorder: UnderlineInputBorder(
                                       borderSide: BorderSide(
                                         color: Color(0x00000000),
@@ -288,7 +288,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                       ),
                                     ),
                                   ),
-                                  style: FlutterFlowTheme.of(context).bodyText1,
+                                  style: FlutterFlowTheme.of(context).bodyText2,
                                   keyboardType: TextInputType.visiblePassword,
                                 ),
                               ),
@@ -324,6 +324,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                         createUsersRecordData(
                                       displayName:
                                           textFieldNameController!.text,
+                                      status: 'free',
                                     );
                                     await UsersRecord.collection
                                         .doc(user.uid)

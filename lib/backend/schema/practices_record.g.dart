@@ -66,6 +66,34 @@ class _$PracticesRecordSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
+    value = object.section;
+    if (value != null) {
+      result
+        ..add('section')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(
+                DocumentReference, const [const FullType.nullable(Object)])));
+    }
+    value = object.audio;
+    if (value != null) {
+      result
+        ..add('audio')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(
+                DocumentReference, const [const FullType.nullable(Object)])));
+    }
+    value = object.index;
+    if (value != null) {
+      result
+        ..add('index')
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
+    }
+    value = object.countLesson;
+    if (value != null) {
+      result
+        ..add('countLesson')
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -116,6 +144,26 @@ class _$PracticesRecordSerializer
           result.coverBig = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
+        case 'section':
+          result.section = serializers.deserialize(value,
+              specifiedType: const FullType(DocumentReference, const [
+                const FullType.nullable(Object)
+              ])) as DocumentReference<Object?>?;
+          break;
+        case 'audio':
+          result.audio = serializers.deserialize(value,
+              specifiedType: const FullType(DocumentReference, const [
+                const FullType.nullable(Object)
+              ])) as DocumentReference<Object?>?;
+          break;
+        case 'index':
+          result.index = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int?;
+          break;
+        case 'countLesson':
+          result.countLesson = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int?;
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -143,6 +191,14 @@ class _$PracticesRecord extends PracticesRecord {
   @override
   final String? coverBig;
   @override
+  final DocumentReference<Object?>? section;
+  @override
+  final DocumentReference<Object?>? audio;
+  @override
+  final int? index;
+  @override
+  final int? countLesson;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$PracticesRecord([void Function(PracticesRecordBuilder)? updates]) =>
@@ -155,6 +211,10 @@ class _$PracticesRecord extends PracticesRecord {
       this.duration,
       this.sections,
       this.coverBig,
+      this.section,
+      this.audio,
+      this.index,
+      this.countLesson,
       this.ffRef})
       : super._();
 
@@ -176,6 +236,10 @@ class _$PracticesRecord extends PracticesRecord {
         duration == other.duration &&
         sections == other.sections &&
         coverBig == other.coverBig &&
+        section == other.section &&
+        audio == other.audio &&
+        index == other.index &&
+        countLesson == other.countLesson &&
         ffRef == other.ffRef;
   }
 
@@ -185,11 +249,21 @@ class _$PracticesRecord extends PracticesRecord {
         $jc(
             $jc(
                 $jc(
-                    $jc($jc($jc(0, title.hashCode), desctiption.hashCode),
-                        cover.hashCode),
-                    duration.hashCode),
-                sections.hashCode),
-            coverBig.hashCode),
+                    $jc(
+                        $jc(
+                            $jc(
+                                $jc(
+                                    $jc(
+                                        $jc($jc(0, title.hashCode),
+                                            desctiption.hashCode),
+                                        cover.hashCode),
+                                    duration.hashCode),
+                                sections.hashCode),
+                            coverBig.hashCode),
+                        section.hashCode),
+                    audio.hashCode),
+                index.hashCode),
+            countLesson.hashCode),
         ffRef.hashCode));
   }
 
@@ -202,6 +276,10 @@ class _$PracticesRecord extends PracticesRecord {
           ..add('duration', duration)
           ..add('sections', sections)
           ..add('coverBig', coverBig)
+          ..add('section', section)
+          ..add('audio', audio)
+          ..add('index', index)
+          ..add('countLesson', countLesson)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -237,6 +315,22 @@ class PracticesRecordBuilder
   String? get coverBig => _$this._coverBig;
   set coverBig(String? coverBig) => _$this._coverBig = coverBig;
 
+  DocumentReference<Object?>? _section;
+  DocumentReference<Object?>? get section => _$this._section;
+  set section(DocumentReference<Object?>? section) => _$this._section = section;
+
+  DocumentReference<Object?>? _audio;
+  DocumentReference<Object?>? get audio => _$this._audio;
+  set audio(DocumentReference<Object?>? audio) => _$this._audio = audio;
+
+  int? _index;
+  int? get index => _$this._index;
+  set index(int? index) => _$this._index = index;
+
+  int? _countLesson;
+  int? get countLesson => _$this._countLesson;
+  set countLesson(int? countLesson) => _$this._countLesson = countLesson;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -254,6 +348,10 @@ class PracticesRecordBuilder
       _duration = $v.duration;
       _sections = $v.sections?.toBuilder();
       _coverBig = $v.coverBig;
+      _section = $v.section;
+      _audio = $v.audio;
+      _index = $v.index;
+      _countLesson = $v.countLesson;
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -285,6 +383,10 @@ class PracticesRecordBuilder
               duration: duration,
               sections: _sections?.build(),
               coverBig: coverBig,
+              section: section,
+              audio: audio,
+              index: index,
+              countLesson: countLesson,
               ffRef: ffRef);
     } catch (_) {
       late String _$failedField;

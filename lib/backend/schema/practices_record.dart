@@ -23,6 +23,14 @@ abstract class PracticesRecord
 
   String? get coverBig;
 
+  DocumentReference? get section;
+
+  DocumentReference? get audio;
+
+  int? get index;
+
+  int? get countLesson;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -33,7 +41,9 @@ abstract class PracticesRecord
     ..cover = ''
     ..duration = ''
     ..sections = ListBuilder()
-    ..coverBig = '';
+    ..coverBig = ''
+    ..index = 0
+    ..countLesson = 0;
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('practices');
@@ -62,6 +72,10 @@ Map<String, dynamic> createPracticesRecordData({
   String? cover,
   String? duration,
   String? coverBig,
+  DocumentReference? section,
+  DocumentReference? audio,
+  int? index,
+  int? countLesson,
 }) {
   final firestoreData = serializers.toFirestore(
     PracticesRecord.serializer,
@@ -72,7 +86,11 @@ Map<String, dynamic> createPracticesRecordData({
         ..cover = cover
         ..duration = duration
         ..sections = null
-        ..coverBig = coverBig,
+        ..coverBig = coverBig
+        ..section = section
+        ..audio = audio
+        ..index = index
+        ..countLesson = countLesson,
     ),
   );
 

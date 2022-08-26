@@ -39,6 +39,17 @@ class SeekBarState extends State<SeekBar> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
+        Positioned(
+          left: 16.0,
+          bottom: 0.0,
+          child: Text(
+              RegExp(r'((^0*[1-9]\d*:)?\d{2}:\d{2})\.\d+$')
+                      .firstMatch("${widget.position}")
+                      ?.group(1) ??
+                  '${widget.position}',
+              style: TextStyle(
+                  color: Color.fromARGB(234, 253, 253, 253), fontSize: 14)),
+        ),
         SliderTheme(
           data: _sliderThemeData.copyWith(
             thumbShape: HiddenThumbComponentShape(),
@@ -99,9 +110,9 @@ class SeekBarState extends State<SeekBar> {
           bottom: 0.0,
           child: Text(
               RegExp(r'((^0*[1-9]\d*:)?\d{2}:\d{2})\.\d+$')
-                      .firstMatch("$_remaining")
+                      .firstMatch("${widget.duration}")
                       ?.group(1) ??
-                  '$_remaining',
+                  '${widget.duration}',
               style: TextStyle(
                   color: Color.fromARGB(234, 253, 253, 253), fontSize: 14)),
         ),

@@ -1,8 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:drimly/auth/firebase_user_provider.dart';
+import 'package:flutter/scheduler.dart';
 
 import '../backend/backend.dart';
 import '../components/audio_player_widget.dart';
 import '../components/audio_service.dart';
+import '../create_notice/create_notice_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +27,7 @@ class MeditationPageWidget extends StatefulWidget {
     this.audio,
   }) : super(key: key);
 
-  final AudiosRecord? audio;
+  final DocumentReference? audio;
 
   @override
   _MeditationPageWidgetState createState() => _MeditationPageWidgetState();
@@ -39,6 +42,14 @@ class _MeditationPageWidgetState extends State<MeditationPageWidget> {
           player!.durationStream,
           (position, bufferedPosition, duration) => PositionData(
               position, bufferedPosition, duration ?? Duration.zero));
+  @override
+  void initState() {
+    super.initState();
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      setState(() => FFAppState().lastAudio = widget.audio!);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,100 +59,184 @@ class _MeditationPageWidgetState extends State<MeditationPageWidget> {
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       body: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
-        child: Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height * 1,
-          decoration: BoxDecoration(
-            color: Color(0xFF33325C),
-            image: DecorationImage(
-              fit: BoxFit.cover,
-              image: Image.network(
-                widget.audio!.cover!,
-              ).image,
-            ),
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(50, 90, 50, 0),
-                child: Text(
-                  widget.audio!.title!,
-                  textAlign: TextAlign.center,
-                  style: FlutterFlowTheme.of(context).bodyText1.override(
-                        fontFamily: 'montserrat',
-                        color: Colors.white,
-                        useGoogleFonts: false,
-                      ),
-                ),
-              ),
-              AudioPlayerWidget(
-                audio: widget.audio,
-                player: player!,
-              ),
-              StreamBuilder<PositionData>(
-                stream: _positionDataStream,
-                builder: (context, snapshot) {
-                  final positionData = snapshot.data;
-                  return SeekBar(
-                    duration: positionData?.duration ?? Duration.zero,
-                    position: positionData?.position ?? Duration.zero,
-                    bufferedPosition:
-                        positionData?.bufferedPosition ?? Duration.zero,
-                    onChangeEnd: player!.seek,
-                  );
-                },
-              ),
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 40),
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Container(
-                      width: 44,
-                      height: 44,
-                      decoration: BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                            blurRadius: 10,
-                            color: Color(0xFFCB8AFE),
-                            offset: Offset(0, 2),
-                          )
-                        ],
-                        gradient: LinearGradient(
-                          colors: [Color(0xFFBC7EFD), Color(0xFFE69FFD)],
-                          stops: [0, 1],
-                          begin: AlignmentDirectional(-1, 1),
-                          end: AlignmentDirectional(1, -1),
-                        ),
-                        shape: BoxShape.circle,
-                      ),
-                      child: Icon(
-                        Icons.add,
-                        color: Colors.white,
-                        size: 24,
-                      ),
+        child: StreamBuilder<AudiosRecord>(
+            stream: AudiosRecord.getDocument(widget.audio!),
+            builder: (context, snapshot) {
+              // Customize what your widget looks like when it's loading.
+              if (!snapshot.hasData) {
+                return Center(
+                  child: SizedBox(
+                    width: 30,
+                    height: 30,
+                    child: CircularProgressIndicator(
+                      color: FlutterFlowTheme.of(context).primaryColor,
                     ),
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
-                      child: Text(
-                        FFLocalizations.of(context).getText(
-                          'ee2r2btk' /* добавить заметку */,
-                        ),
-                        style: FlutterFlowTheme.of(context).bodyText1.override(
-                              fontFamily: 'montserrat',
-                              color: Color(0xFF929292),
-                              useGoogleFonts: false,
+                  ),
+                );
+              }
+              final containerAudiosRecord = snapshot.data!;
+              return Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height * 1,
+                decoration: BoxDecoration(
+                  color: Color(0xFF33325C),
+                  image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: containerAudiosRecord.cover! == ''
+                        ? Image.asset(
+                            'assets/images/29.jpg',
+                            fit: BoxFit.cover,
+                          ).image
+                        : CachedNetworkImageProvider(
+                            containerAudiosRecord.cover!,
+                          ),
+                  ),
+                ),
+                child: Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 70, 0, 0),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        children: [
+                          Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
+                            child: Row(
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Container(
+                                    width: 40,
+                                    height: 40,
+                                    decoration: BoxDecoration(
+                                      color: Color.fromARGB(179, 209, 209, 209),
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: Icon(
+                                      Icons.close,
+                                      size: 22.0,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
+                          ),
+                          Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(40, 50, 40, 0),
+                            child: Expanded(
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      containerAudiosRecord.title!,
+                                      textAlign: TextAlign.center,
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                              fontFamily: 'montserrat',
+                                              color: Colors.white,
+                                              useGoogleFonts: false,
+                                              fontSize: 22),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                  ],
+                      AudioPlayerWidget(
+                        audio: containerAudiosRecord,
+                        player: player!,
+                      ),
+                      StreamBuilder<PositionData>(
+                        stream: _positionDataStream,
+                        builder: (context, snapshot) {
+                          final positionData = snapshot.data;
+                          return SeekBar(
+                            duration: positionData?.duration ?? Duration.zero,
+                            position: positionData?.position ?? Duration.zero,
+                            bufferedPosition:
+                                positionData?.bufferedPosition ?? Duration.zero,
+                            onChangeEnd: player!.seek,
+                          );
+                        },
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 40),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            InkWell(
+                              onTap: () async {
+                                await Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => CreateNoticeWidget(),
+                                  ),
+                                );
+                              },
+                              child: Container(
+                                width: 44,
+                                height: 44,
+                                decoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                      blurRadius: 10,
+                                      color: Color(0xFFCB8AFE),
+                                      offset: Offset(0, 2),
+                                    )
+                                  ],
+                                  gradient: LinearGradient(
+                                    colors: [
+                                      Color(0xFFBC7EFD),
+                                      Color(0xFFE69FFD)
+                                    ],
+                                    stops: [0, 1],
+                                    begin: AlignmentDirectional(-1, 1),
+                                    end: AlignmentDirectional(1, -1),
+                                  ),
+                                  shape: BoxShape.circle,
+                                ),
+                                child: Icon(
+                                  Icons.add,
+                                  color: Colors.white,
+                                  size: 24,
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
+                              child: Text(
+                                FFLocalizations.of(context).getText(
+                                  'ee2r2btk' /* добавить заметку */,
+                                ),
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyText1
+                                    .override(
+                                      fontFamily: 'montserrat',
+                                      color: Colors.white,
+                                      useGoogleFonts: false,
+                                    ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          ),
-        ),
+              );
+            }),
       ),
     );
   }

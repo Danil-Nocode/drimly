@@ -47,6 +47,13 @@ class _$AudiosRecordSerializer implements StructuredSerializer<AudiosRecord> {
         ..add('minute')
         ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
+    value = object.coverMini;
+    if (value != null) {
+      result
+        ..add('coverMini')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -86,6 +93,10 @@ class _$AudiosRecordSerializer implements StructuredSerializer<AudiosRecord> {
           result.minute = serializers.deserialize(value,
               specifiedType: const FullType(int)) as int?;
           break;
+        case 'coverMini':
+          result.coverMini = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -109,13 +120,20 @@ class _$AudiosRecord extends AudiosRecord {
   @override
   final int? minute;
   @override
+  final String? coverMini;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$AudiosRecord([void Function(AudiosRecordBuilder)? updates]) =>
       (new AudiosRecordBuilder()..update(updates))._build();
 
   _$AudiosRecord._(
-      {this.title, this.audio, this.cover, this.minute, this.ffRef})
+      {this.title,
+      this.audio,
+      this.cover,
+      this.minute,
+      this.coverMini,
+      this.ffRef})
       : super._();
 
   @override
@@ -133,14 +151,19 @@ class _$AudiosRecord extends AudiosRecord {
         audio == other.audio &&
         cover == other.cover &&
         minute == other.minute &&
+        coverMini == other.coverMini &&
         ffRef == other.ffRef;
   }
 
   @override
   int get hashCode {
     return $jf($jc(
-        $jc($jc($jc($jc(0, title.hashCode), audio.hashCode), cover.hashCode),
-            minute.hashCode),
+        $jc(
+            $jc(
+                $jc($jc($jc(0, title.hashCode), audio.hashCode),
+                    cover.hashCode),
+                minute.hashCode),
+            coverMini.hashCode),
         ffRef.hashCode));
   }
 
@@ -151,6 +174,7 @@ class _$AudiosRecord extends AudiosRecord {
           ..add('audio', audio)
           ..add('cover', cover)
           ..add('minute', minute)
+          ..add('coverMini', coverMini)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -176,6 +200,10 @@ class AudiosRecordBuilder
   int? get minute => _$this._minute;
   set minute(int? minute) => _$this._minute = minute;
 
+  String? _coverMini;
+  String? get coverMini => _$this._coverMini;
+  set coverMini(String? coverMini) => _$this._coverMini = coverMini;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -191,6 +219,7 @@ class AudiosRecordBuilder
       _audio = $v.audio;
       _cover = $v.cover;
       _minute = $v.minute;
+      _coverMini = $v.coverMini;
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -218,6 +247,7 @@ class AudiosRecordBuilder
             audio: audio,
             cover: cover,
             minute: minute,
+            coverMini: coverMini,
             ffRef: ffRef);
     replace(_$result);
     return _$result;

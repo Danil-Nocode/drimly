@@ -1,10 +1,15 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
+import '../main.dart';
+import '../meditation_page/meditation_page_widget.dart';
 import '../practice_page/practice_page_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../section_page/section_page_widget.dart';
 
 class PracticeWidget extends StatefulWidget {
   const PracticeWidget({Key? key}) : super(key: key);
@@ -76,21 +81,39 @@ class _PracticeWidgetState extends State<PracticeWidget> {
                           Padding(
                             padding:
                                 EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
-                            child: Container(
-                              width: 36,
-                              height: 36,
-                              decoration: BoxDecoration(
-                                color: Color(0xFF33325C),
-                                shape: BoxShape.circle,
-                              ),
-                              alignment: AlignmentDirectional(0, 0),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(0),
-                                child: Image.asset(
-                                  'assets/images/user-profile-svgrepo-com_2-2.png',
-                                  width: 16,
-                                  height: 24,
-                                  fit: BoxFit.contain,
+                            child: InkWell(
+                              onTap: () async {
+                                await Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        NavBarPage(initialPage: 'Profile'),
+                                  ),
+                                );
+                              },
+                              child: Container(
+                                width: 36,
+                                height: 36,
+                                decoration: BoxDecoration(
+                                  color: Color(0xFF33325C),
+                                  shape: BoxShape.circle,
+                                ),
+                                alignment: AlignmentDirectional(0, 0),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(100),
+                                  child: currentUserDocument!.photoUrl == ''
+                                      ? Image.asset(
+                                          'assets/images/user-profile-svgrepo-com_2-2.png',
+                                          width: 48,
+                                          height: 64,
+                                          fit: BoxFit.contain,
+                                        )
+                                      : Image.network(
+                                          currentUserDocument!.photoUrl!,
+                                          width: 100,
+                                          height: 100,
+                                          fit: BoxFit.cover,
+                                        ),
                                 ),
                               ),
                             ),
@@ -188,6 +211,25 @@ class _PracticeWidgetState extends State<PracticeWidget> {
                       }
                       List<PracticesRecord> listViewPracticesRecordList =
                           snapshot.data!;
+                      listViewPracticesRecordList
+                          .sort((a, b) => a.index!.compareTo(b.index!));
+                      if (currentUserDocument!.status == 'free' ||
+                          currentUserDocument!.status == 'start') {
+                        return SizedBox(
+                          //height: MediaQuery.of(context).size.height * 1,
+                          child: Text(
+                            'Скоро мы добавим сюда контент',
+                            textAlign: TextAlign.center,
+                            style:
+                                FlutterFlowTheme.of(context).bodyText1.override(
+                                      fontFamily: 'montserrat',
+                                      color: Colors.white,
+                                      fontSize: 16,
+                                      useGoogleFonts: false,
+                                    ),
+                          ),
+                        );
+                      }
                       return ListView.builder(
                         padding: EdgeInsets.zero,
                         scrollDirection: Axis.vertical,
@@ -195,19 +237,74 @@ class _PracticeWidgetState extends State<PracticeWidget> {
                         itemBuilder: (context, listViewIndex) {
                           final listViewPracticesRecord =
                               listViewPracticesRecordList[listViewIndex];
+
+                          String title;
+                          String description;
+                          if (FFLocalizations.of(context).languageCode ==
+                                  'en' &&
+                              listViewPracticesRecord.title! ==
+                                  'PROкачай себя') {
+                            title = 'Better Me';
+                          } else if (FFLocalizations.of(context).languageCode ==
+                                  'en' &&
+                              listViewPracticesRecord.title! == 'Автомобиль') {
+                            title = 'Car';
+                          } else if (FFLocalizations.of(context).languageCode ==
+                                  'en' &&
+                              listViewPracticesRecord.title! ==
+                                  'Назад в будущее') {
+                            title = 'Back to Feauture';
+                          } else {
+                            title = listViewPracticesRecord.title!;
+                          }
+
+                          if (FFLocalizations.of(context).languageCode ==
+                                  'en' &&
+                              listViewPracticesRecord.desctiption! ==
+                                  'Отпустите прошлое, крепко встать на ноги в настоящем, на всех парах лететь к светлому будущему') {
+                            description =
+                                'Forget about you past, stand strong on your feet in your new reality and life your new bright feature self';
+                          } else {
+                            description = listViewPracticesRecord.desctiption!;
+                          }
+
                           return Padding(
                             padding:
                                 EdgeInsetsDirectional.fromSTEB(0, 0, 0, 12),
                             child: InkWell(
                               onTap: () async {
-                                await Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => PracticePageWidget(
-                                      practice: listViewPracticesRecord,
+                                if (listViewPracticesRecord.audio != null) {
+                                  await Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          MeditationPageWidget(
+                                        audio: listViewPracticesRecord.audio,
+                                      ),
                                     ),
-                                  ),
-                                );
+                                  );
+                                } else if (listViewPracticesRecord.section !=
+                                    null) {
+                                  await Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => SectionPageWidget(
+                                        section:
+                                            listViewPracticesRecord.section,
+                                        numlesson: 2,
+                                      ),
+                                    ),
+                                  );
+                                } else {
+                                  await Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => PracticePageWidget(
+                                        practice: listViewPracticesRecord,
+                                      ),
+                                    ),
+                                  );
+                                }
                               },
                               child: Container(
                                 width: 100,
@@ -226,10 +323,16 @@ class _PracticeWidgetState extends State<PracticeWidget> {
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             0, 2, 0, 2),
-                                        child: Image.network(
-                                          listViewPracticesRecord.cover!,
-                                          width: 100,
-                                          fit: BoxFit.contain,
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                          child: CachedNetworkImage(
+                                            imageUrl:
+                                                listViewPracticesRecord.cover!,
+                                            height: 131,
+                                            width: 93,
+                                            fit: BoxFit.cover,
+                                          ),
                                         ),
                                       ),
                                       Expanded(
@@ -249,8 +352,7 @@ class _PracticeWidgetState extends State<PracticeWidget> {
                                                         .spaceBetween,
                                                 children: [
                                                   Text(
-                                                    listViewPracticesRecord
-                                                        .title!,
+                                                    title,
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .bodyText1
@@ -310,7 +412,7 @@ class _PracticeWidgetState extends State<PracticeWidget> {
                                                           AlignmentDirectional(
                                                               0, 0),
                                                       child: Text(
-                                                        '${listViewPracticesRecord.sections!.toList().length.toString()} уроков',
+                                                        '${listViewPracticesRecord.countLesson} урока',
                                                         style:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -336,7 +438,11 @@ class _PracticeWidgetState extends State<PracticeWidget> {
                                                                   11, 0, 0, 0),
                                                       child: Text(
                                                         listViewPracticesRecord
-                                                            .duration!,
+                                                                    .duration! ==
+                                                                '0'
+                                                            ? ''
+                                                            : listViewPracticesRecord
+                                                                .duration!,
                                                         style:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -367,8 +473,7 @@ class _PracticeWidgetState extends State<PracticeWidget> {
                                                   children: [
                                                     Expanded(
                                                       child: Text(
-                                                        listViewPracticesRecord
-                                                            .desctiption!,
+                                                        description,
                                                         style:
                                                             FlutterFlowTheme.of(
                                                                     context)

@@ -100,7 +100,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                                         't10tqjy0' /* Email */,
                                       ),
                                       hintStyle: FlutterFlowTheme.of(context)
-                                          .bodyText2,
+                                          .bodyText1,
                                       enabledBorder: UnderlineInputBorder(
                                         borderSide: BorderSide(
                                           color: Color(0x00000000),
@@ -120,7 +120,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                                               18, 0, 0, 0),
                                     ),
                                     style:
-                                        FlutterFlowTheme.of(context).bodyText1,
+                                        FlutterFlowTheme.of(context).bodyText2,
                                     keyboardType: TextInputType.emailAddress,
                                   ),
                                 ),
@@ -143,7 +143,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                                       'h9etvtu0' /* Пароль */,
                                     ),
                                     hintStyle:
-                                        FlutterFlowTheme.of(context).bodyText2,
+                                        FlutterFlowTheme.of(context).bodyText1,
                                     enabledBorder: UnderlineInputBorder(
                                       borderSide: BorderSide(
                                         color: Color(0x00000000),
@@ -177,7 +177,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                                       ),
                                     ),
                                   ),
-                                  style: FlutterFlowTheme.of(context).bodyText1,
+                                  style: FlutterFlowTheme.of(context).bodyText2,
                                   keyboardType: TextInputType.visiblePassword,
                                 ),
                               ),

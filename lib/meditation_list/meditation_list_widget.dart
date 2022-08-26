@@ -1,9 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:just_audio/just_audio.dart';
 
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
+import '../main.dart';
 import '../meditation_page/meditation_page_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -38,7 +40,7 @@ class _MeditationListWidgetState extends State<MeditationListWidget> {
             image: DecorationImage(
               fit: BoxFit.cover,
               image: Image.asset(
-                'assets/images/Group_181-2.png',
+                'assets/images/Group 186.png',
               ).image,
             ),
           ),
@@ -46,11 +48,21 @@ class _MeditationListWidgetState extends State<MeditationListWidget> {
             mainAxisSize: MainAxisSize.max,
             children: [
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0, 90, 0, 0),
+                padding: EdgeInsetsDirectional.fromSTEB(26, 60, 0, 0),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+                    InkWell(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: Icon(
+                        Icons.chevron_left_rounded,
+                        size: 36.0,
+                        color: Colors.white,
+                      ),
+                    ),
                     Container(
                       width: 140,
                       height: 53,
@@ -69,21 +81,39 @@ class _MeditationListWidgetState extends State<MeditationListWidget> {
                           Padding(
                             padding:
                                 EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
-                            child: Container(
-                              width: 36,
-                              height: 36,
-                              decoration: BoxDecoration(
-                                color: Color(0xFF33325C),
-                                shape: BoxShape.circle,
-                              ),
-                              alignment: AlignmentDirectional(0, 0),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(0),
-                                child: Image.asset(
-                                  'assets/images/user-profile-svgrepo-com_2-2.png',
-                                  width: 16,
-                                  height: 24,
-                                  fit: BoxFit.contain,
+                            child: InkWell(
+                              onTap: () async {
+                                await Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        NavBarPage(initialPage: 'Profile'),
+                                  ),
+                                );
+                              },
+                              child: Container(
+                                width: 36,
+                                height: 36,
+                                decoration: BoxDecoration(
+                                  color: Color(0xFF33325C),
+                                  shape: BoxShape.circle,
+                                ),
+                                alignment: AlignmentDirectional(0, 0),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(100),
+                                  child: currentUserDocument!.photoUrl == ''
+                                      ? Image.asset(
+                                          'assets/images/user-profile-svgrepo-com_2-2.png',
+                                          width: 48,
+                                          height: 64,
+                                          fit: BoxFit.contain,
+                                        )
+                                      : Image.network(
+                                          currentUserDocument!.photoUrl!,
+                                          width: 100,
+                                          height: 100,
+                                          fit: BoxFit.cover,
+                                        ),
                                 ),
                               ),
                             ),
@@ -162,7 +192,7 @@ class _MeditationListWidgetState extends State<MeditationListWidget> {
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(23, 100, 40, 0),
+                padding: EdgeInsetsDirectional.fromSTEB(30, 80, 40, 0),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -171,29 +201,16 @@ class _MeditationListWidgetState extends State<MeditationListWidget> {
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Text(
-                          FFLocalizations.of(context).getText(
-                            'scu740fg' /* Медитации */,
-                          ),
+                          widget.meditation!.title!,
+                          maxLines: 2,
+                          overflow: TextOverflow.clip,
                           style:
                               FlutterFlowTheme.of(context).bodyText1.override(
                                     fontFamily: 'montserrat',
                                     color: Colors.white,
-                                    fontSize: 24,
+                                    fontSize: 22,
                                     useGoogleFonts: false,
                                   ),
-                        ),
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(31, 4, 0, 0),
-                          child: Text(
-                            'Доступно ${widget.meditation!.audios!.toList().length.toString()} уроков',
-                            style:
-                                FlutterFlowTheme.of(context).bodyText1.override(
-                                      fontFamily: 'montserrat',
-                                      color: Color(0xFFA6A6A6),
-                                      fontSize: 10,
-                                      useGoogleFonts: false,
-                                    ),
-                          ),
                         ),
                       ],
                     ),
@@ -205,7 +222,21 @@ class _MeditationListWidgetState extends State<MeditationListWidget> {
                   padding: EdgeInsetsDirectional.fromSTEB(24, 20, 24, 4),
                   child: Builder(
                     builder: (context) {
-                      final audio = widget.meditation!.audios!.toList();
+                      var audio = widget.meditation!.audios!.toList();
+                      if (currentUserDocument!.status == 'free' ||
+                          (currentUserDocument!.status == 'start' &&
+                              widget.meditation!.title != '3 кита')) {
+                        audio = [audio[0]];
+                      }
+
+                      if (currentUserDocument!.status == 'start' &&
+                          widget.meditation!.title == '3 кита') {
+                        audio = [audio[0], audio[1], audio[2]];
+                      } else if (currentUserDocument!.status != 'start' &&
+                          widget.meditation!.title == '3 кита') {
+                        audio = [audio[0]];
+                      }
+
                       return ListView.builder(
                         padding: EdgeInsets.zero,
                         scrollDirection: Axis.vertical,
@@ -240,7 +271,8 @@ class _MeditationListWidgetState extends State<MeditationListWidget> {
                                       MaterialPageRoute(
                                         builder: (context) =>
                                             MeditationPageWidget(
-                                          audio: containerAudiosRecord,
+                                          audio:
+                                              containerAudiosRecord.reference,
                                         ),
                                       ),
                                     );
@@ -262,8 +294,13 @@ class _MeditationListWidgetState extends State<MeditationListWidget> {
                                             topLeft: Radius.circular(25),
                                             topRight: Radius.circular(0),
                                           ),
-                                          child: Image.network(
-                                            containerAudiosRecord.cover!,
+                                          child: CachedNetworkImage(
+                                            imageUrl: containerAudiosRecord
+                                                        .coverMini! ==
+                                                    ''
+                                                ? containerAudiosRecord.cover!
+                                                : containerAudiosRecord
+                                                    .coverMini!,
                                             width: 111,
                                             height: 100,
                                             fit: BoxFit.cover,
@@ -283,7 +320,7 @@ class _MeditationListWidgetState extends State<MeditationListWidget> {
                                               children: [
                                                 Padding(
                                                   padding: EdgeInsetsDirectional
-                                                      .fromSTEB(0, 0, 18, 0),
+                                                      .fromSTEB(0, 0, 18, 4),
                                                   child: Row(
                                                     mainAxisSize:
                                                         MainAxisSize.max,
@@ -291,20 +328,26 @@ class _MeditationListWidgetState extends State<MeditationListWidget> {
                                                         MainAxisAlignment
                                                             .spaceBetween,
                                                     children: [
-                                                      Text(
-                                                        containerAudiosRecord
-                                                            .title!,
-                                                        style: FlutterFlowTheme
-                                                                .of(context)
-                                                            .bodyText1
-                                                            .override(
-                                                              fontFamily:
-                                                                  'montserrat',
-                                                              color:
-                                                                  Colors.white,
-                                                              useGoogleFonts:
-                                                                  false,
-                                                            ),
+                                                      Expanded(
+                                                        child: Text(
+                                                          containerAudiosRecord
+                                                              .title!,
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyText1
+                                                              .override(
+                                                                fontFamily:
+                                                                    'montserrat',
+                                                                color: Colors
+                                                                    .white,
+                                                                useGoogleFonts:
+                                                                    false,
+                                                                fontSize: 14,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                              ),
+                                                        ),
                                                       ),
                                                       Padding(
                                                         padding:
@@ -368,7 +411,7 @@ class _MeditationListWidgetState extends State<MeditationListWidget> {
                                                   ),
                                                 ),
                                                 Text(
-                                                  'Длительность: ${containerAudiosRecord.minute} минут',
+                                                  '${containerAudiosRecord.minute} минут',
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .bodyText1
@@ -393,16 +436,6 @@ class _MeditationListWidgetState extends State<MeditationListWidget> {
                         },
                       );
                     },
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(27, 0, 27, 140),
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: 1,
-                  decoration: BoxDecoration(
-                    color: Color(0xFF33325C),
                   ),
                 ),
               ),

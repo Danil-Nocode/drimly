@@ -143,9 +143,9 @@ class _NavBarPageState extends State<NavBarPage> {
       'Sound': SoundWidget(),
       'Practice': PracticeWidget(),
       'Profile': ProfileWidget(),
-      'MeditationList': MeditationListWidget(
-        meditation: widget.meditationRecord,
-      ),
+      // 'MeditationList': MeditationListWidget(
+      //   meditation: widget.meditationRecord,
+      // ),
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPage);
     return Scaffold(
@@ -160,8 +160,8 @@ class _NavBarPageState extends State<NavBarPage> {
         selectedBackgroundColor: Color(0x00000000),
         borderRadius: 100,
         itemBorderRadius: 8,
-        margin: EdgeInsetsDirectional.fromSTEB(26, 0, 26, 26),
-        padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+        margin: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
+        padding: EdgeInsetsDirectional.fromSTEB(10, 11, 10, 11),
         width: double.infinity,
         elevation: 0,
         items: [
@@ -172,8 +172,8 @@ class _NavBarPageState extends State<NavBarPage> {
                 Padding(
                   padding: const EdgeInsets.only(bottom: 6),
                   child: Container(
-                    width: 22,
-                    height: 22,
+                    width: 26,
+                    height: 26,
                     decoration: BoxDecoration(
                       boxShadow: [
                         BoxShadow(
@@ -202,8 +202,8 @@ class _NavBarPageState extends State<NavBarPage> {
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: currentIndex == 0 ? Colors.white : Color(0xFF565A7D),
-                    fontSize: 8.0,
-                    fontWeight: FontWeight.w500,
+                    fontSize: 11.0,
+                    fontWeight: FontWeight.w400,
                   ),
                 ),
               ],
@@ -216,8 +216,8 @@ class _NavBarPageState extends State<NavBarPage> {
                 Padding(
                   padding: const EdgeInsets.only(bottom: 6),
                   child: Container(
-                    width: 22,
-                    height: 22,
+                    width: 24,
+                    height: 24,
                     decoration: BoxDecoration(
                       boxShadow: [
                         BoxShadow(
@@ -241,13 +241,13 @@ class _NavBarPageState extends State<NavBarPage> {
                 ),
                 Text(
                   FFLocalizations.of(context).getText(
-                    'd8s51ob6' /* Шум */,
+                    'd8s51ob6' /* Звуки */,
                   ),
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: currentIndex == 1 ? Colors.white : Color(0xFF565A7D),
-                    fontSize: 8.0,
-                    fontWeight: FontWeight.w500,
+                    fontSize: 11.0,
+                    fontWeight: FontWeight.w400,
                   ),
                 ),
               ],
@@ -260,8 +260,8 @@ class _NavBarPageState extends State<NavBarPage> {
                 Padding(
                   padding: const EdgeInsets.only(bottom: 6),
                   child: Container(
-                    width: 22,
-                    height: 22,
+                    width: 25,
+                    height: 25,
                     decoration: BoxDecoration(
                       boxShadow: [
                         BoxShadow(
@@ -290,8 +290,8 @@ class _NavBarPageState extends State<NavBarPage> {
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: currentIndex == 2 ? Colors.white : Color(0xFF565A7D),
-                    fontSize: 8.0,
-                    fontWeight: FontWeight.w500,
+                    fontSize: 11.0,
+                    fontWeight: FontWeight.w400,
                   ),
                 ),
               ],
@@ -304,7 +304,7 @@ class _NavBarPageState extends State<NavBarPage> {
                 Padding(
                   padding: const EdgeInsets.only(bottom: 6),
                   child: Container(
-                    width: 22,
+                    width: 23,
                     height: 22,
                     decoration: BoxDecoration(
                       boxShadow: [
@@ -334,8 +334,8 @@ class _NavBarPageState extends State<NavBarPage> {
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: currentIndex == 3 ? Colors.white : Color(0xFF565A7D),
-                    fontSize: 8.0,
-                    fontWeight: FontWeight.w500,
+                    fontSize: 11.0,
+                    fontWeight: FontWeight.w400,
                   ),
                 ),
               ],
