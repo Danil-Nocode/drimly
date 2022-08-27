@@ -84,6 +84,7 @@ dev_dependencies:
 flutter_icons:
     android: "launcher_icon"
     ios: true
+    remove_alpha_ios: true
     image_path: "assets/images/logo_drimly.png"
 
 # For information on the generic Dart part of this file, see the
