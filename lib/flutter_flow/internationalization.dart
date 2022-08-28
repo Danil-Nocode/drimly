@@ -11,13 +11,13 @@ class FFLocalizations {
 
   static List<String> languages() => ['ru', 'en'];
 
-  String get languageCode => locale.languageCode;
+  String get languageCode => locale.toString();
   int get languageIndex => languages().contains(languageCode)
       ? languages().indexOf(languageCode)
       : 0;
 
   String getText(String key) =>
-      (kTranslationsMap[key] ?? {})[locale.languageCode] ?? '';
+      (kTranslationsMap[key] ?? {})[locale.toString()] ?? '';
 
   String getVariableText({
     String? ruText = '',
@@ -31,7 +31,7 @@ class FFLocalizationsDelegate extends LocalizationsDelegate<FFLocalizations> {
 
   @override
   bool isSupported(Locale locale) =>
-      FFLocalizations.languages().contains(locale.languageCode);
+      FFLocalizations.languages().contains(locale.toString());
 
   @override
   Future<FFLocalizations> load(Locale locale) =>
@@ -41,89 +41,96 @@ class FFLocalizationsDelegate extends LocalizationsDelegate<FFLocalizations> {
   bool shouldReload(FFLocalizationsDelegate old) => false;
 }
 
+Locale createLocale(String language) => language.contains('_')
+    ? Locale.fromSubtags(
+        languageCode: language.split('_').first,
+        scriptCode: language.split('_').last,
+      )
+    : Locale(language);
+
 final kTranslationsMap = <Map<String, Map<String, String>>>[
   // SignUp
   {
     'g455pxgo': {
       'ru': 'Имя',
-      'en': '',
+      'en': 'Name',
     },
     'jg6ewbdd': {
       'ru': 'Email',
-      'en': '',
+      'en': 'Email',
     },
     '1jnbkjc5': {
       'ru': 'Пароль',
-      'en': '',
+      'en': 'Password',
     },
     'suu2sprj': {
       'ru': 'Повторите пароль',
-      'en': '',
+      'en': 'Repeat password',
     },
     'bcwefzd1': {
       'ru': 'Войти',
-      'en': '',
+      'en': 'To come in',
     },
     'nx5rpf11': {
       'ru':
           'Прододоллжая, Вы соглашаетесь с Условиями использования и Политикой конфиденциальности',
-      'en': '',
+      'en': 'By continuing, you agree to the Terms of Use and Privacy Policy',
     },
     '37ryat8e': {
       'ru': 'Home',
-      'en': '',
+      'en': 'Home',
     },
   },
   // SignIn
   {
     't10tqjy0': {
       'ru': 'Email',
-      'en': '',
+      'en': 'Email',
     },
     'h9etvtu0': {
       'ru': 'Пароль',
-      'en': '',
+      'en': 'Password',
     },
     'ufhwcgzy': {
       'ru': 'Забыли пароль?',
-      'en': '',
+      'en': 'Forgot your password?',
     },
     '15rn4j8i': {
       'ru': 'Зарегистрироваться',
-      'en': '',
+      'en': 'Register',
     },
     'e3h2uxfj': {
       'ru':
           'Прододоллжая, Вы соглашаетесь с Условиями использования и Политикой конфиденциальности',
-      'en': '',
+      'en': 'By continuing, you agree to the Terms of Use and Privacy Policy',
     },
     'l10xfhj5': {
       'ru': 'Home',
-      'en': '',
+      'en': 'Home',
     },
   },
   // ForgotPassword
   {
     'fbap6xe2': {
       'ru': 'Email',
-      'en': '',
+      'en': 'Email',
     },
     'ff9ifnzu': {
       'ru': 'Войти',
-      'en': '',
+      'en': 'To come in',
     },
     'xdazruj3': {
       'ru': 'Зарегистрироваться',
-      'en': '',
+      'en': 'Register',
     },
     'jd4ytvvd': {
       'ru':
           'Прододоллжая, Вы соглашаетесь с Условиями использования и Политикой конфиденциальности',
-      'en': '',
+      'en': 'By continuing, you agree to the Terms of Use and Privacy Policy',
     },
     'dlt0y2cb': {
       'ru': 'Home',
-      'en': '',
+      'en': 'Home',
     },
   },
   // Poll1
@@ -131,31 +138,32 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
     'k4nhfbip': {
       'ru':
           'Какую сферу жизни Вы бы хотели улучшить с помощью трансовых медитаций  от Елены Друма?',
-      'en': '',
+      'en':
+          'What area of life would you like to improve with Elena Druma&#39;s trance meditations?',
     },
     'aoicelnd': {
       'ru': 'Деньги',
-      'en': '',
+      'en': 'Money',
     },
     '07qq0d09': {
       'ru': 'Отношения',
-      'en': '',
+      'en': 'Relations',
     },
     '12mlseoa': {
       'ru': 'Здоровье',
-      'en': '',
+      'en': 'Health',
     },
     'ediph164': {
       'ru': 'Сон',
-      'en': '',
+      'en': 'Dream',
     },
     'tlie3qzg': {
       'ru': 'Пропустить',
-      'en': '',
+      'en': 'Skip',
     },
     'sp58p5db': {
       'ru': 'Home',
-      'en': '',
+      'en': 'Home',
     },
   },
   // Poll2
@@ -163,235 +171,259 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
     'm2mr7hwh': {
       'ru':
           'Какую сферу жизни Вы бы хотели улучшить с помощью трансовых медитаций  от Елены Друма?',
-      'en': '',
+      'en':
+          'What area of life would you like to improve with Elena Druma&#39;s trance meditations?',
     },
     '2c8k5ckh': {
       'ru': '5 минут',
-      'en': '',
+      'en': '5 minutes',
     },
     '302nwcar': {
       'ru': '5',
-      'en': '',
+      'en': '5',
     },
     'blh8hs87': {
       'ru': '10 минут',
-      'en': '',
+      'en': '10 minutes',
     },
     'lqekwrc8': {
       'ru': '10',
-      'en': '',
+      'en': 'ten',
     },
     'yin7gxfw': {
       'ru': '20 минут',
-      'en': '',
+      'en': '20 minutes',
     },
     'p442jr3w': {
       'ru': '20',
-      'en': '',
+      'en': 'twenty',
     },
     'x0jpcrq9': {
       'ru': '30 минут',
-      'en': '',
+      'en': '30 minutes',
     },
     'qhuezsn3': {
       'ru': '30',
-      'en': '',
+      'en': 'thirty',
     },
     '2mz33oug': {
       'ru': 'Пропустить',
-      'en': '',
+      'en': 'Skip',
     },
     'llga4s7z': {
       'ru': 'Home',
-      'en': '',
+      'en': 'Home',
     },
   },
   // Poll3
   {
     'e4szr0lm': {
       'ru': 'Спасибо за пройденный опрос, Ваш личный план сформирован!',
-      'en': '',
+      'en':
+          'Thank you for completing the survey, your personal plan is formed!',
     },
     'wu9s9xp8': {
       'ru': 'Home',
-      'en': '',
+      'en': 'Home',
     },
   },
   // Meditation
   {
     'ekaf78vs': {
       'ru': '5.0',
-      'en': '',
+      'en': '5.0',
     },
     'oeutnkng': {
       'ru': 'Медитации',
-      'en': '',
+      'en': 'meditation',
     },
     'wtiutjcg': {
       'ru': 'Лучшие подборки медитаций',
-      'en': '',
+      'en': 'The best compilations of meditations',
     },
     '0gymdr5m': {
       'ru': 'Медитация',
-      'en': '',
+      'en': 'Meditation',
     },
   },
   // meditationList
   {
     'tn3fbewy': {
       'ru': '5.0',
-      'en': '',
+      'en': '5.0',
     },
     'scu740fg': {
       'ru': 'Медитации',
-      'en': '',
+      'en': 'meditation',
     },
     'uja6ngkz': {
       'ru': 'Медитация',
-      'en': '',
+      'en': 'Meditation',
     },
   },
   // meditationPage
   {
     'ee2r2btk': {
       'ru': 'добавить заметку',
-      'en': '',
+      'en': 'add note',
     },
     'rlb3hmkc': {
       'ru': 'Медитация',
-      'en': '',
+      'en': 'Meditation',
     },
   },
   // Sound
   {
     'cp9qr0lk': {
       'ru': '5.0',
-      'en': '',
+      'en': '5.0',
     },
     '7j92z0p8': {
       'ru': 'Звуки',
-      'en': '',
+      'en': 'Sounds',
     },
     'd8s51ob6': {
       'ru': 'Шум',
-      'en': '',
+      'en': 'Noise',
     },
   },
   // Practice
   {
     'dm53c3gs': {
       'ru': 'Практики',
-      'en': '',
+      'en': 'practices',
     },
     'i97m60r9': {
       'ru': '5.0',
-      'en': '',
+      'en': '5.0',
     },
     '77l0vuay': {
       'ru': 'Практики',
-      'en': '',
+      'en': 'practices',
     },
   },
   // PracticePage
   {
     'uteaq7wc': {
       'ru': 'Последний урок',
-      'en': '',
+      'en': 'Last lesson',
     },
     'kmgrjs63': {
       'ru': 'Практики',
-      'en': '',
+      'en': 'practices',
     },
   },
   // sectionPage
   {
     'j1ti9e6c': {
       'ru': 'Home',
-      'en': '',
+      'en': 'Home',
     },
   },
   // Profile
   {
     'phlk9xak': {
       'ru': 'Александра Волова',
-      'en': '',
+      'en': 'Alexandra Volova',
     },
     'bbbz5xot': {
       'ru': '5.0',
-      'en': '',
-    },
-    '5l5zu8u2': {
-      'ru': '5 минут',
-      'en': '',
-    },
-    'lui6xu5t': {
-      'ru': '34 сессии',
-      'en': '',
+      'en': '5.0',
     },
     '40tf6otp': {
       'ru': 'Открыть полный доступ',
-      'en': '',
+      'en': 'Open full access',
     },
     'txayiqmd': {
       'ru': 'Мои заметки',
-      'en': '',
+      'en': 'My notes',
     },
     'ogwzirt4': {
       'ru': 'RU версия',
+      'en': 'RU version',
+    },
+    '8ylwnasi': {
+      'ru': 'Удалить аккаунт',
       'en': '',
     },
     '7lefkiyy': {
       'ru': 'Профиль',
-      'en': '',
+      'en': 'Profile',
     },
   },
   // allNotice
   {
     'ljf51ck9': {
       'ru': 'Мои заметки',
-      'en': '',
+      'en': 'My notes',
     },
     'nyolegj2': {
       'ru': 'Home',
-      'en': '',
+      'en': 'Home',
     },
   },
   // NoticePage
   {
     'mxkfkzj7': {
       'ru': 'Заметка',
-      'en': '',
+      'en': 'The note',
     },
     'oq4nj7ju': {
       'ru': 'Опишите свои чувства',
-      'en': '',
+      'en': 'Describe your feelings',
+    },
+    'uh103g5b': {
+      'ru': 'Введите текст...',
+      'en': 'Enter text...',
     },
     'plkb4lpl': {
       'ru': 'Home',
-      'en': '',
+      'en': 'Home',
     },
   },
   // createNotice
   {
     's1l3fip1': {
       'ru': 'Заметка',
-      'en': '',
+      'en': 'The note',
     },
     'coqf9dri': {
       'ru': 'Опишите свои чувства',
-      'en': '',
+      'en': 'Describe your feelings',
     },
     'ku8fknw1': {
       'ru': 'Введите текст...',
-      'en': '',
+      'en': 'Enter text...',
     },
     '1ix55t6u': {
       'ru': 'Home',
-      'en': '',
+      'en': 'Home',
+    },
+  },
+  // noticePageCreate
+  {
+    'w79lxyhn': {
+      'ru': 'Опишите свои чувства...',
+      'en': 'Enter text...',
+    },
+  },
+  // noticePageView
+  {
+    'vgxbzaef': {
+      'ru': 'Опишите свои чувства...',
+      'en': 'Enter text...',
     },
   },
   // Miscellaneous
   {
+    '20q0ksmy': {
+      'ru': '',
+      'en': '',
+    },
+    'kv59no47': {
+      'ru': '',
+      'en': '',
+    },
     'huw575a3': {
       'ru': '',
       'en': '',

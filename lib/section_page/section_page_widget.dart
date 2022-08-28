@@ -43,56 +43,50 @@ class _SectionPageWidgetState extends State<SectionPageWidget> {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0, 32, 0, 0),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(32, 0, 0, 0),
-                      child: InkWell(
-                        onTap: () async {
-                          Navigator.pop(context);
-                        },
-                        child: Icon(
-                          Icons.chevron_left_rounded,
-                          color: Color(0xFF042433),
-                          size: 36,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
               Expanded(
                 flex: 2,
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(60, 0, 60, 0),
+                child: Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 32, 0, 0),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(24, 0, 24, 0),
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
+                            Stack(
+                              alignment: AlignmentDirectional(-1, 0),
                               children: [
-                                Expanded(
-                                  child: Text(
-                                    widget.section!.title!,
-                                    textAlign: TextAlign.center,
-                                    style: FlutterFlowTheme.of(context)
-                                        .subtitle1
-                                        .override(
-                                          fontFamily: 'montserrat',
-                                          color: Color(0xFF042433),
-                                          useGoogleFonts: false,
-                                        ),
+                                Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                        widget.section!.title!,
+                                        textAlign: TextAlign.center,
+                                        style: FlutterFlowTheme.of(context)
+                                            .subtitle1
+                                            .override(
+                                              fontFamily: 'montserrat',
+                                              color: Color(0xFF042433),
+                                              useGoogleFonts: false,
+                                            ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                InkWell(
+                                  onTap: () async {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Icon(
+                                    Icons.chevron_left_rounded,
+                                    color: Color(0xFF042433),
+                                    size: 36,
                                   ),
                                 ),
                               ],
@@ -124,15 +118,8 @@ class _SectionPageWidgetState extends State<SectionPageWidget> {
                           ],
                         ),
                       ),
-                    ),
-                    Expanded(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [],
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
               Expanded(

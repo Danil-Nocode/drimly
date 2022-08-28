@@ -17,6 +17,12 @@ abstract class MeditationRecord
 
   BuiltList<DocumentReference>? get audios;
 
+  int? get index;
+
+  String? get coverMini;
+
+  bool? get isView;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -24,7 +30,10 @@ abstract class MeditationRecord
   static void _initializeBuilder(MeditationRecordBuilder builder) => builder
     ..title = ''
     ..cover = ''
-    ..audios = ListBuilder();
+    ..audios = ListBuilder()
+    ..index = 0
+    ..coverMini = ''
+    ..isView = false;
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('meditation');
@@ -50,6 +59,9 @@ abstract class MeditationRecord
 Map<String, dynamic> createMeditationRecordData({
   String? title,
   String? cover,
+  int? index,
+  String? coverMini,
+  bool? isView,
 }) {
   final firestoreData = serializers.toFirestore(
     MeditationRecord.serializer,
@@ -57,7 +69,10 @@ Map<String, dynamic> createMeditationRecordData({
       (m) => m
         ..title = title
         ..cover = cover
-        ..audios = null,
+        ..audios = null
+        ..index = index
+        ..coverMini = coverMini
+        ..isView = isView,
     ),
   );
 

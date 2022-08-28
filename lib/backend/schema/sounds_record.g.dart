@@ -28,6 +28,19 @@ class _$SoundsRecordSerializer implements StructuredSerializer<SoundsRecord> {
             specifiedType: const FullType(
                 DocumentReference, const [const FullType.nullable(Object)])));
     }
+    value = object.index;
+    if (value != null) {
+      result
+        ..add('index')
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
+    }
+    value = object.coverMini;
+    if (value != null) {
+      result
+        ..add('coverMini')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -57,6 +70,14 @@ class _$SoundsRecordSerializer implements StructuredSerializer<SoundsRecord> {
                 const FullType.nullable(Object)
               ])) as DocumentReference<Object?>?;
           break;
+        case 'index':
+          result.index = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int?;
+          break;
+        case 'coverMini':
+          result.coverMini = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -74,12 +95,17 @@ class _$SoundsRecord extends SoundsRecord {
   @override
   final DocumentReference<Object?>? audio;
   @override
+  final int? index;
+  @override
+  final String? coverMini;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$SoundsRecord([void Function(SoundsRecordBuilder)? updates]) =>
       (new SoundsRecordBuilder()..update(updates))._build();
 
-  _$SoundsRecord._({this.audio, this.ffRef}) : super._();
+  _$SoundsRecord._({this.audio, this.index, this.coverMini, this.ffRef})
+      : super._();
 
   @override
   SoundsRecord rebuild(void Function(SoundsRecordBuilder) updates) =>
@@ -93,18 +119,24 @@ class _$SoundsRecord extends SoundsRecord {
     if (identical(other, this)) return true;
     return other is SoundsRecord &&
         audio == other.audio &&
+        index == other.index &&
+        coverMini == other.coverMini &&
         ffRef == other.ffRef;
   }
 
   @override
   int get hashCode {
-    return $jf($jc($jc(0, audio.hashCode), ffRef.hashCode));
+    return $jf($jc(
+        $jc($jc($jc(0, audio.hashCode), index.hashCode), coverMini.hashCode),
+        ffRef.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper(r'SoundsRecord')
           ..add('audio', audio)
+          ..add('index', index)
+          ..add('coverMini', coverMini)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -118,6 +150,14 @@ class SoundsRecordBuilder
   DocumentReference<Object?>? get audio => _$this._audio;
   set audio(DocumentReference<Object?>? audio) => _$this._audio = audio;
 
+  int? _index;
+  int? get index => _$this._index;
+  set index(int? index) => _$this._index = index;
+
+  String? _coverMini;
+  String? get coverMini => _$this._coverMini;
+  set coverMini(String? coverMini) => _$this._coverMini = coverMini;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -130,6 +170,8 @@ class SoundsRecordBuilder
     final $v = _$v;
     if ($v != null) {
       _audio = $v.audio;
+      _index = $v.index;
+      _coverMini = $v.coverMini;
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -151,7 +193,9 @@ class SoundsRecordBuilder
   SoundsRecord build() => _build();
 
   _$SoundsRecord _build() {
-    final _$result = _$v ?? new _$SoundsRecord._(audio: audio, ffRef: ffRef);
+    final _$result = _$v ??
+        new _$SoundsRecord._(
+            audio: audio, index: index, coverMini: coverMini, ffRef: ffRef);
     replace(_$result);
     return _$result;
   }

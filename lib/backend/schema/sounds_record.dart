@@ -12,11 +12,17 @@ abstract class SoundsRecord
 
   DocumentReference? get audio;
 
+  int? get index;
+
+  String? get coverMini;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
 
-  static void _initializeBuilder(SoundsRecordBuilder builder) => builder;
+  static void _initializeBuilder(SoundsRecordBuilder builder) => builder
+    ..index = 0
+    ..coverMini = '';
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('sounds');
@@ -41,11 +47,16 @@ abstract class SoundsRecord
 
 Map<String, dynamic> createSoundsRecordData({
   DocumentReference? audio,
+  int? index,
+  String? coverMini,
 }) {
   final firestoreData = serializers.toFirestore(
     SoundsRecord.serializer,
     SoundsRecord(
-      (s) => s..audio = audio,
+      (s) => s
+        ..audio = audio
+        ..index = index
+        ..coverMini = coverMini,
     ),
   );
 

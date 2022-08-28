@@ -2,7 +2,9 @@ import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
+import '../main.dart';
 import '../practice_page/practice_page_widget.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -76,21 +78,32 @@ class _PracticeWidgetState extends State<PracticeWidget> {
                           Padding(
                             padding:
                                 EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
-                            child: Container(
-                              width: 36,
-                              height: 36,
-                              decoration: BoxDecoration(
-                                color: Color(0xFF33325C),
-                                shape: BoxShape.circle,
-                              ),
-                              alignment: AlignmentDirectional(0, 0),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(0),
-                                child: Image.asset(
-                                  'assets/images/user-profile-svgrepo-com_2-2.png',
-                                  width: 16,
-                                  height: 24,
-                                  fit: BoxFit.contain,
+                            child: InkWell(
+                              onTap: () async {
+                                await Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        NavBarPage(initialPage: 'Profile'),
+                                  ),
+                                );
+                              },
+                              child: Container(
+                                width: 36,
+                                height: 36,
+                                decoration: BoxDecoration(
+                                  color: Color(0xFF33325C),
+                                  shape: BoxShape.circle,
+                                ),
+                                alignment: AlignmentDirectional(0, 0),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(0),
+                                  child: Image.asset(
+                                    'assets/images/user-profile-svgrepo-com_2-2.png',
+                                    width: 16,
+                                    height: 24,
+                                    fit: BoxFit.contain,
+                                  ),
                                 ),
                               ),
                             ),
@@ -226,10 +239,16 @@ class _PracticeWidgetState extends State<PracticeWidget> {
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             0, 2, 0, 2),
-                                        child: Image.network(
-                                          listViewPracticesRecord.cover!,
-                                          width: 100,
-                                          fit: BoxFit.contain,
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                          child: CachedNetworkImage(
+                                            imageUrl:
+                                                listViewPracticesRecord.cover!,
+                                            width: 100,
+                                            height: 131,
+                                            fit: BoxFit.contain,
+                                          ),
                                         ),
                                       ),
                                       Expanded(

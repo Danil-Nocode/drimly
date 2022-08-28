@@ -45,6 +45,26 @@ class _$MeditationRecordSerializer
                   DocumentReference, const [const FullType.nullable(Object)])
             ])));
     }
+    value = object.index;
+    if (value != null) {
+      result
+        ..add('index')
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
+    }
+    value = object.coverMini;
+    if (value != null) {
+      result
+        ..add('coverMini')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.isView;
+    if (value != null) {
+      result
+        ..add('isView')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -83,6 +103,18 @@ class _$MeditationRecordSerializer
                     DocumentReference, const [const FullType.nullable(Object)])
               ]))! as BuiltList<Object?>);
           break;
+        case 'index':
+          result.index = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int?;
+          break;
+        case 'coverMini':
+          result.coverMini = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'isView':
+          result.isView = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -104,13 +136,26 @@ class _$MeditationRecord extends MeditationRecord {
   @override
   final BuiltList<DocumentReference<Object?>>? audios;
   @override
+  final int? index;
+  @override
+  final String? coverMini;
+  @override
+  final bool? isView;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$MeditationRecord(
           [void Function(MeditationRecordBuilder)? updates]) =>
       (new MeditationRecordBuilder()..update(updates))._build();
 
-  _$MeditationRecord._({this.title, this.cover, this.audios, this.ffRef})
+  _$MeditationRecord._(
+      {this.title,
+      this.cover,
+      this.audios,
+      this.index,
+      this.coverMini,
+      this.isView,
+      this.ffRef})
       : super._();
 
   @override
@@ -128,13 +173,23 @@ class _$MeditationRecord extends MeditationRecord {
         title == other.title &&
         cover == other.cover &&
         audios == other.audios &&
+        index == other.index &&
+        coverMini == other.coverMini &&
+        isView == other.isView &&
         ffRef == other.ffRef;
   }
 
   @override
   int get hashCode {
     return $jf($jc(
-        $jc($jc($jc(0, title.hashCode), cover.hashCode), audios.hashCode),
+        $jc(
+            $jc(
+                $jc(
+                    $jc($jc($jc(0, title.hashCode), cover.hashCode),
+                        audios.hashCode),
+                    index.hashCode),
+                coverMini.hashCode),
+            isView.hashCode),
         ffRef.hashCode));
   }
 
@@ -144,6 +199,9 @@ class _$MeditationRecord extends MeditationRecord {
           ..add('title', title)
           ..add('cover', cover)
           ..add('audios', audios)
+          ..add('index', index)
+          ..add('coverMini', coverMini)
+          ..add('isView', isView)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -167,6 +225,18 @@ class MeditationRecordBuilder
   set audios(ListBuilder<DocumentReference<Object?>>? audios) =>
       _$this._audios = audios;
 
+  int? _index;
+  int? get index => _$this._index;
+  set index(int? index) => _$this._index = index;
+
+  String? _coverMini;
+  String? get coverMini => _$this._coverMini;
+  set coverMini(String? coverMini) => _$this._coverMini = coverMini;
+
+  bool? _isView;
+  bool? get isView => _$this._isView;
+  set isView(bool? isView) => _$this._isView = isView;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -181,6 +251,9 @@ class MeditationRecordBuilder
       _title = $v.title;
       _cover = $v.cover;
       _audios = $v.audios?.toBuilder();
+      _index = $v.index;
+      _coverMini = $v.coverMini;
+      _isView = $v.isView;
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -209,6 +282,9 @@ class MeditationRecordBuilder
               title: title,
               cover: cover,
               audios: _audios?.build(),
+              index: index,
+              coverMini: coverMini,
+              isView: isView,
               ffRef: ffRef);
     } catch (_) {
       late String _$failedField;

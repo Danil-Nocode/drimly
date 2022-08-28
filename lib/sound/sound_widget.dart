@@ -177,15 +177,36 @@ class _SoundWidgetState extends State<SoundWidget> {
                         ),
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(31, 4, 0, 0),
-                          child: Text(
-                            'Доступно 6 звуков',
-                            style:
-                                FlutterFlowTheme.of(context).bodyText1.override(
+                          child: StreamBuilder<List<SoundsRecord>>(
+                            stream: querySoundsRecord(),
+                            builder: (context, snapshot) {
+                              // Customize what your widget looks like when it's loading.
+                              if (!snapshot.hasData) {
+                                return Center(
+                                  child: SizedBox(
+                                    width: 30,
+                                    height: 30,
+                                    child: CircularProgressIndicator(
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryColor,
+                                    ),
+                                  ),
+                                );
+                              }
+                              List<SoundsRecord> textSoundsRecordList =
+                                  snapshot.data!;
+                              return Text(
+                                'Доступно 6 звуков',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyText1
+                                    .override(
                                       fontFamily: 'montserrat',
                                       color: Color(0xFFA6A6A6),
                                       fontSize: 10,
                                       useGoogleFonts: false,
                                     ),
+                              );
+                            },
                           ),
                         ),
                       ],

@@ -1,8 +1,8 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
+import '../components/notice_page_view_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
-import '../notice_page/notice_page_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -71,8 +71,8 @@ class _AllNoticeWidgetState extends State<AllNoticeWidget> {
                         },
                         child: Icon(
                           Icons.chevron_left_rounded,
-                          color: Color(0xFFBCBCBC),
-                          size: 28,
+                          color: Color(0xFFC4C4C4),
+                          size: 32,
                         ),
                       ),
                     ),
@@ -151,13 +151,18 @@ class _AllNoticeWidgetState extends State<AllNoticeWidget> {
                         padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 13),
                         child: InkWell(
                           onTap: () async {
-                            await Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => NoticePageWidget(
-                                  notice: listViewNotesRecord,
-                                ),
-                              ),
+                            await showModalBottomSheet(
+                              isScrollControlled: true,
+                              backgroundColor: Colors.transparent,
+                              context: context,
+                              builder: (context) {
+                                return Padding(
+                                  padding: MediaQuery.of(context).viewInsets,
+                                  child: NoticePageViewWidget(
+                                    notice: listViewNotesRecord,
+                                  ),
+                                );
+                              },
                             );
                           },
                           child: Container(
@@ -196,6 +201,17 @@ class _AllNoticeWidgetState extends State<AllNoticeWidget> {
                                                 fontWeight: FontWeight.w500,
                                                 useGoogleFonts: false,
                                               ),
+                                        ),
+                                      ),
+                                      InkWell(
+                                        onTap: () async {
+                                          await listViewNotesRecord.reference
+                                              .delete();
+                                        },
+                                        child: Icon(
+                                          Icons.delete,
+                                          color: Color(0xFFC4C4C4),
+                                          size: 24,
                                         ),
                                       ),
                                     ],
