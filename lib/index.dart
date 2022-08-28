@@ -11,6 +11,7 @@ export 'meditation_page/meditation_page_widget.dart' show MeditationPageWidget;
 export 'sound/sound_widget.dart' show SoundWidget;
 export 'practice/practice_widget.dart' show PracticeWidget;
 export 'practice_page/practice_page_widget.dart' show PracticePageWidget;
+export 'section_page/section_page_widget.dart' show SectionPageWidget;
 export 'profile/profile_widget.dart' show ProfileWidget;
 export 'all_notice/all_notice_widget.dart' show AllNoticeWidget;
 export 'notice_page/notice_page_widget.dart' show NoticePageWidget;
