@@ -51,6 +51,50 @@
     },
     {
       "client_info": {
+        "mobilesdk_app_id": "1:628719281378:android:fb7a06150d2be38f94eabb",
+        "android_client_info": {
+          "package_name": "com.drimly.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "628719281378-i771ktqrt3ormjc4u3dsf64tb1hsph0m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.drimly.android",
+            "certificate_hash": "afd5bf4ee4c70ef48104e4228cec4395f026f9e4"
+          }
+        },
+        {
+          "client_id": "628719281378-c46pl4aa2mgakhtl5v0rf4pbe0l7kkau.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCKyQ6IWjeLC28Q5ZomRMnLWi7NroipdpA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "628719281378-c46pl4aa2mgakhtl5v0rf4pbe0l7kkau.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "628719281378-mmpr2dd2icfq3l2fjkgev8c62g68pq3c.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mycompany.drimly"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:628719281378:android:50809fa2f19243df94eabb",
         "android_client_info": {
           "package_name": "com.mycompany.drimly"
