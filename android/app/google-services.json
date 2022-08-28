@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:628719281378:android:50809fa2f19243df94eabb",
         "android_client_info": {
-          "package_name": "com.drimlly.app"
+          "package_name": "com.drimly.android"
         }
       },
       "oauth_client": [
@@ -17,7 +17,7 @@
           "client_id": "628719281378-3qiqanpqegrga1rek48871ivti7q3lh3.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.drimlly.app",
+            "package_name": "com.drimly.android",
             "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
           }
         },
@@ -42,7 +42,7 @@
               "client_id": "628719281378-mmpr2dd2icfq3l2fjkgev8c62g68pq3c.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.drimlly.app"
+                "bundle_id": "com.drimly.android"
               }
             }
           ]

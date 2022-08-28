@@ -1,4 +1,4 @@
-package com.drimlly.app
+package com.drimly.android
 
 import io.flutter.embedding.android.FlutterActivity
 
