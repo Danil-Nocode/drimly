@@ -21,6 +21,14 @@
 		<string>ru</string>
 		<string>en</string>
 	</array>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Drimly requires user’s location for better user experience.</string>
+
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Drimly requires user’s location for better user experience.</string>
+
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Drimly requires user’s location for better user experience.</string>
 
 	<key>CFBundleShortVersionString</key>
 	<string>$(FLUTTER_BUILD_NAME)</string>
