@@ -59,125 +59,120 @@ class _MeditationWidgetState extends State<MeditationWidget> {
                           topRight: Radius.circular(0),
                         ),
                       ),
-                      child: Expanded(
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Padding(
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(10, 10, 0, 10),
+                            child: InkWell(
+                              onTap: () async {
+                                await Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        NavBarPage(initialPage: 'Profile'),
+                                  ),
+                                );
+                              },
+                              child: Container(
+                                width: 36,
+                                height: 36,
+                                decoration: BoxDecoration(
+                                  color: Color(0xFF33325C),
+                                  shape: BoxShape.circle,
+                                ),
+                                alignment: AlignmentDirectional(0, 0),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(1000),
+                                  child: currentUserDocument!.photoUrl == ''
+                                      ? Image.asset(
+                                          'assets/images/user-profile-svgrepo-com_2-2.png',
+                                          width: 48,
+                                          height: 64,
+                                          fit: BoxFit.contain,
+                                        )
+                                      : Image.network(
+                                          currentUserDocument!.photoUrl!,
+                                          width: 100,
+                                          height: 100,
+                                          fit: BoxFit.cover,
+                                        ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Padding(
                               padding:
-                                  EdgeInsetsDirectional.fromSTEB(10, 10, 0, 10),
-                              child: InkWell(
-                                onTap: () async {
-                                  await Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          NavBarPage(initialPage: 'Profile'),
-                                    ),
-                                  );
-                                },
-                                child: Container(
-                                  width: 36,
-                                  height: 36,
-                                  decoration: BoxDecoration(
-                                    color: Color(0xFF33325C),
-                                    shape: BoxShape.circle,
-                                  ),
-                                  alignment: AlignmentDirectional(0, 0),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(1000),
-                                    child: currentUserDocument!.photoUrl == ''
-                                        ? Image.asset(
-                                            'assets/images/user-profile-svgrepo-com_2-2.png',
-                                            width: 48,
-                                            height: 64,
-                                            fit: BoxFit.contain,
-                                          )
-                                        : Image.network(
-                                            currentUserDocument!.photoUrl!,
-                                            width: 100,
-                                            height: 100,
-                                            fit: BoxFit.cover,
+                                  EdgeInsetsDirectional.fromSTEB(6, 0, 0, 0),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  AuthUserStreamWidget(
+                                    child: Text(
+                                      currentUserDisplayName,
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                            fontFamily: 'montserrat',
+                                            color: Colors.white,
+                                            fontSize: 10,
+                                            useGoogleFonts: false,
                                           ),
+                                    ),
                                   ),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              child: Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(6, 0, 0, 0),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    AuthUserStreamWidget(
-                                      child: Text(
-                                        currentUserDisplayName,
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyText1
-                                            .override(
-                                              fontFamily: 'montserrat',
-                                              color: Colors.white,
-                                              fontSize: 10,
-                                              useGoogleFonts: false,
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0, 3, 0, 0),
+                                    child: Container(
+                                      width: 32,
+                                      height: 12,
+                                      decoration: BoxDecoration(
+                                        color: Color(0xAB496076),
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      alignment: AlignmentDirectional(0, 0),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0, 0, 2, 0),
+                                            child: Image.asset(
+                                              'assets/images/Group-4.png',
+                                              width: 6,
+                                              height: 6,
+                                              fit: BoxFit.cover,
                                             ),
+                                          ),
+                                          Text(
+                                            FFLocalizations.of(context).getText(
+                                              'ekaf78vs' /* 5.0 */,
+                                            ),
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyText1
+                                                .override(
+                                                  fontFamily: 'montserrat',
+                                                  color: Colors.white,
+                                                  fontSize: 8,
+                                                  useGoogleFonts: false,
+                                                ),
+                                          ),
+                                        ],
                                       ),
                                     ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 3, 0, 0),
-                                      child: Container(
-                                        width: 32,
-                                        height: 12,
-                                        decoration: BoxDecoration(
-                                          color: Color(0xAB496076),
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                        ),
-                                        alignment: AlignmentDirectional(0, 0),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(0, 0, 2, 0),
-                                              child: Image.asset(
-                                                'assets/images/Group-4.png',
-                                                width: 6,
-                                                height: 6,
-                                                fit: BoxFit.cover,
-                                              ),
-                                            ),
-                                            Text(
-                                              FFLocalizations.of(context)
-                                                  .getText(
-                                                'ekaf78vs' /* 5.0 */,
-                                              ),
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyText1
-                                                      .override(
-                                                        fontFamily:
-                                                            'montserrat',
-                                                        color: Colors.white,
-                                                        fontSize: 8,
-                                                        useGoogleFonts: false,
-                                                      ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
                   ],

@@ -3,6 +3,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:responsive_framework/responsive_wrapper.dart';
 import 'auth/firebase_user_provider.dart';
 import 'auth/auth_util.dart';
 
@@ -83,6 +84,17 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      // builder: (context, child) => ResponsiveWrapper.builder(
+      //   child,
+      //   maxWidth: 1200,
+      //   minWidth: 480,
+      //   defaultScale: true,
+      //   breakpoints: [
+      //     ResponsiveBreakpoint.resize(480, name: MOBILE),
+      //     ResponsiveBreakpoint.autoScale(800, name: TABLET),
+      //     ResponsiveBreakpoint.resize(1000, name: DESKTOP),
+      //   ],
+      // ),
       title: 'Drimly',
       localizationsDelegates: [
         FFLocalizationsDelegate(),

@@ -129,26 +129,24 @@ class _MeditationPageWidgetState extends State<MeditationPageWidget> {
                           Padding(
                             padding:
                                 EdgeInsetsDirectional.fromSTEB(40, 50, 40, 0),
-                            child: Expanded(
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Expanded(
-                                    child: Text(
-                                      containerAudiosRecord.title!,
-                                      textAlign: TextAlign.center,
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyText1
-                                          .override(
-                                              fontFamily: 'montserrat',
-                                              color: Colors.white,
-                                              useGoogleFonts: false,
-                                              fontSize: 22),
-                                    ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    containerAudiosRecord.title!,
+                                    textAlign: TextAlign.center,
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyText1
+                                        .override(
+                                            fontFamily: 'montserrat',
+                                            color: Colors.white,
+                                            useGoogleFonts: false,
+                                            fontSize: 22),
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                           ),
                         ],
