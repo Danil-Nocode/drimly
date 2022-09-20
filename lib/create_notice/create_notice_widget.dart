@@ -97,122 +97,127 @@ class _CreateNoticeWidgetState extends State<CreateNoticeWidget> {
             Expanded(
               child: Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(24, 0, 24, 16),
-                child: SingleChildScrollView(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Text(
-                            FFLocalizations.of(context).getText(
-                              'coqf9dri' /* Опишите свои чувства */,
-                            ),
-                            style:
-                                FlutterFlowTheme.of(context).bodyText1.override(
-                                      fontFamily: 'montserrat',
-                                      color: Color(0xFF909090),
-                                      useGoogleFonts: false,
-                                    ),
-                          ),
-                        ],
-                      ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
-                        child: Row(
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      children: [
+                        Row(
                           mainAxisSize: MainAxisSize.max,
                           children: [
-                            Expanded(
-                              child: TextFormField(
-                                controller: textController,
-                                autofocus: true,
-                                obscureText: false,
-                                decoration: InputDecoration(
-                                  labelStyle: FlutterFlowTheme.of(context)
-                                      .bodyText1
-                                      .override(
-                                        fontFamily: 'montserrat',
-                                        color: Color(0xFF909090),
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.normal,
-                                        useGoogleFonts: false,
-                                      ),
-                                  hintText: FFLocalizations.of(context).getText(
-                                    'ku8fknw1' /* Введите текст... */,
-                                  ),
-                                  hintStyle: FlutterFlowTheme.of(context)
-                                      .bodyText1
-                                      .override(
-                                        fontFamily: 'montserrat',
-                                        color: Color(0xFF909090),
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.normal,
-                                        useGoogleFonts: false,
-                                      ),
-                                  enabledBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: Color(0x00000000),
-                                      width: 1,
-                                    ),
-                                    borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(4.0),
-                                      topRight: Radius.circular(4.0),
-                                    ),
-                                  ),
-                                  focusedBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: Color(0x00000000),
-                                      width: 1,
-                                    ),
-                                    borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(4.0),
-                                      topRight: Radius.circular(4.0),
-                                    ),
-                                  ),
-                                  contentPadding:
-                                      EdgeInsetsDirectional.fromSTEB(
-                                          12, 12, 12, 12),
-                                ),
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyText1
-                                    .override(
-                                      fontFamily: 'montserrat',
-                                      color: Color(0xFF909090),
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.normal,
-                                      useGoogleFonts: false,
-                                    ),
-                                maxLines: 25,
+                            Text(
+                              FFLocalizations.of(context).getText(
+                                'coqf9dri' /* Опишите свои чувства */,
                               ),
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyText1
+                                  .override(
+                                    fontFamily: 'montserrat',
+                                    color: Color(0xFF909090),
+                                    useGoogleFonts: false,
+                                  ),
                             ),
                           ],
                         ),
-                      ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 50, 0, 0),
-                        child: InkWell(
-                          onTap: () async {
-                            final notesCreateData = createNotesRecordData(
-                              description: textController!.text,
-                              user: currentUserReference,
-                              date: getCurrentTimestamp,
-                            );
-                            var notesRecordReference =
-                                NotesRecord.collection.doc();
-                            await notesRecordReference.set(notesCreateData);
-                            note = NotesRecord.getDocumentFromData(
-                                notesCreateData, notesRecordReference);
-                            Navigator.pop(context);
-
-                            setState(() {});
-                          },
-                          child: ButtonWidget(
-                            text: 'Сохранить',
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Expanded(
+                                child: TextFormField(
+                                  controller: textController,
+                                  autofocus: true,
+                                  obscureText: false,
+                                  decoration: InputDecoration(
+                                    labelStyle: FlutterFlowTheme.of(context)
+                                        .bodyText1
+                                        .override(
+                                          fontFamily: 'montserrat',
+                                          color: Color(0xFF909090),
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.normal,
+                                          useGoogleFonts: false,
+                                        ),
+                                    hintText:
+                                        FFLocalizations.of(context).getText(
+                                      'ku8fknw1' /* Введите текст... */,
+                                    ),
+                                    hintStyle: FlutterFlowTheme.of(context)
+                                        .bodyText1
+                                        .override(
+                                          fontFamily: 'montserrat',
+                                          color: Color(0xFF909090),
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.normal,
+                                          useGoogleFonts: false,
+                                        ),
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0x00000000),
+                                        width: 1,
+                                      ),
+                                      borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(4.0),
+                                        topRight: Radius.circular(4.0),
+                                      ),
+                                    ),
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0x00000000),
+                                        width: 1,
+                                      ),
+                                      borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(4.0),
+                                        topRight: Radius.circular(4.0),
+                                      ),
+                                    ),
+                                    contentPadding:
+                                        EdgeInsetsDirectional.fromSTEB(
+                                            12, 12, 12, 12),
+                                  ),
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyText1
+                                      .override(
+                                        fontFamily: 'montserrat',
+                                        color: Color(0xFF909090),
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.normal,
+                                        useGoogleFonts: false,
+                                      ),
+                                  maxLines: 15,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
+                      ],
+                    ),
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(0, 50, 0, 24),
+                      child: InkWell(
+                        onTap: () async {
+                          final notesCreateData = createNotesRecordData(
+                            description: textController!.text,
+                            user: currentUserReference,
+                            date: getCurrentTimestamp,
+                          );
+                          var notesRecordReference =
+                              NotesRecord.collection.doc();
+                          await notesRecordReference.set(notesCreateData);
+                          note = NotesRecord.getDocumentFromData(
+                              notesCreateData, notesRecordReference);
+                          Navigator.pop(context);
+
+                          setState(() {});
+                        },
+                        child: ButtonWidget(
+                          text: 'Сохранить',
+                        ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ),

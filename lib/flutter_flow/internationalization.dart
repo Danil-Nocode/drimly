@@ -184,9 +184,9 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
   {
     'm2mr7hwh': {
       'ru':
-          'Какую сферу жизни Вы бы хотели улучшить с помощью трансовых медитаций  от Елены Друма?',
+          'Какое количество минут Вы готовы ежедневно инвестировать в свое саморазвитие?',
       'en':
-          'What area of life would you like to improve with Elena Druma&#39;s trance meditations?',
+          'How many minutes are you willing to invest in your self-development every day?',
     },
     '2c8k5ckh': {
       'ru': '5 минут',

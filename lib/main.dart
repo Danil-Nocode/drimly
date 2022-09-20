@@ -75,10 +75,10 @@ class _MyAppState extends State<MyApp> {
     super.dispose();
   }
 
-  void setLocale(Locale value) => setState(() => _locale = value);
+  void setLocale(Locale value) => setState(() => _locale = Locale('ru'));
   void setThemeMode(ThemeMode mode) => setState(() {
-        _themeMode = mode;
-        FlutterFlowTheme.saveThemeMode(mode);
+        _themeMode = ThemeMode.light;
+        FlutterFlowTheme.saveThemeMode(_themeMode);
       });
 
   @override
