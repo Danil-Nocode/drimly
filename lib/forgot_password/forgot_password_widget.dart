@@ -96,7 +96,7 @@ class _ForgotPasswordWidgetState extends State<ForgotPasswordWidget> {
                                         'fbap6xe2' /* Email */,
                                       ),
                                       hintStyle: FlutterFlowTheme.of(context)
-                                          .bodyText2,
+                                          .bodyText1,
                                       enabledBorder: UnderlineInputBorder(
                                         borderSide: BorderSide(
                                           color: Color(0x00000000),
@@ -116,8 +116,7 @@ class _ForgotPasswordWidgetState extends State<ForgotPasswordWidget> {
                                               18, 0, 0, 0),
                                     ),
                                     style:
-                                        FlutterFlowTheme.of(context).bodyText1,
-                                    keyboardType: TextInputType.emailAddress,
+                                        FlutterFlowTheme.of(context).bodyText2,
                                   ),
                                 ),
                               ),
@@ -131,7 +130,7 @@ class _ForgotPasswordWidgetState extends State<ForgotPasswordWidget> {
                                           .showSnackBar(
                                         SnackBar(
                                           content: Text(
-                                            'Email required!',
+                                            'Требуется email',
                                           ),
                                         ),
                                       );
@@ -141,19 +140,19 @@ class _ForgotPasswordWidgetState extends State<ForgotPasswordWidget> {
                                       email: emailTextController!.text,
                                       context: context,
                                     );
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        content: Text(
-                                          'На вашу почту отправлена ссылка с восстановлением пароля',
-                                          style: TextStyle(
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryText,
-                                          ),
-                                        ),
-                                        duration: Duration(milliseconds: 4000),
-                                        backgroundColor: Color(0x00000000),
-                                      ),
-                                    );
+                                    // ScaffoldMessenger.of(context).showSnackBar(
+                                    //   SnackBar(
+                                    //     content: Text(
+                                    //       'На вашу почту отправлена ссылка с восстановлением пароля',
+                                    //       style: TextStyle(
+                                    //         color: FlutterFlowTheme.of(context)
+                                    //             .primaryText,
+                                    //       ),
+                                    //     ),
+                                    //     duration: Duration(milliseconds: 4000),
+                                    //     backgroundColor: Color(0x00000000),
+                                    //   ),
+                                    // );
                                     Navigator.pop(context);
                                   },
                                   child: ButtonWidget(

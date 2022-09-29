@@ -1,4 +1,6 @@
 import 'package:drimly/auth/auth_util.dart';
+import 'package:drimly/components/audio_service.dart';
+import 'package:just_audio_background/just_audio_background.dart';
 
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -46,13 +48,15 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
 
   @override
   Widget build(BuildContext context) {
+    //print(widget.player.seek(position));
     return Row(
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         InkWell(
           onTap: () async {
-            await widget.player.seek(Duration(seconds: 15), index: -1);
+            await widget.player
+                .seek(Duration(seconds: widget.player.position.inSeconds - 10));
           },
           child: Container(
             width: 46,
@@ -62,7 +66,7 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
               shape: BoxShape.circle,
             ),
             child: Icon(
-              Icons.skip_previous,
+              Icons.replay_10,
               size: 28,
               color: Colors.white,
             ),
@@ -85,6 +89,19 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
                   child: const CircularProgressIndicator(),
                 );
               } else if (playing != true) {
+                AudioSource.uri(
+                  Uri.parse(
+                    widget.audio!.audio!,
+                  ),
+                  tag: MediaItem(
+                    // Specify a unique ID for each media item:
+                    id: '1',
+                    // Metadata to display in the notification:
+                    album: "Медитации Елены Друма",
+                    title: widget.audio!.title!,
+                    artUri: Uri.parse(widget.audio!.cover!),
+                  ),
+                );
                 return Container(
                   width: 80,
                   height: 80,
@@ -135,7 +152,8 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
         ),
         InkWell(
           onTap: () async {
-            await widget.player.seek(Duration(seconds: 15), index: 1);
+            await widget.player
+                .seek(Duration(seconds: widget.player.position.inSeconds + 10));
           },
           child: Container(
             width: 46,
@@ -146,7 +164,7 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
               shape: BoxShape.circle,
             ),
             child: Icon(
-              Icons.skip_next,
+              Icons.forward_10,
               size: 28,
               color: Colors.white,
             ),

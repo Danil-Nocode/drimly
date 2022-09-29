@@ -3,6 +3,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:just_audio_background/just_audio_background.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
 import 'auth/firebase_user_provider.dart';
 import 'auth/auth_util.dart';
@@ -28,6 +29,11 @@ void main() async {
   await FlutterFlowTheme.initialize();
 
   FFAppState(); // Initialize FFAppState
+  await JustAudioBackground.init(
+    androidNotificationChannelId: 'com.ryanheise.bg_demo.channel.audio',
+    androidNotificationChannelName: 'Drimly',
+    androidNotificationOngoing: true,
+  );
 
   runApp(MyApp());
 }
@@ -43,7 +49,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   Locale? _locale;
-  ThemeMode _themeMode = FlutterFlowTheme.themeMode;
+  ThemeMode _themeMode = ThemeMode.light;
 
   late Stream<DrimlyFirebaseUser> userStream;
   DrimlyFirebaseUser? initialUser;
@@ -75,7 +81,8 @@ class _MyAppState extends State<MyApp> {
     super.dispose();
   }
 
-  void setLocale(Locale value) => setState(() => _locale = Locale('ru'));
+  void setLocale(Locale value) => setState(() => _locale = Locale('ru', ''));
+
   void setThemeMode(ThemeMode mode) => setState(() {
         _themeMode = ThemeMode.light;
         FlutterFlowTheme.saveThemeMode(_themeMode);
@@ -108,7 +115,7 @@ class _MyAppState extends State<MyApp> {
         Locale('en', ''),
       ],
       theme: ThemeData(brightness: Brightness.light),
-      darkTheme: ThemeData(brightness: Brightness.dark),
+      darkTheme: ThemeData(brightness: Brightness.light),
       themeMode: _themeMode,
       home: initialUser == null || displaySplashImage
           ? Center(

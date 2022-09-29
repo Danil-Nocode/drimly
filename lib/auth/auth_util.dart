@@ -27,7 +27,7 @@ Future<User?> signInOrCreateAccount(
   } on FirebaseAuthException catch (e) {
     ScaffoldMessenger.of(context).hideCurrentSnackBar();
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Error: ${e.message!}')),
+      SnackBar(content: Text('Ошибка: ${e.message!}')),
     );
     return null;
   }
@@ -41,7 +41,8 @@ Future signOut() {
 Future deleteUser(BuildContext context) async {
   try {
     if (currentUser?.user == null) {
-      print('Error: delete user attempted with no logged in user!');
+      print(
+          'Ошибка: попытка удаления пользователя без входа в систему пользователя!');
       return;
     }
     await currentUser?.user?.delete();
@@ -51,7 +52,7 @@ Future deleteUser(BuildContext context) async {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
             content: Text(
-                'Too long since most recent sign in. Sign in again before deleting your account.')),
+                'Слишком много времени прошло с момента последнего входа в систему. Войдите в систему еще раз, прежде чем удалять свою учетную запись.')),
       );
     }
   }
@@ -64,12 +65,14 @@ Future resetPassword(
   } on FirebaseAuthException catch (e) {
     ScaffoldMessenger.of(context).hideCurrentSnackBar();
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Error: ${e.message!}')),
+      SnackBar(content: Text('Ошбика: ${e.message!}')),
     );
     return null;
   }
   ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(content: Text('Password reset email sent')),
+    SnackBar(
+        content: Text(
+            'Ссылка для восстановления пароля отправлена на указанную почту')),
   );
 }
 
@@ -141,7 +144,7 @@ Future beginPhoneAuth({
     },
     verificationFailed: (e) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('Error: ${e.message!}'),
+        content: Text('Ошбика: ${e.message!}'),
       ));
     },
     codeSent: (verificationId, _) {

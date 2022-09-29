@@ -223,16 +223,20 @@ class _MeditationListWidgetState extends State<MeditationListWidget> {
                   child: Builder(
                     builder: (context) {
                       var audio = widget.meditation!.audios!.toList();
-                      if (currentUserDocument!.status == 'free' ||
-                          (currentUserDocument!.status == 'start' &&
+                      if (currentUserDocument!.status!.toLowerCase() ==
+                              'free' ||
+                          (currentUserDocument!.status!.toLowerCase() ==
+                                  'start' &&
                               widget.meditation!.title != '3 кита')) {
                         audio = [audio[0]];
                       }
 
-                      if (currentUserDocument!.status == 'start' &&
+                      if (currentUserDocument!.status!.toLowerCase() ==
+                              'start' &&
                           widget.meditation!.title == '3 кита') {
                         audio = [audio[0], audio[1], audio[2]];
-                      } else if (currentUserDocument!.status != 'start' &&
+                      } else if (currentUserDocument!.status!.toLowerCase() !=
+                              'start' &&
                           widget.meditation!.title == '3 кита') {
                         audio = [audio[0]];
                       }

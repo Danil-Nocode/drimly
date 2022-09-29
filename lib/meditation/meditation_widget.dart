@@ -244,6 +244,11 @@ class _MeditationWidgetState extends State<MeditationWidget> {
                       gridViewMeditationRecordList
                           .sort((a, b) => a.index!.compareTo(b.index!));
 
+                      gridViewMeditationRecordList =
+                          gridViewMeditationRecordList
+                              .where((meditation) => (meditation.isView!))
+                              .toList();
+
                       // if (currentUserDocument!.status == 'free') {
                       //   return SizedBox(
                       //     //height: MediaQuery.of(context).size.height * 1,
@@ -273,9 +278,7 @@ class _MeditationWidgetState extends State<MeditationWidget> {
                         itemBuilder: (context, gridViewIndex) {
                           final gridViewMeditationRecord =
                               gridViewMeditationRecordList[gridViewIndex];
-                          if (!gridViewMeditationRecord.isView!) {
-                            return Container();
-                          }
+
                           return Container(
                             width: 100,
                             height: 100,

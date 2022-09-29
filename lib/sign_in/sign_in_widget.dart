@@ -2,6 +2,7 @@ import '../auth/auth_util.dart';
 import '../components/button_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
+import '../forgot_password/forgot_password_widget.dart';
 import '../main.dart';
 import '../sign_up/sign_up_widget.dart';
 import 'package:flutter/material.dart';
@@ -223,21 +224,32 @@ class _SignInWidgetState extends State<SignInWidget> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text(
-                                        FFLocalizations.of(context).getText(
-                                          'ufhwcgzy' /* Забыли пароль? */,
-                                        ),
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyText1
-                                            .override(
-                                              fontFamily: 'montserrat',
-                                              color: Color(0xFFB3B6BE),
-                                              fontSize: 13,
-                                              fontWeight: FontWeight.w600,
-                                              decoration:
-                                                  TextDecoration.underline,
-                                              useGoogleFonts: false,
+                                      InkWell(
+                                        onTap: () async {
+                                          await Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  ForgotPasswordWidget(),
                                             ),
+                                          );
+                                        },
+                                        child: Text(
+                                          FFLocalizations.of(context).getText(
+                                            'ufhwcgzy' /* Забыли пароль? */,
+                                          ),
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyText1
+                                              .override(
+                                                fontFamily: 'montserrat',
+                                                color: Color(0xFFB3B6BE),
+                                                fontSize: 13,
+                                                fontWeight: FontWeight.w600,
+                                                decoration:
+                                                    TextDecoration.underline,
+                                                useGoogleFonts: false,
+                                              ),
+                                        ),
                                       ),
                                       InkWell(
                                         onTap: () async {

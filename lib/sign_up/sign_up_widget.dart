@@ -3,6 +3,7 @@ import '../backend/backend.dart';
 import '../components/button_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
+import '../flutter_flow/support_file.dart';
 import '../main.dart';
 import '../sign_in/sign_in_widget.dart';
 import 'package:flutter/material.dart';
@@ -336,49 +337,67 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                             0, 50, 0, 0),
                                         child: InkWell(
                                           onTap: () async {
-                                            if (textFieldPasswordController
-                                                    ?.text !=
-                                                textFieldRepeatPasswordController
-                                                    ?.text) {
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(
-                                                SnackBar(
-                                                  content: Text(
-                                                    'Passwords don\'t match!',
-                                                  ),
-                                                ),
-                                              );
-                                              return;
+                                            // if (textFieldPasswordController
+                                            //         ?.text !=
+                                            //     textFieldRepeatPasswordController
+                                            //         ?.text) {
+                                            //   ScaffoldMessenger.of(context)
+                                            //       .showSnackBar(
+                                            //     SnackBar(
+                                            //       content: Text(
+                                            //         'Passwords don\'t match!',
+                                            //       ),
+                                            //     ),
+                                            //   );
+                                            //   return;
+                                            // }
+
+                                            // final user =
+                                            //     await createAccountWithEmail(
+                                            //   context,
+                                            //   textFieldEmailController!.text,
+                                            //   textFieldPasswordController!.text,
+                                            // );
+                                            // if (user == null) {
+                                            //   return;
+                                            // }
+
+                                            String? status = 'free';
+
+                                            if (plans['platinum']!.contains(
+                                                textFieldEmailController!.text
+                                                    .toLowerCase())) {
+                                              status = 'platinum';
+                                            }
+                                            if (plans['gold']!.contains(
+                                                textFieldEmailController!.text
+                                                    .toLowerCase())) {
+                                              status = 'gold';
+                                            }
+                                            if (plans['limited']!.contains(
+                                                textFieldEmailController!.text
+                                                    .toLowerCase())) {
+                                              status = 'limited';
                                             }
 
-                                            final user =
-                                                await createAccountWithEmail(
-                                              context,
-                                              textFieldEmailController!.text,
-                                              textFieldPasswordController!.text,
-                                            );
-                                            if (user == null) {
-                                              return;
-                                            }
+                                            // final usersCreateData =
+                                            //     createUsersRecordData(
+                                            //   displayName:
+                                            //       textFieldNameController!.text,
+                                            // );
+                                            // await UsersRecord.collection
+                                            //     .doc(user.uid)
+                                            //     .update(usersCreateData);
 
-                                            final usersCreateData =
-                                                createUsersRecordData(
-                                              displayName:
-                                                  textFieldNameController!.text,
-                                            );
-                                            await UsersRecord.collection
-                                                .doc(user.uid)
-                                                .update(usersCreateData);
-
-                                            await Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    NavBarPage(
-                                                        initialPage:
-                                                            'Meditation'),
-                                              ),
-                                            );
+                                            // await Navigator.push(
+                                            //   context,
+                                            //   MaterialPageRoute(
+                                            //     builder: (context) =>
+                                            //         NavBarPage(
+                                            //             initialPage:
+                                            //                 'Meditation'),
+                                            //   ),
+                                            // );
                                           },
                                           child: ButtonWidget(
                                             text: 'Зарегистрироваться',
