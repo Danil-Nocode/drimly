@@ -384,6 +384,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                                 createUsersRecordData(
                                               displayName:
                                                   textFieldNameController!.text,
+                                              status: status,
                                             );
                                             await UsersRecord.collection
                                                 .doc(user.uid)
