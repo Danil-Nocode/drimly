@@ -337,30 +337,30 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                             0, 50, 0, 0),
                                         child: InkWell(
                                           onTap: () async {
-                                            // if (textFieldPasswordController
-                                            //         ?.text !=
-                                            //     textFieldRepeatPasswordController
-                                            //         ?.text) {
-                                            //   ScaffoldMessenger.of(context)
-                                            //       .showSnackBar(
-                                            //     SnackBar(
-                                            //       content: Text(
-                                            //         'Passwords don\'t match!',
-                                            //       ),
-                                            //     ),
-                                            //   );
-                                            //   return;
-                                            // }
+                                            if (textFieldPasswordController
+                                                    ?.text !=
+                                                textFieldRepeatPasswordController
+                                                    ?.text) {
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(
+                                                SnackBar(
+                                                  content: Text(
+                                                    'Passwords don\'t match!',
+                                                  ),
+                                                ),
+                                              );
+                                              return;
+                                            }
 
-                                            // final user =
-                                            //     await createAccountWithEmail(
-                                            //   context,
-                                            //   textFieldEmailController!.text,
-                                            //   textFieldPasswordController!.text,
-                                            // );
-                                            // if (user == null) {
-                                            //   return;
-                                            // }
+                                            final user =
+                                                await createAccountWithEmail(
+                                              context,
+                                              textFieldEmailController!.text,
+                                              textFieldPasswordController!.text,
+                                            );
+                                            if (user == null) {
+                                              return;
+                                            }
 
                                             String? status = 'free';
 
@@ -380,24 +380,24 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                               status = 'limited';
                                             }
 
-                                            // final usersCreateData =
-                                            //     createUsersRecordData(
-                                            //   displayName:
-                                            //       textFieldNameController!.text,
-                                            // );
-                                            // await UsersRecord.collection
-                                            //     .doc(user.uid)
-                                            //     .update(usersCreateData);
+                                            final usersCreateData =
+                                                createUsersRecordData(
+                                              displayName:
+                                                  textFieldNameController!.text,
+                                            );
+                                            await UsersRecord.collection
+                                                .doc(user.uid)
+                                                .update(usersCreateData);
 
-                                            // await Navigator.push(
-                                            //   context,
-                                            //   MaterialPageRoute(
-                                            //     builder: (context) =>
-                                            //         NavBarPage(
-                                            //             initialPage:
-                                            //                 'Meditation'),
-                                            //   ),
-                                            // );
+                                            await Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    NavBarPage(
+                                                        initialPage:
+                                                            'Meditation'),
+                                              ),
+                                            );
                                           },
                                           child: ButtonWidget(
                                             text: 'Зарегистрироваться',
