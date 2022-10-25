@@ -16,3 +16,4 @@ export 'profile/profile_widget.dart' show ProfileWidget;
 export 'all_notice/all_notice_widget.dart' show AllNoticeWidget;
 export 'notice_page/notice_page_widget.dart' show NoticePageWidget;
 export 'create_notice/create_notice_widget.dart' show CreateNoticeWidget;
+export 'chat/chat_widget.dart' show ChatWidget;

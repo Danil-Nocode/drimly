@@ -71,7 +71,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'ru': 'Войти',
       'en': 'To come in',
     },
-    'nx5rpf11': {
+    '2erhjcoc': {
       'ru':
           'Прододоллжая, Вы соглашаетесь с Условиями использования и Политикой конфиденциальности',
       'en': 'By continuing, you agree to the Terms of Use and Privacy Policy',
@@ -99,7 +99,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'ru': 'Зарегистрироваться',
       'en': 'Register',
     },
-    'e3h2uxfj': {
+    '9nuwdoc9': {
       'ru':
           'Прододоллжая, Вы соглашаетесь с Условиями использования и Политикой конфиденциальности',
       'en': 'By continuing, you agree to the Terms of Use and Privacy Policy',
@@ -398,6 +398,13 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
     '1ix55t6u': {
       'ru': 'Home',
       'en': 'Home',
+    },
+  },
+  // Chat
+  {
+    'vk0nyi2b': {
+      'ru': 'Психолог',
+      'en': '',
     },
   },
   // noticePageCreate

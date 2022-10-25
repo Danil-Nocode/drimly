@@ -10,8 +10,13 @@ class DrimlyFirebaseUser {
 DrimlyFirebaseUser? currentUser;
 bool get loggedIn => currentUser?.loggedIn ?? false;
 Stream<DrimlyFirebaseUser> drimlyFirebaseUserStream() => FirebaseAuth.instance
-    .authStateChanges()
-    .debounce((user) => user == null && !loggedIn
-        ? TimerStream(true, const Duration(seconds: 1))
-        : Stream.value(user))
-    .map<DrimlyFirebaseUser>((user) => currentUser = DrimlyFirebaseUser(user));
+        .authStateChanges()
+        .debounce((user) => user == null && !loggedIn
+            ? TimerStream(true, const Duration(seconds: 1))
+            : Stream.value(user))
+        .map<DrimlyFirebaseUser>(
+      (user) {
+        currentUser = DrimlyFirebaseUser(user);
+        return currentUser!;
+      },
+    );

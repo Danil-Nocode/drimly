@@ -163,7 +163,7 @@ class _AllNoticeWidgetState extends State<AllNoticeWidget> {
                                   ),
                                 );
                               },
-                            );
+                            ).then((value) => setState(() {}));
                           },
                           child: Container(
                             width: 100,
@@ -225,8 +225,12 @@ class _AllNoticeWidgetState extends State<AllNoticeWidget> {
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
-                                          dateTimeFormat('d/M/y',
-                                              listViewNotesRecord.date!),
+                                          dateTimeFormat(
+                                            'd/M/y',
+                                            listViewNotesRecord.date!,
+                                            locale: FFLocalizations.of(context)
+                                                .languageCode,
+                                          ),
                                           style: FlutterFlowTheme.of(context)
                                               .bodyText1
                                               .override(
