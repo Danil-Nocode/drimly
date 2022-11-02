@@ -5,7 +5,9 @@ import 'package:flutter/scheduler.dart';
 import '../backend/backend.dart';
 import '../components/audio_player_widget.dart';
 import '../components/audio_service.dart';
+import '../components/more_audio_widget.dart';
 import '../create_notice/create_notice_widget.dart';
+import '../files_audio_page/files_audio_page_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +22,8 @@ import 'package:flutter/services.dart';
 import 'package:just_audio/just_audio.dart';
 import '../components/common.dart';
 import 'package:rxdart/rxdart.dart';
+
+import '../task_page/task_page_widget.dart';
 
 class MeditationPageWidget extends StatefulWidget {
   const MeditationPageWidget({
@@ -93,64 +97,114 @@ class _MeditationPageWidgetState extends State<MeditationPageWidget> {
                   ),
                 ),
                 child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 70, 0, 0),
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Column(
-                        children: [
-                          Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
-                            child: Row(
-                              children: [
-                                InkWell(
-                                  onTap: () {
-                                    Navigator.pop(context);
-                                  },
-                                  child: Container(
-                                    width: 40,
-                                    height: 40,
-                                    decoration: BoxDecoration(
-                                      color: Color.fromARGB(179, 209, 209, 209),
-                                      shape: BoxShape.circle,
-                                    ),
-                                    child: Icon(
-                                      Icons.close,
-                                      size: 22.0,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(40, 50, 40, 0),
-                            child: Row(
+                      // Generated code for this Stack Widget...
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 70, 0, 0),
+                        child: Stack(
+                          alignment: AlignmentDirectional(-0.9, 0),
+                          children: [
+                            Row(
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Expanded(
-                                  child: Text(
-                                    containerAudiosRecord.title!,
-                                    textAlign: TextAlign.center,
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyText1
-                                        .override(
-                                            fontFamily: 'montserrat',
-                                            color: Colors.white,
-                                            useGoogleFonts: false,
-                                            fontSize: 22),
-                                  ),
+                                Text(
+                                  containerAudiosRecord.title!,
+                                  textAlign: TextAlign.center,
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyText1
+                                      .override(
+                                        fontFamily: 'montserrat',
+                                        color: Colors.white,
+                                        useGoogleFonts: false,
+                                        fontSize: 16,
+                                      ),
                                 ),
                               ],
                             ),
-                          ),
-                        ],
+                            Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  InkWell(
+                                    onTap: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: Icon(
+                                      Icons.chevron_left_rounded,
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryBtnText,
+                                      size: 32,
+                                    ),
+                                  ),
+                                  if (containerAudiosRecord.files! ||
+                                      containerAudiosRecord.tasks!)
+                                    InkWell(
+                                      onTap: () async {
+                                        if (containerAudiosRecord.files! &&
+                                            containerAudiosRecord.tasks!) {
+                                          await showModalBottomSheet(
+                                            isScrollControlled: true,
+                                            backgroundColor: Colors.transparent,
+                                            context: context,
+                                            builder: (context) {
+                                              return Padding(
+                                                padding: MediaQuery.of(context)
+                                                    .viewInsets,
+                                                child: MoreAudioWidget(
+                                                  audio: containerAudiosRecord,
+                                                ),
+                                              );
+                                            },
+                                          ).then((value) => setState(() {}));
+                                        } else {
+                                          if (containerAudiosRecord.files!) {
+                                            await Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    FilesAudioPageWidget(
+                                                  images: containerAudiosRecord
+                                                      .filesStorage!
+                                                      .toList(),
+                                                ),
+                                              ),
+                                            );
+                                          } else {
+                                            await Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    TaskPageWidget(
+                                                  audio: containerAudiosRecord,
+                                                ),
+                                              ),
+                                            );
+                                          }
+                                        }
+                                      },
+                                      child: Icon(
+                                        Icons.more_vert,
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryBtnText,
+                                        size: 24,
+                                      ),
+                                    ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
+
                       AudioPlayerWidget(
                         audio: containerAudiosRecord,
                         player: player!,

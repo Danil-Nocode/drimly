@@ -159,7 +159,7 @@ class _NavBarPageState extends State<NavBarPage> {
         'Meditation': MeditationWidget(),
         'Sound': SoundWidget(),
         'Practice': PracticeWidget(),
-        'Chat': ChatWidget(
+        'Chat': ChatPageUserWidget(
             // chatUser: psychologist!,
             // chatRef: chat!.reference,
             ),
@@ -343,7 +343,7 @@ class _NavBarPageState extends State<NavBarPage> {
               ),
               Text(
                 FFLocalizations.of(context).getText(
-                  '7lefkiya' /* Чат */,
+                  'g455pxao' /* Чат */,
                 ),
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(

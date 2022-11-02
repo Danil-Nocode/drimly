@@ -12,6 +12,9 @@ import 'sections_record.dart';
 import 'sounds_record.dart';
 import 'chats_record.dart';
 import 'chat_messages_record.dart';
+import 'files_record.dart';
+import 'tasks_record.dart';
+import 'complete_task_record.dart';
 
 import 'index.dart';
 
@@ -31,6 +34,9 @@ const kDocumentReferenceField = 'Document__Reference__Field';
   SoundsRecord,
   ChatsRecord,
   ChatMessagesRecord,
+  FilesRecord,
+  TasksRecord,
+  CompleteTaskRecord,
 ])
 final Serializers serializers = (_$serializers.toBuilder()
       ..add(DocumentReferenceSerializer())

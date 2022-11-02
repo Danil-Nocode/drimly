@@ -54,6 +54,28 @@ class _$AudiosRecordSerializer implements StructuredSerializer<AudiosRecord> {
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
+    value = object.files;
+    if (value != null) {
+      result
+        ..add('files')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
+    value = object.tasks;
+    if (value != null) {
+      result
+        ..add('tasks')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
+    value = object.filesStorage;
+    if (value != null) {
+      result
+        ..add('filesStorage')
+        ..add(serializers.serialize(value,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(String)])));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -97,6 +119,20 @@ class _$AudiosRecordSerializer implements StructuredSerializer<AudiosRecord> {
           result.coverMini = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
+        case 'files':
+          result.files = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
+          break;
+        case 'tasks':
+          result.tasks = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
+          break;
+        case 'filesStorage':
+          result.filesStorage.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(String)]))!
+              as BuiltList<Object?>);
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -122,6 +158,12 @@ class _$AudiosRecord extends AudiosRecord {
   @override
   final String? coverMini;
   @override
+  final bool? files;
+  @override
+  final bool? tasks;
+  @override
+  final BuiltList<String>? filesStorage;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$AudiosRecord([void Function(AudiosRecordBuilder)? updates]) =>
@@ -133,6 +175,9 @@ class _$AudiosRecord extends AudiosRecord {
       this.cover,
       this.minute,
       this.coverMini,
+      this.files,
+      this.tasks,
+      this.filesStorage,
       this.ffRef})
       : super._();
 
@@ -152,6 +197,9 @@ class _$AudiosRecord extends AudiosRecord {
         cover == other.cover &&
         minute == other.minute &&
         coverMini == other.coverMini &&
+        files == other.files &&
+        tasks == other.tasks &&
+        filesStorage == other.filesStorage &&
         ffRef == other.ffRef;
   }
 
@@ -160,10 +208,16 @@ class _$AudiosRecord extends AudiosRecord {
     return $jf($jc(
         $jc(
             $jc(
-                $jc($jc($jc(0, title.hashCode), audio.hashCode),
-                    cover.hashCode),
-                minute.hashCode),
-            coverMini.hashCode),
+                $jc(
+                    $jc(
+                        $jc(
+                            $jc($jc($jc(0, title.hashCode), audio.hashCode),
+                                cover.hashCode),
+                            minute.hashCode),
+                        coverMini.hashCode),
+                    files.hashCode),
+                tasks.hashCode),
+            filesStorage.hashCode),
         ffRef.hashCode));
   }
 
@@ -175,6 +229,9 @@ class _$AudiosRecord extends AudiosRecord {
           ..add('cover', cover)
           ..add('minute', minute)
           ..add('coverMini', coverMini)
+          ..add('files', files)
+          ..add('tasks', tasks)
+          ..add('filesStorage', filesStorage)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -204,6 +261,20 @@ class AudiosRecordBuilder
   String? get coverMini => _$this._coverMini;
   set coverMini(String? coverMini) => _$this._coverMini = coverMini;
 
+  bool? _files;
+  bool? get files => _$this._files;
+  set files(bool? files) => _$this._files = files;
+
+  bool? _tasks;
+  bool? get tasks => _$this._tasks;
+  set tasks(bool? tasks) => _$this._tasks = tasks;
+
+  ListBuilder<String>? _filesStorage;
+  ListBuilder<String> get filesStorage =>
+      _$this._filesStorage ??= new ListBuilder<String>();
+  set filesStorage(ListBuilder<String>? filesStorage) =>
+      _$this._filesStorage = filesStorage;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -220,6 +291,9 @@ class AudiosRecordBuilder
       _cover = $v.cover;
       _minute = $v.minute;
       _coverMini = $v.coverMini;
+      _files = $v.files;
+      _tasks = $v.tasks;
+      _filesStorage = $v.filesStorage?.toBuilder();
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -241,14 +315,30 @@ class AudiosRecordBuilder
   AudiosRecord build() => _build();
 
   _$AudiosRecord _build() {
-    final _$result = _$v ??
-        new _$AudiosRecord._(
-            title: title,
-            audio: audio,
-            cover: cover,
-            minute: minute,
-            coverMini: coverMini,
-            ffRef: ffRef);
+    _$AudiosRecord _$result;
+    try {
+      _$result = _$v ??
+          new _$AudiosRecord._(
+              title: title,
+              audio: audio,
+              cover: cover,
+              minute: minute,
+              coverMini: coverMini,
+              files: files,
+              tasks: tasks,
+              filesStorage: _filesStorage?.build(),
+              ffRef: ffRef);
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'filesStorage';
+        _filesStorage?.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'AudiosRecord', _$failedField, e.toString());
+      }
+      rethrow;
+    }
     replace(_$result);
     return _$result;
   }

@@ -11,13 +11,13 @@ class FFLocalizations {
 
   static List<String> languages() => ['ru', 'en'];
 
-  String get languageCode => locale.languageCode;
+  String get languageCode => locale.toString();
   int get languageIndex => languages().contains(languageCode)
       ? languages().indexOf(languageCode)
       : 0;
 
   String getText(String key) =>
-      (kTranslationsMap[key] ?? {})[locale.languageCode] ?? '';
+      (kTranslationsMap[key] ?? {})[locale.toString()] ?? '';
 
   String getVariableText({
     String? ruText = '',
@@ -31,7 +31,7 @@ class FFLocalizationsDelegate extends LocalizationsDelegate<FFLocalizations> {
 
   @override
   bool isSupported(Locale locale) =>
-      FFLocalizations.languages().contains(locale.languageCode);
+      FFLocalizations.languages().contains(locale.toString());
 
   @override
   Future<FFLocalizations> load(Locale locale) =>
@@ -41,30 +41,28 @@ class FFLocalizationsDelegate extends LocalizationsDelegate<FFLocalizations> {
   bool shouldReload(FFLocalizationsDelegate old) => false;
 }
 
+Locale createLocale(String language) => language.contains('_')
+    ? Locale.fromSubtags(
+        languageCode: language.split('_').first,
+        scriptCode: language.split('_').last,
+      )
+    : Locale(language);
+
 final kTranslationsMap = <Map<String, Map<String, String>>>[
-  // Доп
+  // SignUp
   {
+    'ogwzir23': {
+      'ru': 'Выйти',
+      'en': 'Quit',
+    },
     'ugez42w4': {
       'ru': 'Удалить аккаунт',
       'en': 'Delete account',
     },
-    'ogwzir23': {
-      'ru': 'Выход',
-      'en': 'Exit',
+    'g455pxao': {
+      'ru': 'Чат',
+      'en': 'Chat',
     },
-    'ogwzir1223': {
-      'ru': ' минут',
-      'en': ' minutes',
-    },
-    'ogwzir12323': {
-      'ru': ' сессий',
-      'en': ' sessions',
-    },
-  },
-
-  // SignUp
-
-  {
     'g455pxgo': {
       'ru': 'Имя',
       'en': 'Name',
@@ -85,7 +83,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'ru': 'Войти',
       'en': 'To come in',
     },
-    'nx5rpf11': {
+    '2erhjcoc': {
       'ru':
           'Прододоллжая, Вы соглашаетесь с Условиями использования и Политикой конфиденциальности',
       'en': 'By continuing, you agree to the Terms of Use and Privacy Policy',
@@ -113,7 +111,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'ru': 'Зарегистрироваться',
       'en': 'Register',
     },
-    'e3h2uxfj': {
+    '9nuwdoc9': {
       'ru':
           'Прододоллжая, Вы соглашаетесь с Условиями использования и Политикой конфиденциальности',
       'en': 'By continuing, you agree to the Terms of Use and Privacy Policy',
@@ -184,9 +182,9 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
   {
     'm2mr7hwh': {
       'ru':
-          'Какое количество минут Вы готовы ежедневно инвестировать в свое саморазвитие?',
+          'Какую сферу жизни Вы бы хотели улучшить с помощью трансовых медитаций  от Елены Друма?',
       'en':
-          'How many minutes are you willing to invest in your self-development every day?',
+          'What area of life would you like to improve with Elena Druma&#39;s trance meditations?',
     },
     '2c8k5ckh': {
       'ru': '5 минут',
@@ -231,11 +229,6 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
   },
   // Poll3
   {
-    'e4szr0lm': {
-      'ru': 'Спасибо за пройденный опрос, Ваш личный план сформирован!',
-      'en':
-          'Thank you for completing the survey, your personal plan is formed!',
-    },
     'wu9s9xp8': {
       'ru': 'Home',
       'en': 'Home',
@@ -256,7 +249,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'The best compilations of meditations',
     },
     '0gymdr5m': {
-      'ru': 'Медитации',
+      'ru': 'Медитация',
       'en': 'Meditation',
     },
   },
@@ -297,15 +290,15 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'Sounds',
     },
     'd8s51ob6': {
-      'ru': 'Звуки',
-      'en': 'Sounds',
+      'ru': 'Шум',
+      'en': 'Noise',
     },
   },
   // Practice
   {
     'dm53c3gs': {
       'ru': 'Практики',
-      'en': 'Practices',
+      'en': 'practices',
     },
     'i97m60r9': {
       'ru': '5.0',
@@ -313,7 +306,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
     },
     '77l0vuay': {
       'ru': 'Практики',
-      'en': 'Practices',
+      'en': 'practices',
     },
   },
   // PracticePage
@@ -324,7 +317,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
     },
     'kmgrjs63': {
       'ru': 'Практики',
-      'en': 'Practices',
+      'en': 'practices',
     },
   },
   // sectionPage
@@ -344,13 +337,13 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'ru': '5.0',
       'en': '5.0',
     },
-    '5l5zu8u2': {
-      'ru': '5 минут',
-      'en': '5 minutes',
+    'zeef8q8b': {
+      'ru': 'Выполненные задания',
+      'en': 'My notes',
     },
-    'lui6xu5t': {
-      'ru': '34 сессии',
-      'en': '34 sessions',
+    'mr4gdlic': {
+      'ru': 'Чаты',
+      'en': 'My notes',
     },
     '40tf6otp': {
       'ru': 'Открыть полный доступ',
@@ -362,11 +355,11 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
     },
     'ogwzirt4': {
       'ru': 'RU версия',
-      'en': 'EN version',
+      'en': 'RU version',
     },
-    '7lefkiya': {
-      'ru': 'Чат',
-      'en': 'Chat',
+    '8ylwnasi': {
+      'ru': 'Удалить аккаунт',
+      'en': '',
     },
     '7lefkiyy': {
       'ru': 'Профиль',
@@ -394,6 +387,10 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'ru': 'Опишите свои чувства',
       'en': 'Describe your feelings',
     },
+    'uh103g5b': {
+      'ru': 'Введите текст...',
+      'en': 'Enter text...',
+    },
     'plkb4lpl': {
       'ru': 'Home',
       'en': 'Home',
@@ -418,8 +415,138 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'Home',
     },
   },
+  // Chat
+  {
+    'ydg0h94j': {
+      'ru': 'Психолог',
+      'en': '',
+    },
+  },
+  // taskPage
+  {
+    'vcegaq9i': {
+      'ru': 'Задания',
+      'en': '',
+    },
+    'qf89ilbo': {
+      'ru': 'Выполнить',
+      'en': '',
+    },
+    'ny6smh4z': {
+      'ru': 'Обратная связь',
+      'en': '',
+    },
+    '0hmoeiio': {
+      'ru': 'Home',
+      'en': '',
+    },
+  },
+  // completeTask
+  {
+    'vo5st0ps': {
+      'ru': 'Выполнение задания',
+      'en': '',
+    },
+    'e7pq9gur': {
+      'ru': 'Напишите свой ответ ',
+      'en': 'Enter text...',
+    },
+    'fbp4q19v': {
+      'ru': 'Загрузить медиа',
+      'en': '',
+    },
+    '6gquu5gp': {
+      'ru': 'Home',
+      'en': '',
+    },
+  },
+  // allCompleteTasks
+  {
+    'f340yas2': {
+      'ru': 'Мои задания',
+      'en': 'My notes',
+    },
+    'f9rvaluv': {
+      'ru': 'Home',
+      'en': 'Home',
+    },
+  },
+  // completedTask
+  {
+    'yflq9dp1': {
+      'ru': 'Выполненное задание',
+      'en': '',
+    },
+    'a0e464wy': {
+      'ru': 'Напишите свой ответ ',
+      'en': 'Enter text...',
+    },
+    '2tua4y3f': {
+      'ru': 'Загруженное медиа',
+      'en': '',
+    },
+    'whwwis5i': {
+      'ru': 'Обратная связь',
+      'en': '',
+    },
+    '4ka7psit': {
+      'ru': 'Home',
+      'en': '',
+    },
+  },
+  // filesAudioPage
+  {
+    '6dxjgvya': {
+      'ru': 'Вложенные файлы',
+      'en': '',
+    },
+    'kpavn6h5': {
+      'ru': 'Home',
+      'en': '',
+    },
+  },
+  // chatPage
+  {
+    '9fq50enk': {
+      'ru': 'Чаты',
+      'en': '',
+    },
+  },
+  // noticePageCreate
+  {
+    'w79lxyhn': {
+      'ru': 'Опишите свои чувства...',
+      'en': 'Enter text...',
+    },
+  },
+  // noticePageView
+  {
+    'vgxbzaef': {
+      'ru': 'Опишите свои чувства...',
+      'en': 'Enter text...',
+    },
+  },
+  // moreAudio
+  {
+    '28oo7uue': {
+      'ru': 'Вложенные файлы',
+      'en': '',
+    },
+    'x3ffzwuv': {
+      'ru': 'Задания для выполнения',
+      'en': '',
+    },
+  },
   // Miscellaneous
   {
+    '20q0ksmy': {
+      'ru': '',
+      'en': '',
+    },
+    'kv59no47': {
+      'ru': '',
+      'en': '',
+    },
     'huw575a3': {
       'ru': '',
       'en': '',

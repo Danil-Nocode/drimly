@@ -7,8 +7,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ChatWidget extends StatefulWidget {
-  const ChatWidget({
+class ChatPageUserWidget extends StatefulWidget {
+  const ChatPageUserWidget({
     Key? key,
     // this.chatUser,
     // this.chatRef,
@@ -18,10 +18,10 @@ class ChatWidget extends StatefulWidget {
   // final DocumentReference? chatRef;
 
   @override
-  _ChatWidgetState createState() => _ChatWidgetState();
+  _ChatPageUserWidgetState createState() => _ChatPageUserWidgetState();
 }
 
-class _ChatWidgetState extends State<ChatWidget> {
+class _ChatPageUserWidgetState extends State<ChatPageUserWidget> {
   FFChatInfo? _chatInfo;
   // bool isGroupChat() {
   //   if (widget.chatUser == null) {
