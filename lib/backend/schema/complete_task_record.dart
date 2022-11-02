@@ -6,6 +6,7 @@ import 'package:built_value/built_value.dart';
 
 part 'complete_task_record.g.dart';
 
+abstract class CompleteTaskRecord
     implements Built<CompleteTaskRecord, CompleteTaskRecordBuilder> {
   static Serializer<CompleteTaskRecord> get serializer =>
       _$completeTaskRecordSerializer;
