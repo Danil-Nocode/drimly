@@ -40,6 +40,14 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
 
   int? get sessionCount;
 
+  bool? get isActiveChat;
+
+  bool? get isPsychologist;
+
+  DocumentReference? get psychologist;
+
+  BuiltList<DocumentReference>? get clientsPsychologist;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -56,7 +64,10 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
     ..listenAudio = ListBuilder()
     ..status = ''
     ..minuteListen = 0
-    ..sessionCount = 0;
+    ..sessionCount = 0
+    ..isActiveChat = false
+    ..isPsychologist = false
+    ..clientsPsychologist = ListBuilder();
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('users');
@@ -92,6 +103,10 @@ Map<String, dynamic> createUsersRecordData({
   String? status,
   int? minuteListen,
   int? sessionCount,
+  bool? isActiveChat,
+  bool? isPsychologist,
+  DocumentReference? psychologist,
+  List<DocumentReference>? clientsPsychologist,
 }) {
   final firestoreData = serializers.toFirestore(
     UsersRecord.serializer,
@@ -109,7 +124,10 @@ Map<String, dynamic> createUsersRecordData({
         ..listenAudio = null
         ..status = status
         ..minuteListen = minuteListen
-        ..sessionCount = sessionCount,
+        ..sessionCount = sessionCount
+        ..isActiveChat = isActiveChat
+        ..isPsychologist = isPsychologist
+        ..psychologist = psychologist,
     ),
   );
 

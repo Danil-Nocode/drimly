@@ -111,6 +111,38 @@ class _$UsersRecordSerializer implements StructuredSerializer<UsersRecord> {
         ..add('sessionCount')
         ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
+    value = object.isActiveChat;
+    if (value != null) {
+      result
+        ..add('isActiveChat')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
+    value = object.isPsychologist;
+    if (value != null) {
+      result
+        ..add('isPsychologist')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
+    value = object.psychologist;
+    if (value != null) {
+      result
+        ..add('psychologist')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(
+                DocumentReference, const [const FullType.nullable(Object)])));
+    }
+    value = object.clientsPsychologist;
+    if (value != null) {
+      result
+        ..add('clientsPsychologist')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(BuiltList, const [
+              const FullType(
+                  DocumentReference, const [const FullType.nullable(Object)])
+            ])));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -188,6 +220,27 @@ class _$UsersRecordSerializer implements StructuredSerializer<UsersRecord> {
           result.sessionCount = serializers.deserialize(value,
               specifiedType: const FullType(int)) as int?;
           break;
+        case 'isActiveChat':
+          result.isActiveChat = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
+          break;
+        case 'isPsychologist':
+          result.isPsychologist = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
+          break;
+        case 'psychologist':
+          result.psychologist = serializers.deserialize(value,
+              specifiedType: const FullType(DocumentReference, const [
+                const FullType.nullable(Object)
+              ])) as DocumentReference<Object?>?;
+          break;
+        case 'clientsPsychologist':
+          result.clientsPsychologist.replace(serializers.deserialize(value,
+              specifiedType: const FullType(BuiltList, const [
+                const FullType(
+                    DocumentReference, const [const FullType.nullable(Object)])
+              ]))! as BuiltList<Object?>);
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -229,6 +282,14 @@ class _$UsersRecord extends UsersRecord {
   @override
   final int? sessionCount;
   @override
+  final bool? isActiveChat;
+  @override
+  final bool? isPsychologist;
+  @override
+  final DocumentReference<Object?>? psychologist;
+  @override
+  final BuiltList<DocumentReference<Object?>>? clientsPsychologist;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$UsersRecord([void Function(UsersRecordBuilder)? updates]) =>
@@ -248,6 +309,10 @@ class _$UsersRecord extends UsersRecord {
       this.status,
       this.minuteListen,
       this.sessionCount,
+      this.isActiveChat,
+      this.isPsychologist,
+      this.psychologist,
+      this.clientsPsychologist,
       this.ffRef})
       : super._();
 
@@ -275,6 +340,10 @@ class _$UsersRecord extends UsersRecord {
         status == other.status &&
         minuteListen == other.minuteListen &&
         sessionCount == other.sessionCount &&
+        isActiveChat == other.isActiveChat &&
+        isPsychologist == other.isPsychologist &&
+        psychologist == other.psychologist &&
+        clientsPsychologist == other.clientsPsychologist &&
         ffRef == other.ffRef;
   }
 
@@ -292,19 +361,34 @@ class _$UsersRecord extends UsersRecord {
                                         $jc(
                                             $jc(
                                                 $jc(
-                                                    $jc($jc(0, email.hashCode),
-                                                        displayName.hashCode),
-                                                    photoUrl.hashCode),
-                                                uid.hashCode),
-                                            createdTime.hashCode),
-                                        phoneNumber.hashCode),
-                                    question1.hashCode),
-                                question2.hashCode),
-                            rating.hashCode),
-                        listenAudio.hashCode),
-                    status.hashCode),
-                minuteListen.hashCode),
-            sessionCount.hashCode),
+                                                    $jc(
+                                                        $jc(
+                                                            $jc(
+                                                                $jc(
+                                                                    $jc(
+                                                                        $jc(
+                                                                            0,
+                                                                            email
+                                                                                .hashCode),
+                                                                        displayName
+                                                                            .hashCode),
+                                                                    photoUrl
+                                                                        .hashCode),
+                                                                uid.hashCode),
+                                                            createdTime
+                                                                .hashCode),
+                                                        phoneNumber.hashCode),
+                                                    question1.hashCode),
+                                                question2.hashCode),
+                                            rating.hashCode),
+                                        listenAudio.hashCode),
+                                    status.hashCode),
+                                minuteListen.hashCode),
+                            sessionCount.hashCode),
+                        isActiveChat.hashCode),
+                    isPsychologist.hashCode),
+                psychologist.hashCode),
+            clientsPsychologist.hashCode),
         ffRef.hashCode));
   }
 
@@ -324,6 +408,10 @@ class _$UsersRecord extends UsersRecord {
           ..add('status', status)
           ..add('minuteListen', minuteListen)
           ..add('sessionCount', sessionCount)
+          ..add('isActiveChat', isActiveChat)
+          ..add('isPsychologist', isPsychologist)
+          ..add('psychologist', psychologist)
+          ..add('clientsPsychologist', clientsPsychologist)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -386,6 +474,28 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
   int? get sessionCount => _$this._sessionCount;
   set sessionCount(int? sessionCount) => _$this._sessionCount = sessionCount;
 
+  bool? _isActiveChat;
+  bool? get isActiveChat => _$this._isActiveChat;
+  set isActiveChat(bool? isActiveChat) => _$this._isActiveChat = isActiveChat;
+
+  bool? _isPsychologist;
+  bool? get isPsychologist => _$this._isPsychologist;
+  set isPsychologist(bool? isPsychologist) =>
+      _$this._isPsychologist = isPsychologist;
+
+  DocumentReference<Object?>? _psychologist;
+  DocumentReference<Object?>? get psychologist => _$this._psychologist;
+  set psychologist(DocumentReference<Object?>? psychologist) =>
+      _$this._psychologist = psychologist;
+
+  ListBuilder<DocumentReference<Object?>>? _clientsPsychologist;
+  ListBuilder<DocumentReference<Object?>> get clientsPsychologist =>
+      _$this._clientsPsychologist ??=
+          new ListBuilder<DocumentReference<Object?>>();
+  set clientsPsychologist(
+          ListBuilder<DocumentReference<Object?>>? clientsPsychologist) =>
+      _$this._clientsPsychologist = clientsPsychologist;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -410,6 +520,10 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
       _status = $v.status;
       _minuteListen = $v.minuteListen;
       _sessionCount = $v.sessionCount;
+      _isActiveChat = $v.isActiveChat;
+      _isPsychologist = $v.isPsychologist;
+      _psychologist = $v.psychologist;
+      _clientsPsychologist = $v.clientsPsychologist?.toBuilder();
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -448,12 +562,19 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
               status: status,
               minuteListen: minuteListen,
               sessionCount: sessionCount,
+              isActiveChat: isActiveChat,
+              isPsychologist: isPsychologist,
+              psychologist: psychologist,
+              clientsPsychologist: _clientsPsychologist?.build(),
               ffRef: ffRef);
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'listenAudio';
         _listenAudio?.build();
+
+        _$failedField = 'clientsPsychologist';
+        _clientsPsychologist?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'UsersRecord', _$failedField, e.toString());

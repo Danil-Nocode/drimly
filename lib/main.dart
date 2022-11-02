@@ -8,7 +8,11 @@ import 'package:responsive_framework/responsive_wrapper.dart';
 import 'auth/firebase_user_provider.dart';
 import 'auth/auth_util.dart';
 
+import 'backend/backend.dart';
+import 'backend/schema/chats_record.dart';
 import 'backend/schema/meditation_record.dart';
+import 'backend/schema/users_record.dart';
+import 'chat/chat_widget.dart';
 import 'flutter_flow/flutter_flow_theme.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 import 'flutter_flow/internationalization.dart';
@@ -91,17 +95,6 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      // builder: (context, child) => ResponsiveWrapper.builder(
-      //   child,
-      //   maxWidth: 1200,
-      //   minWidth: 480,
-      //   defaultScale: true,
-      //   breakpoints: [
-      //     ResponsiveBreakpoint.resize(480, name: MOBILE),
-      //     ResponsiveBreakpoint.autoScale(800, name: TABLET),
-      //     ResponsiveBreakpoint.resize(1000, name: DESKTOP),
-      //   ],
-      // ),
       title: 'Drimly',
       localizationsDelegates: [
         FFLocalizationsDelegate(),
@@ -152,215 +145,461 @@ class _NavBarPageState extends State<NavBarPage> {
   @override
   void initState() {
     super.initState();
+
     _currentPage = widget.initialPage ?? _currentPage;
   }
 
   @override
   Widget build(BuildContext context) {
-    final tabs = {
-      'Meditation': MeditationWidget(),
-      'Sound': SoundWidget(),
-      'Practice': PracticeWidget(),
-      'Profile': ProfileWidget(),
-      // 'MeditationList': MeditationListWidget(
-      //   meditation: widget.meditationRecord,
-      // ),
-    };
+    Map tabs;
+    List<FloatingNavbarItem>? icons;
+
+    if (currentUserDocument!.isActiveChat!) {
+      tabs = {
+        'Meditation': MeditationWidget(),
+        'Sound': SoundWidget(),
+        'Practice': PracticeWidget(),
+        'Chat': ChatWidget(
+            // chatUser: psychologist!,
+            // chatRef: chat!.reference,
+            ),
+        'Profile': ProfileWidget(),
+      };
+    } else {
+      tabs = {
+        'Meditation': MeditationWidget(),
+        'Sound': SoundWidget(),
+        'Practice': PracticeWidget(),
+        'Profile': ProfileWidget(),
+      };
+    }
+
     final currentIndex = tabs.keys.toList().indexOf(_currentPage);
+    double fontSizeTab = 9;
+
+    if (currentUserDocument!.isActiveChat!) {
+      icons = [
+        FloatingNavbarItem(
+          customWidget: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(bottom: 6),
+                child: Container(
+                  width: 20,
+                  height: 20,
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        blurRadius: 15,
+                        color: currentIndex == 0
+                            ? Color.fromARGB(255, 238, 57, 87)
+                            : Color.fromARGB(0, 204, 138, 254),
+                        offset: Offset(0, 4),
+                      )
+                    ],
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: Image.asset(
+                        currentIndex == 0
+                            ? 'assets/images/meditation_fill.png'
+                            : 'assets/images/meditation_unfill.png',
+                      ).image,
+                    ),
+                  ),
+                ),
+              ),
+              Text(
+                FFLocalizations.of(context).getText(
+                  '0gymdr5m' /* Медитация */,
+                ),
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  color: currentIndex == 0 ? Colors.white : Color(0xFF565A7D),
+                  fontSize: fontSizeTab,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+            ],
+          ),
+        ),
+        FloatingNavbarItem(
+          customWidget: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(bottom: 6),
+                child: Container(
+                  width: 24,
+                  height: 24,
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        blurRadius: 15,
+                        color: currentIndex == 1
+                            ? Color.fromARGB(255, 238, 57, 87)
+                            : Color.fromARGB(0, 204, 138, 254),
+                        offset: Offset(0, 4),
+                      )
+                    ],
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: Image.asset(
+                        currentIndex == 1
+                            ? 'assets/images/music_fill.png'
+                            : 'assets/images/music_unfill.png',
+                      ).image,
+                    ),
+                  ),
+                ),
+              ),
+              Text(
+                FFLocalizations.of(context).getText(
+                  'd8s51ob6' /* Звуки */,
+                ),
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  color: currentIndex == 1 ? Colors.white : Color(0xFF565A7D),
+                  fontSize: fontSizeTab,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+            ],
+          ),
+        ),
+        FloatingNavbarItem(
+          customWidget: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(bottom: 6),
+                child: Container(
+                  width: 25,
+                  height: 25,
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        blurRadius: 15,
+                        color: currentIndex == 2
+                            ? Color.fromARGB(255, 238, 57, 87)
+                            : Color.fromARGB(0, 204, 138, 254),
+                        offset: Offset(0, 4),
+                      )
+                    ],
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: Image.asset(
+                        currentIndex == 2
+                            ? 'assets/images/practice_fill.png'
+                            : 'assets/images/practice_unfill.png',
+                      ).image,
+                    ),
+                  ),
+                ),
+              ),
+              Text(
+                FFLocalizations.of(context).getText(
+                  '77l0vuay' /* Практики */,
+                ),
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  color: currentIndex == 2 ? Colors.white : Color(0xFF565A7D),
+                  fontSize: fontSizeTab,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+            ],
+          ),
+        ),
+        FloatingNavbarItem(
+          customWidget: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(bottom: 6),
+                child: Container(
+                  width: 23,
+                  height: 22,
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        blurRadius: 15,
+                        color: currentIndex == 3
+                            ? Color.fromARGB(255, 238, 57, 87)
+                            : Color.fromARGB(0, 204, 138, 254),
+                        offset: Offset(0, 4),
+                      )
+                    ],
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: Image.asset(
+                        currentIndex == 3
+                            ? 'assets/images/chat_fill.png'
+                            : 'assets/images/chat_unfill.png',
+                      ).image,
+                    ),
+                  ),
+                ),
+              ),
+              Text(
+                FFLocalizations.of(context).getText(
+                  '7lefkiya' /* Чат */,
+                ),
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  color: currentIndex == 3 ? Colors.white : Color(0xFF565A7D),
+                  fontSize: fontSizeTab,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+            ],
+          ),
+        ),
+        FloatingNavbarItem(
+          customWidget: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(bottom: 6),
+                child: Container(
+                  width: 23,
+                  height: 22,
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        blurRadius: 15,
+                        color: currentIndex == 4
+                            ? Color.fromARGB(255, 238, 57, 87)
+                            : Color.fromARGB(0, 204, 138, 254),
+                        offset: Offset(0, 4),
+                      )
+                    ],
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: Image.asset(
+                        currentIndex == 4
+                            ? 'assets/images/user_fill.png'
+                            : 'assets/images/user_unfill.png',
+                      ).image,
+                    ),
+                  ),
+                ),
+              ),
+              Text(
+                FFLocalizations.of(context).getText(
+                  '7lefkiyy' /* Профиль */,
+                ),
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  color: currentIndex == 4 ? Colors.white : Color(0xFF565A7D),
+                  fontSize: fontSizeTab,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ];
+    } else {
+      icons = [
+        FloatingNavbarItem(
+          customWidget: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(bottom: 6),
+                child: Container(
+                  width: 26,
+                  height: 26,
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        blurRadius: 15,
+                        color: currentIndex == 0 || currentIndex == 4
+                            ? Color.fromARGB(255, 238, 57, 87)
+                            : Color.fromARGB(0, 204, 138, 254),
+                        offset: Offset(0, 4),
+                      )
+                    ],
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: Image.asset(
+                        currentIndex == 0 || currentIndex == 4
+                            ? 'assets/images/meditation_fill.png'
+                            : 'assets/images/meditation_unfill.png',
+                      ).image,
+                    ),
+                  ),
+                ),
+              ),
+              Text(
+                FFLocalizations.of(context).getText(
+                  '0gymdr5m' /* Медитация */,
+                ),
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  color: currentIndex == 0 ? Colors.white : Color(0xFF565A7D),
+                  fontSize: 11.0,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+            ],
+          ),
+        ),
+        FloatingNavbarItem(
+          customWidget: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(bottom: 6),
+                child: Container(
+                  width: 24,
+                  height: 24,
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        blurRadius: 15,
+                        color: currentIndex == 1
+                            ? Color.fromARGB(255, 238, 57, 87)
+                            : Color.fromARGB(0, 204, 138, 254),
+                        offset: Offset(0, 4),
+                      )
+                    ],
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: Image.asset(
+                        currentIndex == 1
+                            ? 'assets/images/music_fill.png'
+                            : 'assets/images/music_unfill.png',
+                      ).image,
+                    ),
+                  ),
+                ),
+              ),
+              Text(
+                FFLocalizations.of(context).getText(
+                  'd8s51ob6' /* Звуки */,
+                ),
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  color: currentIndex == 1 ? Colors.white : Color(0xFF565A7D),
+                  fontSize: 11.0,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+            ],
+          ),
+        ),
+        FloatingNavbarItem(
+          customWidget: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(bottom: 6),
+                child: Container(
+                  width: 25,
+                  height: 25,
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        blurRadius: 15,
+                        color: currentIndex == 2
+                            ? Color.fromARGB(255, 238, 57, 87)
+                            : Color.fromARGB(0, 204, 138, 254),
+                        offset: Offset(0, 4),
+                      )
+                    ],
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: Image.asset(
+                        currentIndex == 2
+                            ? 'assets/images/practice_fill.png'
+                            : 'assets/images/practice_unfill.png',
+                      ).image,
+                    ),
+                  ),
+                ),
+              ),
+              Text(
+                FFLocalizations.of(context).getText(
+                  '77l0vuay' /* Практики */,
+                ),
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  color: currentIndex == 2 ? Colors.white : Color(0xFF565A7D),
+                  fontSize: 11.0,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+            ],
+          ),
+        ),
+        FloatingNavbarItem(
+          customWidget: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(bottom: 6),
+                child: Container(
+                  width: 23,
+                  height: 22,
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        blurRadius: 15,
+                        color: currentIndex == 3
+                            ? Color.fromARGB(255, 238, 57, 87)
+                            : Color.fromARGB(0, 204, 138, 254),
+                        offset: Offset(0, 4),
+                      )
+                    ],
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: Image.asset(
+                        currentIndex == 3
+                            ? 'assets/images/user_fill.png'
+                            : 'assets/images/user_unfill.png',
+                      ).image,
+                    ),
+                  ),
+                ),
+              ),
+              Text(
+                FFLocalizations.of(context).getText(
+                  '7lefkiyy' /* Профиль */,
+                ),
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  color: currentIndex == 3 ? Colors.white : Color(0xFF565A7D),
+                  fontSize: 11.0,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ];
+    }
+
     return Scaffold(
       body: tabs[_currentPage],
       extendBody: true,
       bottomNavigationBar: FloatingNavbar(
         currentIndex: currentIndex,
-        onTap: (i) => setState(() => _currentPage = tabs.keys.toList()[i]),
+        onTap: (i) => setState(() {
+          _currentPage = tabs.keys.toList()[i];
+        }),
         backgroundColor: Color(0xFF121129),
         selectedItemColor: Color(0xFFEE3957),
         unselectedItemColor: Color(0xFF565A7D),
         selectedBackgroundColor: Color(0x00000000),
         borderRadius: 100,
         itemBorderRadius: 8,
-        margin: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
+        margin: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
         padding: EdgeInsetsDirectional.fromSTEB(10, 11, 10, 11),
         width: double.infinity,
         elevation: 0,
-        items: [
-          FloatingNavbarItem(
-            customWidget: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 6),
-                  child: Container(
-                    width: 26,
-                    height: 26,
-                    decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          blurRadius: 15,
-                          color: currentIndex == 0 || currentIndex == 4
-                              ? Color.fromARGB(255, 238, 57, 87)
-                              : Color.fromARGB(0, 204, 138, 254),
-                          offset: Offset(0, 4),
-                        )
-                      ],
-                      image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: Image.asset(
-                          currentIndex == 0 || currentIndex == 4
-                              ? 'assets/images/meditation_fill.png'
-                              : 'assets/images/meditation_unfill.png',
-                        ).image,
-                      ),
-                    ),
-                  ),
-                ),
-                Text(
-                  FFLocalizations.of(context).getText(
-                    '0gymdr5m' /* Медитация */,
-                  ),
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    color: currentIndex == 0 ? Colors.white : Color(0xFF565A7D),
-                    fontSize: 11.0,
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          FloatingNavbarItem(
-            customWidget: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 6),
-                  child: Container(
-                    width: 24,
-                    height: 24,
-                    decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          blurRadius: 15,
-                          color: currentIndex == 1
-                              ? Color.fromARGB(255, 238, 57, 87)
-                              : Color.fromARGB(0, 204, 138, 254),
-                          offset: Offset(0, 4),
-                        )
-                      ],
-                      image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: Image.asset(
-                          currentIndex == 1
-                              ? 'assets/images/music_fill.png'
-                              : 'assets/images/music_unfill.png',
-                        ).image,
-                      ),
-                    ),
-                  ),
-                ),
-                Text(
-                  FFLocalizations.of(context).getText(
-                    'd8s51ob6' /* Звуки */,
-                  ),
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    color: currentIndex == 1 ? Colors.white : Color(0xFF565A7D),
-                    fontSize: 11.0,
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          FloatingNavbarItem(
-            customWidget: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 6),
-                  child: Container(
-                    width: 25,
-                    height: 25,
-                    decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          blurRadius: 15,
-                          color: currentIndex == 2
-                              ? Color.fromARGB(255, 238, 57, 87)
-                              : Color.fromARGB(0, 204, 138, 254),
-                          offset: Offset(0, 4),
-                        )
-                      ],
-                      image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: Image.asset(
-                          currentIndex == 2
-                              ? 'assets/images/practice_fill.png'
-                              : 'assets/images/practice_unfill.png',
-                        ).image,
-                      ),
-                    ),
-                  ),
-                ),
-                Text(
-                  FFLocalizations.of(context).getText(
-                    '77l0vuay' /* Практики */,
-                  ),
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    color: currentIndex == 2 ? Colors.white : Color(0xFF565A7D),
-                    fontSize: 11.0,
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          FloatingNavbarItem(
-            customWidget: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 6),
-                  child: Container(
-                    width: 23,
-                    height: 22,
-                    decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          blurRadius: 15,
-                          color: currentIndex == 3
-                              ? Color.fromARGB(255, 238, 57, 87)
-                              : Color.fromARGB(0, 204, 138, 254),
-                          offset: Offset(0, 4),
-                        )
-                      ],
-                      image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: Image.asset(
-                          currentIndex == 3
-                              ? 'assets/images/user_fill.png'
-                              : 'assets/images/user_unfill.png',
-                        ).image,
-                      ),
-                    ),
-                  ),
-                ),
-                Text(
-                  FFLocalizations.of(context).getText(
-                    '7lefkiyy' /* Профиль */,
-                  ),
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    color: currentIndex == 3 ? Colors.white : Color(0xFF565A7D),
-                    fontSize: 11.0,
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
+        items: icons,
       ),
     );
   }

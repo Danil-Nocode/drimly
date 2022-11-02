@@ -364,6 +364,10 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'ru': 'RU версия',
       'en': 'EN version',
     },
+    '7lefkiya': {
+      'ru': 'Чат',
+      'en': 'Chat',
+    },
     '7lefkiyy': {
       'ru': 'Профиль',
       'en': 'Profile',

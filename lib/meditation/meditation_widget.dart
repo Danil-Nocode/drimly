@@ -2,6 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
+import '../backend/schema/chats_record.dart';
+import '../chat/chat_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../main.dart';
