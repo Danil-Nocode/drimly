@@ -340,10 +340,10 @@ class _TaskPageWidgetState extends State<TaskPageWidget> {
                                                 ),
                                               if ((containerCompleteTaskRecord !=
                                                       null) &&
-                                                  (containerCompleteTaskRecord!
+                                                  (containerCompleteTaskRecord
                                                               .feedback !=
                                                           null &&
-                                                      containerCompleteTaskRecord!
+                                                      containerCompleteTaskRecord
                                                               .feedback !=
                                                           ''))
                                                 Padding(
@@ -386,7 +386,7 @@ class _TaskPageWidgetState extends State<TaskPageWidget> {
                                                           children: [
                                                             Expanded(
                                                               child: Text(
-                                                                containerCompleteTaskRecord!
+                                                                containerCompleteTaskRecord
                                                                     .feedback!,
                                                                 style: FlutterFlowTheme.of(
                                                                         context)
