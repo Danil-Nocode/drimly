@@ -1,5 +1,6 @@
 import '../backend/backend.dart';
 import '../flutter_flow/chat/index.dart';
+import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -56,6 +57,20 @@ class _ChatWidgetState extends State<ChatWidget> {
       appBar: AppBar(
         backgroundColor: Color(0xFF020925),
         automaticallyImplyLeading: false,
+        leading: FlutterFlowIconButton(
+          borderColor: Colors.transparent,
+          borderRadius: 30,
+          borderWidth: 1,
+          buttonSize: 60,
+          icon: Icon(
+            Icons.arrow_back_rounded,
+            color: Colors.white,
+            size: 30,
+          ),
+          onPressed: () async {
+            Navigator.pop(context);
+          },
+        ),
         title: Row(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -101,74 +116,88 @@ class _ChatWidgetState extends State<ChatWidget> {
         centerTitle: false,
         elevation: 2,
       ),
-      body: SafeArea(
-        child: StreamBuilder<FFChatInfo>(
-          stream: FFChatManager.instance.getChatInfo(
-            otherUserRecord: widget.chatUser,
-            chatReference: widget.chatRef,
+      body: Container(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        decoration: BoxDecoration(
+          color: FlutterFlowTheme.of(context).secondaryBackground,
+          image: DecorationImage(
+            fit: BoxFit.cover,
+            image: Image.asset(
+              'assets/images/Rectangle_154.jpg',
+            ).image,
           ),
-          builder: (context, snapshot) => snapshot.hasData
-              ? FFChatPage(
-                  chatInfo: snapshot.data!,
-                  allowImages: true,
-                  backgroundColor: Color(0xFFF2F4F8),
-                  timeDisplaySetting: TimeDisplaySetting.alwaysVisible,
-                  currentUserBoxDecoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border.all(
-                      color: Colors.transparent,
+        ),
+        child: Padding(
+          padding: const EdgeInsets.only(bottom: 30),
+          child: StreamBuilder<FFChatInfo>(
+            stream: FFChatManager.instance.getChatInfo(
+              otherUserRecord: widget.chatUser,
+              chatReference: widget.chatRef,
+            ),
+            builder: (context, snapshot) => snapshot.hasData
+                ? FFChatPage(
+                    chatInfo: snapshot.data!,
+                    allowImages: true,
+                    backgroundColor: Color(0xFFF2F4F8),
+                    timeDisplaySetting: TimeDisplaySetting.alwaysVisible,
+                    currentUserBoxDecoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border.all(
+                        color: Colors.transparent,
+                      ),
+                      borderRadius: BorderRadius.circular(15),
                     ),
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  otherUsersBoxDecoration: BoxDecoration(
-                    color: Color(0xFF33325C),
-                    border: Border.all(
-                      color: Colors.transparent,
+                    otherUsersBoxDecoration: BoxDecoration(
+                      color: Color(0xFF33325C),
+                      border: Border.all(
+                        color: Colors.transparent,
+                      ),
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  currentUserTextStyle: GoogleFonts.getFont(
-                    'DM Sans',
-                    color: Color(0xFF1E2429),
-                    fontWeight: FontWeight.w500,
-                    fontSize: 14,
-                    fontStyle: FontStyle.normal,
-                  ),
-                  otherUsersTextStyle: GoogleFonts.getFont(
-                    'DM Sans',
-                    color: Colors.white,
-                    fontWeight: FontWeight.w500,
-                    fontSize: 14,
-                  ),
-                  inputHintTextStyle: GoogleFonts.getFont(
-                    'DM Sans',
-                    color: Color(0xFF95A1AC),
-                    fontWeight: FontWeight.normal,
-                    fontSize: 14,
-                  ),
-                  inputTextStyle: GoogleFonts.getFont(
-                    'DM Sans',
-                    color: Colors.black,
-                    fontWeight: FontWeight.normal,
-                    fontSize: 14,
-                  ),
-                  emptyChatWidget: Center(
-                    child: Image.asset(
-                      'assets/images/Group_182.png',
-                      width: MediaQuery.of(context).size.width,
-                      fit: BoxFit.cover,
+                    currentUserTextStyle: GoogleFonts.getFont(
+                      'DM Sans',
+                      color: Color(0xFF1E2429),
+                      fontWeight: FontWeight.w500,
+                      fontSize: 14,
+                      fontStyle: FontStyle.normal,
+                    ),
+                    otherUsersTextStyle: GoogleFonts.getFont(
+                      'DM Sans',
+                      color: Colors.white,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 14,
+                    ),
+                    inputHintTextStyle: GoogleFonts.getFont(
+                      'DM Sans',
+                      color: Color(0xFF95A1AC),
+                      fontWeight: FontWeight.normal,
+                      fontSize: 14,
+                    ),
+                    inputTextStyle: GoogleFonts.getFont(
+                      'DM Sans',
+                      color: Colors.black,
+                      fontWeight: FontWeight.normal,
+                      fontSize: 14,
+                    ),
+                    // emptyChatWidget: Center(
+                    //   child: Image.asset(
+                    //     'assets/images/Group_182.png',
+                    //     width: MediaQuery.of(context).size.width,
+                    //     fit: BoxFit.cover,
+                    //   ),
+                    // ),
+                  )
+                : Center(
+                    child: SizedBox(
+                      width: 30,
+                      height: 30,
+                      child: CircularProgressIndicator(
+                        color: FlutterFlowTheme.of(context).primaryColor,
+                      ),
                     ),
                   ),
-                )
-              : Center(
-                  child: SizedBox(
-                    width: 30,
-                    height: 30,
-                    child: CircularProgressIndicator(
-                      color: FlutterFlowTheme.of(context).primaryColor,
-                    ),
-                  ),
-                ),
+          ),
         ),
       ),
     );

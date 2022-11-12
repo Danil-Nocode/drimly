@@ -106,6 +106,7 @@ class _ChatPageUserWidgetState extends State<ChatPageUserWidget> {
                 } else {
                   chat = ChatsRecordOne;
                 }
+
                 return Scaffold(
                   key: scaffoldKey,
                   appBar: AppBar(
@@ -223,13 +224,13 @@ class _ChatPageUserWidgetState extends State<ChatPageUserWidget> {
                                   fontWeight: FontWeight.normal,
                                   fontSize: 14,
                                 ),
-                                emptyChatWidget: Center(
-                                  child: Image.asset(
-                                    'assets/images/Rectangle_154.jpg',
-                                    width: MediaQuery.of(context).size.width,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
+                                // emptyChatWidget: Center(
+                                //   child: Image.asset(
+                                //     'assets/images/Rectangle_154.jpg',
+                                //     width: MediaQuery.of(context).size.width,
+                                //     fit: BoxFit.cover,
+                                //   ),
+                                // ),
                               )
                             : Center(
                                 child: SizedBox(

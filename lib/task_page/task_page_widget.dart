@@ -1,6 +1,7 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../complete_task/complete_task_widget.dart';
+import '../edit_complete_task/edit_complete_task_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
@@ -338,12 +339,90 @@ class _TaskPageWidgetState extends State<TaskPageWidget> {
                                                     ],
                                                   ),
                                                 ),
+                                              if (containerCompleteTaskRecord !=
+                                                  null)
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(0, 12, 0, 0),
+                                                  child: Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.end,
+                                                    children: [
+                                                      InkWell(
+                                                        onTap: () async {
+                                                          await Navigator.push(
+                                                            context,
+                                                            MaterialPageRoute(
+                                                              builder: (context) =>
+                                                                  EditCompleteTaskWidget(
+                                                                task:
+                                                                    columnTasksRecord,
+                                                                completeTask:
+                                                                    containerCompleteTaskRecord,
+                                                              ),
+                                                            ),
+                                                          );
+                                                        },
+                                                        child: Container(
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: Color(
+                                                                0xFFFFF6EF),
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        100),
+                                                            border: Border.all(
+                                                              color: Color(
+                                                                  0xFFE7D4C6),
+                                                            ),
+                                                          ),
+                                                          alignment:
+                                                              AlignmentDirectional(
+                                                                  0, 0),
+                                                          child: Padding(
+                                                            padding:
+                                                                EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        16,
+                                                                        12,
+                                                                        16,
+                                                                        12),
+                                                            child: Text(
+                                                              FFLocalizations.of(
+                                                                      context)
+                                                                  .getText(
+                                                                '9hpdg2ga' /* Редактировать */,
+                                                              ),
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .bodyText1
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        'montserrat',
+                                                                    color: Color(
+                                                                        0xFF042433),
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w600,
+                                                                    useGoogleFonts:
+                                                                        false,
+                                                                  ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
                                               if ((containerCompleteTaskRecord !=
                                                       null) &&
-                                                  (containerCompleteTaskRecord
+                                                  (containerCompleteTaskRecord!
                                                               .feedback !=
                                                           null &&
-                                                      containerCompleteTaskRecord
+                                                      containerCompleteTaskRecord!
                                                               .feedback !=
                                                           ''))
                                                 Padding(

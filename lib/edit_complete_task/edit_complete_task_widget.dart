@@ -15,32 +15,34 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class CompleteTaskWidget extends StatefulWidget {
-  const CompleteTaskWidget({
+class EditCompleteTaskWidget extends StatefulWidget {
+  const EditCompleteTaskWidget({
     Key? key,
     this.task,
+    this.completeTask,
   }) : super(key: key);
 
   final TasksRecord? task;
+  final CompleteTaskRecord? completeTask;
 
   @override
-  _CompleteTaskWidgetState createState() => _CompleteTaskWidgetState();
+  _EditCompleteTaskWidgetState createState() => _EditCompleteTaskWidgetState();
 }
 
-class _CompleteTaskWidgetState extends State<CompleteTaskWidget> {
+class _EditCompleteTaskWidgetState extends State<EditCompleteTaskWidget> {
   bool isMediaUploading = false;
   List<String> uploadedFileUrls = [];
 
   PageController? pageViewController1;
   PageController? pageViewController2;
   TextEditingController? textController;
-  CompleteTaskRecord? task;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    textController = TextEditingController();
+    textController =
+        TextEditingController(text: widget.completeTask!.textAnswer);
   }
 
   @override
@@ -102,7 +104,7 @@ class _CompleteTaskWidgetState extends State<CompleteTaskWidget> {
                               children: [
                                 Text(
                                   FFLocalizations.of(context).getText(
-                                    'vo5st0ps' /* Задание */,
+                                    'tcyexkct' /* Задание */,
                                   ),
                                   style: FlutterFlowTheme.of(context)
                                       .bodyText1
@@ -166,7 +168,7 @@ class _CompleteTaskWidgetState extends State<CompleteTaskWidget> {
                                               Text(
                                                 FFLocalizations.of(context)
                                                     .getText(
-                                                  '3aqin12a' /* Изображения */,
+                                                  'n4l0v9ly' /* Изображения */,
                                                 ),
                                                 style: FlutterFlowTheme.of(
                                                         context)
@@ -321,7 +323,7 @@ class _CompleteTaskWidgetState extends State<CompleteTaskWidget> {
                                               Text(
                                                 FFLocalizations.of(context)
                                                     .getText(
-                                                  'yhd9whfm' /* Видео */,
+                                                  'byv0kwvb' /* Видео */,
                                                 ),
                                                 style: FlutterFlowTheme.of(
                                                         context)
@@ -475,7 +477,7 @@ class _CompleteTaskWidgetState extends State<CompleteTaskWidget> {
                                               Text(
                                                 FFLocalizations.of(context)
                                                     .getText(
-                                                  '5fwsu2df' /* Файлы */,
+                                                  'mfidwl6a' /* Файлы */,
                                                 ),
                                                 style: FlutterFlowTheme.of(
                                                         context)
@@ -607,7 +609,7 @@ class _CompleteTaskWidgetState extends State<CompleteTaskWidget> {
                               children: [
                                 Text(
                                   FFLocalizations.of(context).getText(
-                                    'zly92ann' /* Выполнение задания */,
+                                    'jte8jbvx' /* Выполнение задания */,
                                   ),
                                   style: FlutterFlowTheme.of(context)
                                       .bodyText1
@@ -644,7 +646,7 @@ class _CompleteTaskWidgetState extends State<CompleteTaskWidget> {
                                           ),
                                       hintText:
                                           FFLocalizations.of(context).getText(
-                                        'e7pq9gur' /* Напишите свой ответ  */,
+                                        'hr52i0pn' /* Напишите свой ответ  */,
                                       ),
                                       hintStyle: FlutterFlowTheme.of(context)
                                           .bodyText1
@@ -792,7 +794,7 @@ class _CompleteTaskWidgetState extends State<CompleteTaskWidget> {
                                                 child: Text(
                                                   FFLocalizations.of(context)
                                                       .getText(
-                                                    'fbp4q19v' /* Загрузить медиа */,
+                                                    '5k0fbvyy' /* Загрузить медиа */,
                                                   ),
                                                   style: FlutterFlowTheme.of(
                                                           context)
@@ -818,7 +820,10 @@ class _CompleteTaskWidgetState extends State<CompleteTaskWidget> {
                                       0, 8, 0, 0),
                                   child: Builder(
                                     builder: (context) {
-                                      final photo = uploadedFileUrls.toList();
+                                      final photo = uploadedFileUrls.length == 0
+                                          ? widget.completeTask!.imagesAnswer!
+                                              .toList()
+                                          : uploadedFileUrls.toList();
                                       return Row(
                                         mainAxisSize: MainAxisSize.max,
                                         children: List.generate(photo.length,
@@ -881,44 +886,22 @@ class _CompleteTaskWidgetState extends State<CompleteTaskWidget> {
                         padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
                         child: InkWell(
                           onTap: () async {
-                            Map<String, dynamic>? completeTaskCreateData;
-                            if (currentUserDocument!.psychologist != null) {
-                              completeTaskCreateData = {
-                                ...createCompleteTaskRecordData(
-                                  task: widget.task!.reference,
-                                  user: currentUserReference,
-                                  status: 'Сдано',
-                                  datetime: getCurrentTimestamp,
-                                  textAnswer: textController!.text,
-                                  whoChecked: currentUserDocument!.psychologist,
-                                ),
-                                'imagesAnswer': uploadedFileUrls,
-                              };
-                            } else {
-                              completeTaskCreateData = {
-                                ...createCompleteTaskRecordData(
-                                  task: widget.task!.reference,
-                                  user: currentUserReference,
-                                  status: 'Сдано',
-                                  datetime: getCurrentTimestamp,
-                                  textAnswer: textController!.text,
-                                ),
-                                'imagesAnswer': uploadedFileUrls,
-                              };
-                            }
-                            var completeTaskRecordReference =
-                                CompleteTaskRecord.collection.doc();
-                            await completeTaskRecordReference
-                                .set(completeTaskCreateData);
-                            task = CompleteTaskRecord.getDocumentFromData(
-                                completeTaskCreateData,
-                                completeTaskRecordReference);
+                            final completeTaskUpdateData = {
+                              ...createCompleteTaskRecordData(
+                                textAnswer: textController!.text,
+                                status: 'Сдано повторно',
+                                datetime: getCurrentTimestamp,
+                              ),
+                              'imagesAnswer': uploadedFileUrls.length == 0
+                                  ? widget.completeTask!.imagesAnswer!.toList()
+                                  : uploadedFileUrls,
+                            };
+                            await widget.completeTask!.reference
+                                .update(completeTaskUpdateData);
                             Navigator.pop(context);
-
-                            setState(() {});
                           },
                           child: ButtonWidget(
-                            text: 'Выполнить',
+                            text: 'Редактировать',
                           ),
                         ),
                       ),

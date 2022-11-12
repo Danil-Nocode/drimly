@@ -55,6 +55,30 @@ class _$TasksRecordSerializer implements StructuredSerializer<TasksRecord> {
             specifiedType: const FullType(
                 DocumentReference, const [const FullType.nullable(Object)])));
     }
+    value = object.images;
+    if (value != null) {
+      result
+        ..add('images')
+        ..add(serializers.serialize(value,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(String)])));
+    }
+    value = object.videos;
+    if (value != null) {
+      result
+        ..add('videos')
+        ..add(serializers.serialize(value,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(String)])));
+    }
+    value = object.files;
+    if (value != null) {
+      result
+        ..add('files')
+        ..add(serializers.serialize(value,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(String)])));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -99,6 +123,24 @@ class _$TasksRecordSerializer implements StructuredSerializer<TasksRecord> {
                 const FullType.nullable(Object)
               ])) as DocumentReference<Object?>?;
           break;
+        case 'images':
+          result.images.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(String)]))!
+              as BuiltList<Object?>);
+          break;
+        case 'videos':
+          result.videos.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(String)]))!
+              as BuiltList<Object?>);
+          break;
+        case 'files':
+          result.files.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(String)]))!
+              as BuiltList<Object?>);
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -124,6 +166,12 @@ class _$TasksRecord extends TasksRecord {
   @override
   final DocumentReference<Object?>? audio;
   @override
+  final BuiltList<String>? images;
+  @override
+  final BuiltList<String>? videos;
+  @override
+  final BuiltList<String>? files;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$TasksRecord([void Function(TasksRecordBuilder)? updates]) =>
@@ -135,6 +183,9 @@ class _$TasksRecord extends TasksRecord {
       this.difficult,
       this.image,
       this.audio,
+      this.images,
+      this.videos,
+      this.files,
       this.ffRef})
       : super._();
 
@@ -154,6 +205,9 @@ class _$TasksRecord extends TasksRecord {
         difficult == other.difficult &&
         image == other.image &&
         audio == other.audio &&
+        images == other.images &&
+        videos == other.videos &&
+        files == other.files &&
         ffRef == other.ffRef;
   }
 
@@ -162,10 +216,18 @@ class _$TasksRecord extends TasksRecord {
     return $jf($jc(
         $jc(
             $jc(
-                $jc($jc($jc(0, name.hashCode), description.hashCode),
-                    difficult.hashCode),
-                image.hashCode),
-            audio.hashCode),
+                $jc(
+                    $jc(
+                        $jc(
+                            $jc(
+                                $jc($jc(0, name.hashCode),
+                                    description.hashCode),
+                                difficult.hashCode),
+                            image.hashCode),
+                        audio.hashCode),
+                    images.hashCode),
+                videos.hashCode),
+            files.hashCode),
         ffRef.hashCode));
   }
 
@@ -177,6 +239,9 @@ class _$TasksRecord extends TasksRecord {
           ..add('difficult', difficult)
           ..add('image', image)
           ..add('audio', audio)
+          ..add('images', images)
+          ..add('videos', videos)
+          ..add('files', files)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -205,6 +270,20 @@ class TasksRecordBuilder implements Builder<TasksRecord, TasksRecordBuilder> {
   DocumentReference<Object?>? get audio => _$this._audio;
   set audio(DocumentReference<Object?>? audio) => _$this._audio = audio;
 
+  ListBuilder<String>? _images;
+  ListBuilder<String> get images =>
+      _$this._images ??= new ListBuilder<String>();
+  set images(ListBuilder<String>? images) => _$this._images = images;
+
+  ListBuilder<String>? _videos;
+  ListBuilder<String> get videos =>
+      _$this._videos ??= new ListBuilder<String>();
+  set videos(ListBuilder<String>? videos) => _$this._videos = videos;
+
+  ListBuilder<String>? _files;
+  ListBuilder<String> get files => _$this._files ??= new ListBuilder<String>();
+  set files(ListBuilder<String>? files) => _$this._files = files;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -221,6 +300,9 @@ class TasksRecordBuilder implements Builder<TasksRecord, TasksRecordBuilder> {
       _difficult = $v.difficult;
       _image = $v.image;
       _audio = $v.audio;
+      _images = $v.images?.toBuilder();
+      _videos = $v.videos?.toBuilder();
+      _files = $v.files?.toBuilder();
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -242,14 +324,34 @@ class TasksRecordBuilder implements Builder<TasksRecord, TasksRecordBuilder> {
   TasksRecord build() => _build();
 
   _$TasksRecord _build() {
-    final _$result = _$v ??
-        new _$TasksRecord._(
-            name: name,
-            description: description,
-            difficult: difficult,
-            image: image,
-            audio: audio,
-            ffRef: ffRef);
+    _$TasksRecord _$result;
+    try {
+      _$result = _$v ??
+          new _$TasksRecord._(
+              name: name,
+              description: description,
+              difficult: difficult,
+              image: image,
+              audio: audio,
+              images: _images?.build(),
+              videos: _videos?.build(),
+              files: _files?.build(),
+              ffRef: ffRef);
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'images';
+        _images?.build();
+        _$failedField = 'videos';
+        _videos?.build();
+        _$failedField = 'files';
+        _files?.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'TasksRecord', _$failedField, e.toString());
+      }
+      rethrow;
+    }
     replace(_$result);
     return _$result;
   }

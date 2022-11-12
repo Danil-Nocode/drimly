@@ -1,19 +1,25 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
-import '../edit_complete_task/edit_complete_task_widget.dart';
+import '../completed_task/completed_task_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class AllCompleteTasksWidget extends StatefulWidget {
-  const AllCompleteTasksWidget({Key? key}) : super(key: key);
+class ChechingTasksUserWidget extends StatefulWidget {
+  const ChechingTasksUserWidget({
+    Key? key,
+    this.userComplete,
+  }) : super(key: key);
+
+  final UsersRecord? userComplete;
 
   @override
-  _AllCompleteTasksWidgetState createState() => _AllCompleteTasksWidgetState();
+  _ChechingTasksUserWidgetState createState() =>
+      _ChechingTasksUserWidgetState();
 }
 
-class _AllCompleteTasksWidgetState extends State<AllCompleteTasksWidget> {
+class _ChechingTasksUserWidgetState extends State<ChechingTasksUserWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -43,19 +49,38 @@ class _AllCompleteTasksWidgetState extends State<AllCompleteTasksWidget> {
                       width: 12,
                       fit: BoxFit.cover,
                     ),
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(11, 0, 0, 0),
-                      child: Text(
-                        FFLocalizations.of(context).getText(
-                          'f340yas2' /* Мои задания */,
-                        ),
-                        style: FlutterFlowTheme.of(context).bodyText1.override(
-                              fontFamily: 'montserrat',
-                              color: Color(0xFFBCBCBC),
-                              fontSize: 16,
-                              useGoogleFonts: false,
+                    Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(11, 0, 0, 0),
+                          child: Text(
+                            FFLocalizations.of(context).getText(
+                              'yu065tia' /* Проверка заданий */,
                             ),
-                      ),
+                            style:
+                                FlutterFlowTheme.of(context).bodyText1.override(
+                                      fontFamily: 'montserrat',
+                                      color: Color(0xFFBCBCBC),
+                                      fontSize: 16,
+                                      useGoogleFonts: false,
+                                    ),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(11, 0, 0, 0),
+                          child: Text(
+                            widget.userComplete!.displayName!,
+                            style:
+                                FlutterFlowTheme.of(context).bodyText1.override(
+                                      fontFamily: 'montserrat',
+                                      color: Color(0xFFBCBCBC),
+                                      fontSize: 16,
+                                      useGoogleFonts: false,
+                                    ),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
@@ -85,7 +110,8 @@ class _AllCompleteTasksWidgetState extends State<AllCompleteTasksWidget> {
               child: StreamBuilder<List<CompleteTaskRecord>>(
                 stream: queryCompleteTaskRecord(
                   queryBuilder: (completeTaskRecord) => completeTaskRecord
-                      .where('user', isEqualTo: currentUserReference)
+                      .where('whoChecked', isEqualTo: currentUserReference)
+                      .where('user', isEqualTo: widget.userComplete!.reference)
                       .orderBy('datetime', descending: true),
                 ),
                 builder: (context, snapshot) {
@@ -136,8 +162,7 @@ class _AllCompleteTasksWidgetState extends State<AllCompleteTasksWidget> {
                                 await Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) =>
-                                        EditCompleteTaskWidget(
+                                    builder: (context) => CompletedTaskWidget(
                                       task: containerTasksRecord,
                                       completeTask: listViewCompleteTaskRecord,
                                     ),
@@ -198,6 +223,102 @@ class _AllCompleteTasksWidgetState extends State<AllCompleteTasksWidget> {
                                                 ),
                                           ),
                                         ],
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0, 12, 0, 0),
+                                        child: StreamBuilder<UsersRecord>(
+                                          stream: UsersRecord.getDocument(
+                                              listViewCompleteTaskRecord.user!),
+                                          builder: (context, snapshot) {
+                                            // Customize what your widget looks like when it's loading.
+                                            if (!snapshot.hasData) {
+                                              return Center(
+                                                child: SizedBox(
+                                                  width: 30,
+                                                  height: 30,
+                                                  child:
+                                                      CircularProgressIndicator(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primaryColor,
+                                                  ),
+                                                ),
+                                              );
+                                            }
+                                            final rowUsersRecord =
+                                                snapshot.data!;
+                                            return Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: [
+                                                Container(
+                                                  width: 40,
+                                                  height: 40,
+                                                  clipBehavior: Clip.antiAlias,
+                                                  decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                  ),
+                                                  child: Image.network(
+                                                    rowUsersRecord.photoUrl!,
+                                                  ),
+                                                ),
+                                                Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  8, 0, 0, 0),
+                                                      child: Text(
+                                                        rowUsersRecord
+                                                            .displayName!,
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyText1
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'montserrat',
+                                                                  color: Color(
+                                                                      0xFF5E5E5E),
+                                                                  useGoogleFonts:
+                                                                      false,
+                                                                ),
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  8, 4, 0, 0),
+                                                      child: Text(
+                                                        rowUsersRecord.email!,
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyText1
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'montserrat',
+                                                                  color: Color(
+                                                                      0xFF5E5E5E),
+                                                                  useGoogleFonts:
+                                                                      false,
+                                                                ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        ),
                                       ),
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(

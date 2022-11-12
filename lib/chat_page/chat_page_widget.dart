@@ -9,6 +9,8 @@ import '../flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../start_chat/start_chat_widget.dart';
+
 class ChatPageWidget extends StatefulWidget {
   const ChatPageWidget({Key? key}) : super(key: key);
 
@@ -23,6 +25,23 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          await Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => StartChatWidget(),
+            ),
+          );
+        },
+        backgroundColor: Color(0xFF33325C),
+        elevation: 8,
+        child: Icon(
+          Icons.add,
+          color: FlutterFlowTheme.of(context).primaryBackground,
+          size: 24,
+        ),
+      ),
       appBar: AppBar(
         backgroundColor: Color(0xFF33325C),
         automaticallyImplyLeading: false,

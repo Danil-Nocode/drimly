@@ -19,6 +19,12 @@ abstract class TasksRecord implements Built<TasksRecord, TasksRecordBuilder> {
 
   DocumentReference? get audio;
 
+  BuiltList<String>? get images;
+
+  BuiltList<String>? get videos;
+
+  BuiltList<String>? get files;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -27,7 +33,10 @@ abstract class TasksRecord implements Built<TasksRecord, TasksRecordBuilder> {
     ..name = ''
     ..description = ''
     ..difficult = 0.0
-    ..image = '';
+    ..image = ''
+    ..images = ListBuilder()
+    ..videos = ListBuilder()
+    ..files = ListBuilder();
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('tasks');
@@ -65,7 +74,10 @@ Map<String, dynamic> createTasksRecordData({
         ..description = description
         ..difficult = difficult
         ..image = image
-        ..audio = audio,
+        ..audio = audio
+        ..images = null
+        ..videos = null
+        ..files = null,
     ),
   );
 

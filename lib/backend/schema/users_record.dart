@@ -44,6 +44,8 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
 
   bool? get isPsychologist;
 
+  bool? get moneyspace;
+
   DocumentReference? get psychologist;
 
   BuiltList<DocumentReference>? get clientsPsychologist;
@@ -67,6 +69,7 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
     ..sessionCount = 0
     ..isActiveChat = false
     ..isPsychologist = false
+    ..moneyspace = false
     ..clientsPsychologist = ListBuilder();
 
   static CollectionReference get collection =>
@@ -105,6 +108,7 @@ Map<String, dynamic> createUsersRecordData({
   int? sessionCount,
   bool? isActiveChat,
   bool? isPsychologist,
+  bool? moneyspace,
   DocumentReference? psychologist,
   List<DocumentReference>? clientsPsychologist,
 }) {
@@ -126,6 +130,7 @@ Map<String, dynamic> createUsersRecordData({
         ..minuteListen = minuteListen
         ..sessionCount = sessionCount
         ..isActiveChat = isActiveChat
+        ..moneyspace = moneyspace
         ..isPsychologist = isPsychologist
         ..psychologist = psychologist,
     ),

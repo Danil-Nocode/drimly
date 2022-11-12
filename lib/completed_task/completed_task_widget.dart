@@ -1,5 +1,6 @@
 import '../backend/backend.dart';
 import '../backend/firebase_storage/storage.dart';
+import '../components/view_photo_widget.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
@@ -306,7 +307,7 @@ class _CompletedTaskWidgetState extends State<CompletedTaskWidget> {
                                                   8, 0, 0, 0),
                                           child: Text(
                                             FFLocalizations.of(context).getText(
-                                              '2tua4y3f' /* Загруженное медиа */,
+                                              '2tua4y3f' /* Загруженные медиа */,
                                             ),
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyText1
@@ -342,13 +343,32 @@ class _CompletedTaskWidgetState extends State<CompletedTaskWidget> {
                                     return Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0, 0, 8, 0),
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(15),
-                                        child: Image.network(
-                                          photoItem,
-                                          width: 100,
-                                          height: 100,
-                                          fit: BoxFit.cover,
+                                      child: InkWell(
+                                        onTap: () async {
+                                          await showModalBottomSheet(
+                                            isScrollControlled: true,
+                                            backgroundColor: Colors.transparent,
+                                            context: context,
+                                            builder: (context) {
+                                              return Padding(
+                                                padding: MediaQuery.of(context)
+                                                    .viewInsets,
+                                                child: ViewPhotoWidget(
+                                                  photo: photoItem,
+                                                ),
+                                              );
+                                            },
+                                          ).then((value) => setState(() {}));
+                                        },
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                          child: Image.network(
+                                            photoItem,
+                                            width: 100,
+                                            height: 100,
+                                            fit: BoxFit.cover,
+                                          ),
                                         ),
                                       ),
                                     );
@@ -398,17 +418,19 @@ class _CompletedTaskWidgetState extends State<CompletedTaskWidget> {
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
-                                    Text(
-                                      widget.completeTask!.feedback!,
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyText1
-                                          .override(
-                                            fontFamily: 'montserrat',
-                                            color: Color(0xFF5E5E5E),
-                                            fontWeight: FontWeight.normal,
-                                            useGoogleFonts: false,
-                                          ),
-                                    ),
+                                    if (widget.completeTask!.feedback != null &&
+                                        widget.completeTask!.feedback != '')
+                                      Text(
+                                        widget.completeTask!.feedback!,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1
+                                            .override(
+                                              fontFamily: 'montserrat',
+                                              color: Color(0xFF5E5E5E),
+                                              fontWeight: FontWeight.normal,
+                                              useGoogleFonts: false,
+                                            ),
+                                      ),
                                   ],
                                 ),
                               ),

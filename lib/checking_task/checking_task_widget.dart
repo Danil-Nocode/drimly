@@ -1,6 +1,7 @@
+import 'package:flutter_launcher_icons/main.dart';
+
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
-import '../backend/firebase_storage/storage.dart';
 import '../components/button_widget.dart';
 import '../components/view_file_widget.dart';
 import '../components/view_photo_widget.dart';
@@ -8,39 +9,37 @@ import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_youtube_player.dart';
-import '../flutter_flow/upload_media.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart'
     as smooth_page_indicator;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class CompleteTaskWidget extends StatefulWidget {
-  const CompleteTaskWidget({
+class CheckingTaskWidget extends StatefulWidget {
+  const CheckingTaskWidget({
     Key? key,
     this.task,
+    this.completeTask,
   }) : super(key: key);
 
   final TasksRecord? task;
+  final CompleteTaskRecord? completeTask;
 
   @override
-  _CompleteTaskWidgetState createState() => _CompleteTaskWidgetState();
+  _CheckingTaskWidgetState createState() => _CheckingTaskWidgetState();
 }
 
-class _CompleteTaskWidgetState extends State<CompleteTaskWidget> {
-  bool isMediaUploading = false;
-  List<String> uploadedFileUrls = [];
-
+class _CheckingTaskWidgetState extends State<CheckingTaskWidget> {
   PageController? pageViewController1;
   PageController? pageViewController2;
   TextEditingController? textController;
-  CompleteTaskRecord? task;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    textController = TextEditingController();
+    textController =
+        TextEditingController(text: widget.completeTask!.textAnswer);
   }
 
   @override
@@ -102,7 +101,7 @@ class _CompleteTaskWidgetState extends State<CompleteTaskWidget> {
                               children: [
                                 Text(
                                   FFLocalizations.of(context).getText(
-                                    'vo5st0ps' /* Задание */,
+                                    '27fayzol' /* Задание */,
                                   ),
                                   style: FlutterFlowTheme.of(context)
                                       .bodyText1
@@ -166,7 +165,7 @@ class _CompleteTaskWidgetState extends State<CompleteTaskWidget> {
                                               Text(
                                                 FFLocalizations.of(context)
                                                     .getText(
-                                                  '3aqin12a' /* Изображения */,
+                                                  '6f732xis' /* Изображения */,
                                                 ),
                                                 style: FlutterFlowTheme.of(
                                                         context)
@@ -321,7 +320,7 @@ class _CompleteTaskWidgetState extends State<CompleteTaskWidget> {
                                               Text(
                                                 FFLocalizations.of(context)
                                                     .getText(
-                                                  'yhd9whfm' /* Видео */,
+                                                  'e5972i0f' /* Видео */,
                                                 ),
                                                 style: FlutterFlowTheme.of(
                                                         context)
@@ -475,7 +474,7 @@ class _CompleteTaskWidgetState extends State<CompleteTaskWidget> {
                                               Text(
                                                 FFLocalizations.of(context)
                                                     .getText(
-                                                  '5fwsu2df' /* Файлы */,
+                                                  'jj5cdgfh' /* Файлы */,
                                                 ),
                                                 style: FlutterFlowTheme.of(
                                                         context)
@@ -607,7 +606,7 @@ class _CompleteTaskWidgetState extends State<CompleteTaskWidget> {
                               children: [
                                 Text(
                                   FFLocalizations.of(context).getText(
-                                    'zly92ann' /* Выполнение задания */,
+                                    'caka80wv' /* Ответ пользователя */,
                                   ),
                                   style: FlutterFlowTheme.of(context)
                                       .bodyText1
@@ -631,6 +630,8 @@ class _CompleteTaskWidgetState extends State<CompleteTaskWidget> {
                                 Expanded(
                                   child: TextFormField(
                                     controller: textController,
+                                    autofocus: true,
+                                    readOnly: true,
                                     obscureText: false,
                                     decoration: InputDecoration(
                                       labelStyle: FlutterFlowTheme.of(context)
@@ -644,7 +645,7 @@ class _CompleteTaskWidgetState extends State<CompleteTaskWidget> {
                                           ),
                                       hintText:
                                           FFLocalizations.of(context).getText(
-                                        'e7pq9gur' /* Напишите свой ответ  */,
+                                        'ryvogpe0' /* Напишите свой ответ  */,
                                       ),
                                       hintStyle: FlutterFlowTheme.of(context)
                                           .bodyText1
@@ -725,92 +726,42 @@ class _CompleteTaskWidgetState extends State<CompleteTaskWidget> {
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0, 20, 0, 0),
-                                  child: InkWell(
-                                    onTap: () async {
-                                      final selectedMedia = await selectMedia(
-                                        mediaSource: MediaSource.photoGallery,
-                                        multiImage: true,
-                                      );
-                                      if (selectedMedia != null &&
-                                          selectedMedia.every((m) =>
-                                              validateFileFormat(
-                                                  m.storagePath, context))) {
-                                        setState(() => isMediaUploading = true);
-                                        var downloadUrls = <String>[];
-                                        try {
-                                          showUploadMessage(
-                                            context,
-                                            'Uploading file...',
-                                            showLoading: true,
-                                          );
-                                          downloadUrls = (await Future.wait(
-                                            selectedMedia.map(
-                                              (m) async => await uploadData(
-                                                  m.storagePath, m.bytes),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0, 16, 16, 16),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            Icon(
+                                              Icons.perm_media_rounded,
+                                              color: Color(0xC9CB8AFE),
+                                              size: 24,
                                             ),
-                                          ))
-                                              .where((u) => u != null)
-                                              .map((u) => u!)
-                                              .toList();
-                                        } finally {
-                                          ScaffoldMessenger.of(context)
-                                              .hideCurrentSnackBar();
-                                          isMediaUploading = false;
-                                        }
-                                        if (downloadUrls.length ==
-                                            selectedMedia.length) {
-                                          setState(() =>
-                                              uploadedFileUrls = downloadUrls);
-                                          showUploadMessage(
-                                              context, 'Success!');
-                                        } else {
-                                          setState(() {});
-                                          showUploadMessage(context,
-                                              'Failed to upload media');
-                                          return;
-                                        }
-                                      }
-                                    },
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0, 16, 16, 16),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Icon(
-                                                Icons.perm_media_rounded,
-                                                color: Color(0xC9CB8AFE),
-                                                size: 24,
-                                              ),
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(8, 0, 0, 0),
-                                                child: Text(
-                                                  FFLocalizations.of(context)
-                                                      .getText(
-                                                    'fbp4q19v' /* Загрузить медиа */,
-                                                  ),
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyText1
-                                                      .override(
-                                                        fontFamily:
-                                                            'montserrat',
-                                                        color:
-                                                            Color(0xFF5E5E5E),
-                                                        useGoogleFonts: false,
-                                                      ),
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(8, 0, 0, 0),
+                                              child: Text(
+                                                FFLocalizations.of(context)
+                                                    .getText(
+                                                  'of3ym68c' /* Загруженное медиа */,
                                                 ),
+                                                style: FlutterFlowTheme.of(
+                                                        context)
+                                                    .bodyText1
+                                                    .override(
+                                                      fontFamily: 'montserrat',
+                                                      color: Color(0xFF5E5E5E),
+                                                      useGoogleFonts: false,
+                                                    ),
                                               ),
-                                            ],
-                                          ),
+                                            ),
+                                          ],
                                         ),
-                                      ],
-                                    ),
+                                      ),
+                                    ],
                                   ),
                                 ),
                                 Padding(
@@ -818,7 +769,9 @@ class _CompleteTaskWidgetState extends State<CompleteTaskWidget> {
                                       0, 8, 0, 0),
                                   child: Builder(
                                     builder: (context) {
-                                      final photo = uploadedFileUrls.toList();
+                                      final photo = widget
+                                          .completeTask!.imagesAnswer!
+                                          .toList();
                                       return Row(
                                         mainAxisSize: MainAxisSize.max,
                                         children: List.generate(photo.length,
@@ -873,54 +826,63 @@ class _CompleteTaskWidgetState extends State<CompleteTaskWidget> {
                     ),
                   ),
                 ),
-                Row(
+                Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    Expanded(
-                      child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
-                        child: InkWell(
-                          onTap: () async {
-                            Map<String, dynamic>? completeTaskCreateData;
-                            if (currentUserDocument!.psychologist != null) {
-                              completeTaskCreateData = {
-                                ...createCompleteTaskRecordData(
-                                  task: widget.task!.reference,
-                                  user: currentUserReference,
-                                  status: 'Сдано',
-                                  datetime: getCurrentTimestamp,
-                                  textAnswer: textController!.text,
-                                  whoChecked: currentUserDocument!.psychologist,
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 8),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Expanded(
+                            child: Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
+                              child: InkWell(
+                                onTap: () async {
+                                  final completeTaskUpdateData =
+                                      createCompleteTaskRecordData(
+                                    status: 'Проверено',
+                                  );
+                                  await widget.completeTask!.reference
+                                      .update(completeTaskUpdateData);
+                                  Navigator.pop(context);
+                                },
+                                child: ButtonWidget(
+                                  text: 'Сдано',
                                 ),
-                                'imagesAnswer': uploadedFileUrls,
-                              };
-                            } else {
-                              completeTaskCreateData = {
-                                ...createCompleteTaskRecordData(
-                                  task: widget.task!.reference,
-                                  user: currentUserReference,
-                                  status: 'Сдано',
-                                  datetime: getCurrentTimestamp,
-                                  textAnswer: textController!.text,
-                                ),
-                                'imagesAnswer': uploadedFileUrls,
-                              };
-                            }
-                            var completeTaskRecordReference =
-                                CompleteTaskRecord.collection.doc();
-                            await completeTaskRecordReference
-                                .set(completeTaskCreateData);
-                            task = CompleteTaskRecord.getDocumentFromData(
-                                completeTaskCreateData,
-                                completeTaskRecordReference);
-                            Navigator.pop(context);
-
-                            setState(() {});
-                          },
-                          child: ButtonWidget(
-                            text: 'Выполнить',
+                              ),
+                            ),
                           ),
-                        ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 8),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Expanded(
+                            child: Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
+                              child: InkWell(
+                                onTap: () async {
+                                  final completeTaskUpdateData =
+                                      createCompleteTaskRecordData(
+                                    status: 'Переделать',
+                                  );
+                                  await widget.completeTask!.reference
+                                      .update(completeTaskUpdateData);
+                                  Navigator.pop(context);
+                                },
+                                child: ButtonWidget(
+                                  text: 'Переделать',
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ],
