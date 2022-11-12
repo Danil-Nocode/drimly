@@ -23,7 +23,9 @@ class _ViewFileWidgetState extends State<ViewFileWidget> {
     return Container(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height * 1,
-      decoration: BoxDecoration(),
+      decoration: BoxDecoration(
+        color: Colors.white,
+      ),
       child: Stack(
         children: [
           FlutterFlowPdfViewer(
@@ -33,7 +35,7 @@ class _ViewFileWidgetState extends State<ViewFileWidget> {
             horizontalScroll: false,
           ),
           Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(20, 20, 20, 0),
+            padding: EdgeInsetsDirectional.fromSTEB(20, 40, 20, 0),
             child: Row(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

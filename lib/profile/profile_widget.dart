@@ -182,10 +182,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                           children: [
                                             Expanded(
                                               child: Text(
-                                                FFLocalizations.of(context)
-                                                    .getText(
-                                                  'phlk9xak' /* Александра Волова */,
-                                                ),
+                                                currentUserDisplayName,
                                                 style:
                                                     FlutterFlowTheme.of(context)
                                                         .bodyText1

@@ -49,7 +49,7 @@ android {
         applicationId "com.drimly.android"
         minSdkVersion 21
         targetSdkVersion 31
-        versionCode 7
+        versionCode 8
         versionName flutterVersionName
     }
 

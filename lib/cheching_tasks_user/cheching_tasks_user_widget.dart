@@ -1,5 +1,6 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
+import '../checking_task/checking_task_widget.dart';
 import '../completed_task/completed_task_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
@@ -162,7 +163,7 @@ class _ChechingTasksUserWidgetState extends State<ChechingTasksUserWidget> {
                                 await Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => CompletedTaskWidget(
+                                    builder: (context) => CheckingTaskWidget(
                                       task: containerTasksRecord,
                                       completeTask: listViewCompleteTaskRecord,
                                     ),
