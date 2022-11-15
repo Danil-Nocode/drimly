@@ -883,11 +883,35 @@ class _CompleteTaskWidgetState extends State<CompleteTaskWidget> {
                           onTap: () async {
                             Map<String, dynamic>? completeTaskCreateData;
                             if (currentUserDocument!.psychologist != null) {
+                              final ChatsRecordList =
+                                  await queryChatsRecordOnce(
+                                queryBuilder: (chatsRecord) =>
+                                    chatsRecord.where('users',
+                                        arrayContains: currentUserReference),
+                                singleRecord: true,
+                              );
+                              final chat = ChatsRecordList.isNotEmpty
+                                  ? ChatsRecordList.first
+                                  : null;
+
+                              final chatMessagesCreateData =
+                                  createChatMessagesRecordData(
+                                user: currentUserReference,
+                                text:
+                                    'Отправлено задание:\n${widget.task!.name} \n\nОтвет:\n' +
+                                        textController!.text,
+                                chat: chat!.reference,
+                                timestamp: getCurrentTimestamp,
+                              );
+                              await ChatMessagesRecord.collection
+                                  .doc()
+                                  .set(chatMessagesCreateData);
+
                               completeTaskCreateData = {
                                 ...createCompleteTaskRecordData(
                                   task: widget.task!.reference,
                                   user: currentUserReference,
-                                  status: 'Сдано',
+                                  status: 'Отправлено',
                                   datetime: getCurrentTimestamp,
                                   textAnswer: textController!.text,
                                   whoChecked: currentUserDocument!.psychologist,
@@ -899,7 +923,7 @@ class _CompleteTaskWidgetState extends State<CompleteTaskWidget> {
                                 ...createCompleteTaskRecordData(
                                   task: widget.task!.reference,
                                   user: currentUserReference,
-                                  status: 'Сдано',
+                                  status: 'Принято',
                                   datetime: getCurrentTimestamp,
                                   textAnswer: textController!.text,
                                 ),

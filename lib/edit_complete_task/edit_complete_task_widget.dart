@@ -886,10 +886,35 @@ class _EditCompleteTaskWidgetState extends State<EditCompleteTaskWidget> {
                         padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
                         child: InkWell(
                           onTap: () async {
+                            if (currentUserDocument!.psychologist != null) {
+                              final ChatsRecordList =
+                                  await queryChatsRecordOnce(
+                                queryBuilder: (chatsRecord) =>
+                                    chatsRecord.where('users',
+                                        arrayContains: currentUserReference),
+                                singleRecord: true,
+                              );
+                              final chat = ChatsRecordList.isNotEmpty
+                                  ? ChatsRecordList.first
+                                  : null;
+
+                              final chatMessagesCreateData =
+                                  createChatMessagesRecordData(
+                                user: currentUserReference,
+                                text:
+                                    'Дополнено задание:\n${widget.task!.name} \n\nОтвет:\n' +
+                                        textController!.text,
+                                chat: chat!.reference,
+                                timestamp: getCurrentTimestamp,
+                              );
+                              await ChatMessagesRecord.collection
+                                  .doc()
+                                  .set(chatMessagesCreateData);
+                            }
                             final completeTaskUpdateData = {
                               ...createCompleteTaskRecordData(
                                 textAnswer: textController!.text,
-                                status: 'Сдано повторно',
+                                status: 'Дополнено',
                                 datetime: getCurrentTimestamp,
                               ),
                               'imagesAnswer': uploadedFileUrls.length == 0
@@ -901,7 +926,7 @@ class _EditCompleteTaskWidgetState extends State<EditCompleteTaskWidget> {
                             Navigator.pop(context);
                           },
                           child: ButtonWidget(
-                            text: 'Редактировать',
+                            text: 'Дополнить',
                           ),
                         ),
                       ),

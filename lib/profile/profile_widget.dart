@@ -154,13 +154,20 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                         alignment: AlignmentDirectional(0, 0),
                                         child: ClipRRect(
                                           borderRadius:
-                                              BorderRadius.circular(0),
-                                          child: Image.asset(
-                                            'assets/images/user-profile-svgrepo-com_2-2.png',
-                                            width: 48,
-                                            height: 64,
-                                            fit: BoxFit.contain,
-                                          ),
+                                              BorderRadius.circular(100),
+                                          child: currentUserPhoto == ''
+                                              ? Image.asset(
+                                                  'assets/images/user-profile-svgrepo-com_2-2.png',
+                                                  width: 48,
+                                                  height: 64,
+                                                  fit: BoxFit.contain,
+                                                )
+                                              : Image.network(
+                                                  currentUserPhoto,
+                                                  width: 99,
+                                                  height: 99,
+                                                  fit: BoxFit.cover,
+                                                ),
                                         ),
                                       ),
                                     ),
@@ -991,11 +998,11 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                 .spaceBetween,
                                                         children: [
                                                           Text(
-                                                            FFLocalizations.of(
-                                                                    context)
-                                                                .getText(
-                                                              '40tf6otp' /* Открыть полный доступ */,
-                                                            ),
+                                                            currentUserDocument!
+                                                                        .status ==
+                                                                    'free'
+                                                                ? 'Открыть полный доступ'
+                                                                : 'Тариф ${currentUserDocument!.status}',
                                                             style: FlutterFlowTheme
                                                                     .of(context)
                                                                 .bodyText1
@@ -1285,7 +1292,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                   ),
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 10, 0, 140),
+                                        0, 10, 0, 0),
                                     child: InkWell(
                                       onTap: () async {
                                         signOut();
@@ -1307,11 +1314,24 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                               fontFamily: 'montserrat',
                                               color: Color(0xFFC4C4C4),
                                               fontWeight: FontWeight.w500,
-                                              decoration:
-                                                  TextDecoration.underline,
                                               useGoogleFonts: false,
                                             ),
                                       ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0, 10, 0, 140),
+                                    child: Text(
+                                      'v 1.1.6',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                            fontFamily: 'montserrat',
+                                            color: Color(0xFFC4C4C4),
+                                            fontWeight: FontWeight.w500,
+                                            useGoogleFonts: false,
+                                          ),
                                     ),
                                   ),
                                 ],

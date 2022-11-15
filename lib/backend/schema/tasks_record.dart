@@ -25,6 +25,8 @@ abstract class TasksRecord implements Built<TasksRecord, TasksRecordBuilder> {
 
   BuiltList<String>? get files;
 
+  DocumentReference? get section;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -65,6 +67,7 @@ Map<String, dynamic> createTasksRecordData({
   double? difficult,
   String? image,
   DocumentReference? audio,
+  DocumentReference? section,
 }) {
   final firestoreData = serializers.toFirestore(
     TasksRecord.serializer,
@@ -77,7 +80,8 @@ Map<String, dynamic> createTasksRecordData({
         ..audio = audio
         ..images = null
         ..videos = null
-        ..files = null,
+        ..files = null
+        ..section = section,
     ),
   );
 

@@ -842,14 +842,14 @@ class _CheckingTaskWidgetState extends State<CheckingTaskWidget> {
                                 onTap: () async {
                                   final completeTaskUpdateData =
                                       createCompleteTaskRecordData(
-                                    status: 'Проверено',
+                                    status: 'Принято',
                                   );
                                   await widget.completeTask!.reference
                                       .update(completeTaskUpdateData);
                                   Navigator.pop(context);
                                 },
                                 child: ButtonWidget(
-                                  text: 'Сдано',
+                                  text: 'Принято',
                                 ),
                               ),
                             ),
@@ -870,14 +870,14 @@ class _CheckingTaskWidgetState extends State<CheckingTaskWidget> {
                                 onTap: () async {
                                   final completeTaskUpdateData =
                                       createCompleteTaskRecordData(
-                                    status: 'Переделать',
+                                    status: 'Дополнить',
                                   );
                                   await widget.completeTask!.reference
                                       .update(completeTaskUpdateData);
                                   Navigator.pop(context);
                                 },
                                 child: ButtonWidget(
-                                  text: 'Переделать',
+                                  text: 'Дополнить',
                                 ),
                               ),
                             ),

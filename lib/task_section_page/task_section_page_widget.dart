@@ -1,5 +1,6 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
+import '../backend/schema/section_custom_record.dart';
 import '../complete_task/complete_task_widget.dart';
 import '../edit_complete_task/edit_complete_task_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -7,19 +8,19 @@ import '../flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class TaskPageWidget extends StatefulWidget {
-  const TaskPageWidget({
+class TaskSectionPageWidget extends StatefulWidget {
+  const TaskSectionPageWidget({
     Key? key,
-    this.audio,
+    this.section,
   }) : super(key: key);
 
-  final AudiosRecord? audio;
+  final SectionCustomRecord? section;
 
   @override
-  _TaskPageWidgetState createState() => _TaskPageWidgetState();
+  _TaskSectionPageWidgetState createState() => _TaskSectionPageWidgetState();
 }
 
-class _TaskPageWidgetState extends State<TaskPageWidget> {
+class _TaskSectionPageWidgetState extends State<TaskSectionPageWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -96,8 +97,9 @@ class _TaskPageWidgetState extends State<TaskPageWidget> {
                   padding: EdgeInsetsDirectional.fromSTEB(16, 100, 16, 0),
                   child: StreamBuilder<List<TasksRecord>>(
                     stream: queryTasksRecord(
-                      queryBuilder: (tasksRecord) => tasksRecord.where('audio',
-                          isEqualTo: widget.audio!.reference),
+                      queryBuilder: (tasksRecord) => tasksRecord.where(
+                          'section',
+                          isEqualTo: widget.section!.reference),
                     ),
                     builder: (context, snapshot) {
                       // Customize what your widget looks like when it's loading.

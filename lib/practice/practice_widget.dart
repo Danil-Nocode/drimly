@@ -5,6 +5,7 @@ import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../main.dart';
 import '../meditation_page/meditation_page_widget.dart';
+import '../practice_custom_page/practice_custom_page.dart';
 import '../practice_page/practice_page_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -23,7 +24,6 @@ class _PracticeWidgetState extends State<PracticeWidget> {
 
   @override
   Widget build(BuildContext context) {
-    print(currentUserDocument!.psychologist);
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -348,15 +348,31 @@ class _PracticeWidgetState extends State<PracticeWidget> {
                                           ),
                                         );
                                       } else {
-                                        await Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                PracticePageWidget(
-                                              practice: listViewPracticesRecord,
+                                        if (listViewPracticesRecord
+                                                .sectionsCustom !=
+                                            null) {
+                                          await Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  PracticeCustomPageWidget(
+                                                practice:
+                                                    listViewPracticesRecord,
+                                              ),
                                             ),
-                                          ),
-                                        );
+                                          );
+                                        } else {
+                                          await Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  PracticePageWidget(
+                                                practice:
+                                                    listViewPracticesRecord,
+                                              ),
+                                            ),
+                                          );
+                                        }
                                       }
                                     },
                                     child: Container(

@@ -1,5 +1,6 @@
 import 'package:built_value/serializer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:drimly/backend/schema/section_custom_record.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../flutter_flow/flutter_flow_util.dart';
@@ -534,6 +535,48 @@ Future<FFFirestorePage<CompleteTaskRecord>> queryCompleteTaskRecordPage({
     queryCollectionPage(
       CompleteTaskRecord.collection,
       CompleteTaskRecord.serializer,
+      queryBuilder: queryBuilder,
+      nextPageMarker: nextPageMarker,
+      pageSize: pageSize,
+      isStream: isStream,
+    );
+
+/// Functions to query SectionCustomRecords (as a Stream and as a Future).
+Stream<List<SectionCustomRecord>> querySectionCustomRecord({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      SectionCustomRecord.collection,
+      SectionCustomRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<SectionCustomRecord>> querySectionCustomRecordOnce({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      SectionCustomRecord.collection,
+      SectionCustomRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<FFFirestorePage<SectionCustomRecord>> querySectionCustomRecordPage({
+  Query Function(Query)? queryBuilder,
+  DocumentSnapshot? nextPageMarker,
+  required int pageSize,
+  required bool isStream,
+}) =>
+    queryCollectionPage(
+      SectionCustomRecord.collection,
+      SectionCustomRecord.serializer,
       queryBuilder: queryBuilder,
       nextPageMarker: nextPageMarker,
       pageSize: pageSize,

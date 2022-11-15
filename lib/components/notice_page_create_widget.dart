@@ -27,7 +27,6 @@ class _NoticePageCreateWidgetState extends State<NoticePageCreateWidget> {
 
   @override
   Widget build(BuildContext context) {
-    print(textController!.text);
     return Container(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height * 1,

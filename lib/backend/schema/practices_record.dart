@@ -31,6 +31,8 @@ abstract class PracticesRecord
 
   int? get countLesson;
 
+  BuiltList<DocumentReference>? get sectionsCustom;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -41,6 +43,7 @@ abstract class PracticesRecord
     ..cover = ''
     ..duration = ''
     ..sections = ListBuilder()
+    ..sectionsCustom = ListBuilder()
     ..coverBig = ''
     ..index = 0
     ..countLesson = 0;
@@ -86,6 +89,7 @@ Map<String, dynamic> createPracticesRecordData({
         ..cover = cover
         ..duration = duration
         ..sections = null
+        ..sectionsCustom = null
         ..coverBig = coverBig
         ..section = section
         ..audio = audio

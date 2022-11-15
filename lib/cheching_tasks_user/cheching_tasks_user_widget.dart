@@ -263,6 +263,7 @@ class _ChechingTasksUserWidgetState extends State<ChechingTasksUserWidget> {
                                                   ),
                                                   child: Image.network(
                                                     rowUsersRecord.photoUrl!,
+                                                    fit: BoxFit.cover,
                                                   ),
                                                 ),
                                                 Column(

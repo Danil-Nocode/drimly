@@ -71,48 +71,33 @@ class _ChatWidgetState extends State<ChatWidget> {
             Navigator.pop(context);
           },
         ),
-        title: Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Expanded(
-              child: Stack(
-                alignment: AlignmentDirectional(1, 0),
-                children: [
-                  Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        widget.chatUser!.displayName!,
-                        style: FlutterFlowTheme.of(context).bodyText1.override(
-                              fontFamily: 'montserrat',
-                              color: FlutterFlowTheme.of(context)
-                                  .primaryBackground,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                              useGoogleFonts: false,
-                            ),
-                      ),
-                    ],
-                  ),
-                  Container(
-                    width: 32,
-                    height: 32,
-                    clipBehavior: Clip.antiAlias,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                    ),
-                    child: Image.network(
-                      widget.chatUser!.photoUrl!,
-                    ),
-                  ),
-                ],
+        title: Text(
+          widget.chatUser!.displayName!,
+          style: FlutterFlowTheme.of(context).bodyText1.override(
+                fontFamily: 'montserrat',
+                color: FlutterFlowTheme.of(context).primaryBackground,
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+                useGoogleFonts: false,
+              ),
+        ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 20),
+            child: Container(
+              width: 32,
+              height: 32,
+              clipBehavior: Clip.antiAlias,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+              ),
+              child: Image.network(
+                widget.chatUser!.photoUrl!,
+                fit: BoxFit.cover,
               ),
             ),
-          ],
-        ),
-        actions: [],
+          ),
+        ],
         centerTitle: false,
         elevation: 2,
       ),

@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:built_value/standard_json_plugin.dart';
+import 'package:drimly/backend/schema/section_custom_record.dart';
 import 'package:from_css_color/from_css_color.dart';
 
 import 'users_record.dart';
@@ -37,6 +38,7 @@ const kDocumentReferenceField = 'Document__Reference__Field';
   FilesRecord,
   TasksRecord,
   CompleteTaskRecord,
+  SectionCustomRecord,
 ])
 final Serializers serializers = (_$serializers.toBuilder()
       ..add(DocumentReferenceSerializer())

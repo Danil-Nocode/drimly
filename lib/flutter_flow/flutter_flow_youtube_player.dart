@@ -129,7 +129,7 @@ class _FlutterFlowYoutubePlayerState extends State<FlutterFlowYoutubePlayer> {
 
   @override
   Widget build(BuildContext context) => FittedBox(
-        fit: BoxFit.cover,
+        fit: BoxFit.contain,
         child: Container(
           height: height,
           width: width,

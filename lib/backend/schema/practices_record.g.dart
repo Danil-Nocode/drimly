@@ -94,6 +94,16 @@ class _$PracticesRecordSerializer
         ..add('countLesson')
         ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
+    value = object.sectionsCustom;
+    if (value != null) {
+      result
+        ..add('sectionsCustom')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(BuiltList, const [
+              const FullType(
+                  DocumentReference, const [const FullType.nullable(Object)])
+            ])));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -164,6 +174,13 @@ class _$PracticesRecordSerializer
           result.countLesson = serializers.deserialize(value,
               specifiedType: const FullType(int)) as int?;
           break;
+        case 'sectionsCustom':
+          result.sectionsCustom.replace(serializers.deserialize(value,
+              specifiedType: const FullType(BuiltList, const [
+                const FullType(
+                    DocumentReference, const [const FullType.nullable(Object)])
+              ]))! as BuiltList<Object?>);
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -199,6 +216,8 @@ class _$PracticesRecord extends PracticesRecord {
   @override
   final int? countLesson;
   @override
+  final BuiltList<DocumentReference<Object?>>? sectionsCustom;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$PracticesRecord([void Function(PracticesRecordBuilder)? updates]) =>
@@ -215,6 +234,7 @@ class _$PracticesRecord extends PracticesRecord {
       this.audio,
       this.index,
       this.countLesson,
+      this.sectionsCustom,
       this.ffRef})
       : super._();
 
@@ -240,6 +260,7 @@ class _$PracticesRecord extends PracticesRecord {
         audio == other.audio &&
         index == other.index &&
         countLesson == other.countLesson &&
+        sectionsCustom == other.sectionsCustom &&
         ffRef == other.ffRef;
   }
 
@@ -254,16 +275,18 @@ class _$PracticesRecord extends PracticesRecord {
                             $jc(
                                 $jc(
                                     $jc(
-                                        $jc($jc(0, title.hashCode),
-                                            desctiption.hashCode),
-                                        cover.hashCode),
-                                    duration.hashCode),
-                                sections.hashCode),
-                            coverBig.hashCode),
-                        section.hashCode),
-                    audio.hashCode),
-                index.hashCode),
-            countLesson.hashCode),
+                                        $jc(
+                                            $jc($jc(0, title.hashCode),
+                                                desctiption.hashCode),
+                                            cover.hashCode),
+                                        duration.hashCode),
+                                    sections.hashCode),
+                                coverBig.hashCode),
+                            section.hashCode),
+                        audio.hashCode),
+                    index.hashCode),
+                countLesson.hashCode),
+            sectionsCustom.hashCode),
         ffRef.hashCode));
   }
 
@@ -280,6 +303,7 @@ class _$PracticesRecord extends PracticesRecord {
           ..add('audio', audio)
           ..add('index', index)
           ..add('countLesson', countLesson)
+          ..add('sectionsCustom', sectionsCustom)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -331,6 +355,12 @@ class PracticesRecordBuilder
   int? get countLesson => _$this._countLesson;
   set countLesson(int? countLesson) => _$this._countLesson = countLesson;
 
+  ListBuilder<DocumentReference<Object?>>? _sectionsCustom;
+  ListBuilder<DocumentReference<Object?>> get sectionsCustom =>
+      _$this._sectionsCustom ??= new ListBuilder<DocumentReference<Object?>>();
+  set sectionsCustom(ListBuilder<DocumentReference<Object?>>? sectionsCustom) =>
+      _$this._sectionsCustom = sectionsCustom;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -352,6 +382,7 @@ class PracticesRecordBuilder
       _audio = $v.audio;
       _index = $v.index;
       _countLesson = $v.countLesson;
+      _sectionsCustom = $v.sectionsCustom?.toBuilder();
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -387,12 +418,16 @@ class PracticesRecordBuilder
               audio: audio,
               index: index,
               countLesson: countLesson,
+              sectionsCustom: _sectionsCustom?.build(),
               ffRef: ffRef);
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'sections';
         _sections?.build();
+
+        _$failedField = 'sectionsCustom';
+        _sectionsCustom?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'PracticesRecord', _$failedField, e.toString());

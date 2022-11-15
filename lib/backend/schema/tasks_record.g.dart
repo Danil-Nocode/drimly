@@ -79,6 +79,14 @@ class _$TasksRecordSerializer implements StructuredSerializer<TasksRecord> {
             specifiedType:
                 const FullType(BuiltList, const [const FullType(String)])));
     }
+    value = object.section;
+    if (value != null) {
+      result
+        ..add('section')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(
+                DocumentReference, const [const FullType.nullable(Object)])));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -141,6 +149,12 @@ class _$TasksRecordSerializer implements StructuredSerializer<TasksRecord> {
                       BuiltList, const [const FullType(String)]))!
               as BuiltList<Object?>);
           break;
+        case 'section':
+          result.section = serializers.deserialize(value,
+              specifiedType: const FullType(DocumentReference, const [
+                const FullType.nullable(Object)
+              ])) as DocumentReference<Object?>?;
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -172,6 +186,8 @@ class _$TasksRecord extends TasksRecord {
   @override
   final BuiltList<String>? files;
   @override
+  final DocumentReference<Object?>? section;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$TasksRecord([void Function(TasksRecordBuilder)? updates]) =>
@@ -186,6 +202,7 @@ class _$TasksRecord extends TasksRecord {
       this.images,
       this.videos,
       this.files,
+      this.section,
       this.ffRef})
       : super._();
 
@@ -208,6 +225,7 @@ class _$TasksRecord extends TasksRecord {
         images == other.images &&
         videos == other.videos &&
         files == other.files &&
+        section == other.section &&
         ffRef == other.ffRef;
   }
 
@@ -220,14 +238,16 @@ class _$TasksRecord extends TasksRecord {
                     $jc(
                         $jc(
                             $jc(
-                                $jc($jc(0, name.hashCode),
-                                    description.hashCode),
-                                difficult.hashCode),
-                            image.hashCode),
-                        audio.hashCode),
-                    images.hashCode),
-                videos.hashCode),
-            files.hashCode),
+                                $jc(
+                                    $jc($jc(0, name.hashCode),
+                                        description.hashCode),
+                                    difficult.hashCode),
+                                image.hashCode),
+                            audio.hashCode),
+                        images.hashCode),
+                    videos.hashCode),
+                files.hashCode),
+            section.hashCode),
         ffRef.hashCode));
   }
 
@@ -242,6 +262,7 @@ class _$TasksRecord extends TasksRecord {
           ..add('images', images)
           ..add('videos', videos)
           ..add('files', files)
+          ..add('section', section)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -284,6 +305,10 @@ class TasksRecordBuilder implements Builder<TasksRecord, TasksRecordBuilder> {
   ListBuilder<String> get files => _$this._files ??= new ListBuilder<String>();
   set files(ListBuilder<String>? files) => _$this._files = files;
 
+  DocumentReference<Object?>? _section;
+  DocumentReference<Object?>? get section => _$this._section;
+  set section(DocumentReference<Object?>? section) => _$this._section = section;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -303,6 +328,7 @@ class TasksRecordBuilder implements Builder<TasksRecord, TasksRecordBuilder> {
       _images = $v.images?.toBuilder();
       _videos = $v.videos?.toBuilder();
       _files = $v.files?.toBuilder();
+      _section = $v.section;
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -336,6 +362,7 @@ class TasksRecordBuilder implements Builder<TasksRecord, TasksRecordBuilder> {
               images: _images?.build(),
               videos: _videos?.build(),
               files: _files?.build(),
+              section: section,
               ffRef: ffRef);
     } catch (_) {
       late String _$failedField;
