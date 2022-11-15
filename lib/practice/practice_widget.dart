@@ -349,8 +349,8 @@ class _PracticeWidgetState extends State<PracticeWidget> {
                                         );
                                       } else {
                                         if (listViewPracticesRecord
-                                                .sectionsCustom !=
-                                            null) {
+                                                .sectionsCustom!.length !=
+                                            0) {
                                           await Navigator.push(
                                             context,
                                             MaterialPageRoute(
