@@ -214,9 +214,17 @@ class _PracticeWidgetState extends State<PracticeWidget> {
                           snapshot.data!;
                       listViewPracticesRecordList
                           .sort((a, b) => a.index!.compareTo(b.index!));
-                      if ((currentUserDocument!.status == 'free' ||
-                              currentUserDocument!.status == 'start') &&
-                          currentUserDocument!.moneyspace != true) {
+                      PracticesRecord moneyspace = listViewPracticesRecordList
+                          .where((practice) => practice.title == 'Money Space')
+                          .first;
+                      PracticesRecord pro = listViewPracticesRecordList
+                          .where(
+                              (practice) => practice.title == 'PROкачай себя')
+                          .first;
+
+                      if (currentUserDocument!.status == 'free' &&
+                          currentUserDocument!.moneyspace != true &&
+                          currentUserDocument!.pro != true) {
                         return SizedBox(
                           child: Text(
                             'Скоро мы добавим сюда контент',
@@ -231,370 +239,335 @@ class _PracticeWidgetState extends State<PracticeWidget> {
                           ),
                         );
                       }
-                      return StreamBuilder<List<PracticesRecord>>(
-                          stream: queryPracticesRecord(
-                            queryBuilder: (practicesRecord) => practicesRecord
-                                .where('title', isEqualTo: 'Money Space'),
-                            singleRecord: true,
-                          ),
-                          builder: (context, snapshot) {
-                            // Customize what your widget looks like when it's loading.
-                            if (!snapshot.hasData) {
-                              return Center(
-                                child: SizedBox(
-                                  width: 30,
-                                  height: 30,
-                                  child: CircularProgressIndicator(
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryColor,
-                                  ),
-                                ),
-                              );
-                            }
-                            List<PracticesRecord> rowPracticesRecordList =
-                                snapshot.data!;
-                            final moneySpacePractice =
-                                rowPracticesRecordList.isNotEmpty
-                                    ? rowPracticesRecordList.first
-                                    : null;
-                            if ((currentUserDocument!.status == 'free' ||
-                                    currentUserDocument!.status == 'start') &&
-                                currentUserDocument!.moneyspace == true) {
-                              listViewPracticesRecordList.clear();
-                            }
-                            if ((currentUserDocument!.status == 'free' ||
-                                    currentUserDocument!.status == 'start') &&
-                                currentUserDocument!.moneyspace == true) {
-                              listViewPracticesRecordList.insert(
-                                  0, moneySpacePractice!);
-                            }
-                            return ListView.builder(
-                              padding: EdgeInsets.zero,
-                              scrollDirection: Axis.vertical,
-                              itemCount: listViewPracticesRecordList.length,
-                              itemBuilder: (context, listViewIndex) {
-                                final listViewPracticesRecord =
-                                    listViewPracticesRecordList[listViewIndex];
+                      if (currentUserDocument!.status == 'free') {
+                        listViewPracticesRecordList.clear();
+                      }
+                      if (currentUserDocument!.status == 'free' &&
+                          currentUserDocument!.pro!) {
+                        listViewPracticesRecordList.add(pro);
+                      }
 
-                                String title;
-                                String description;
-                                if (FFLocalizations.of(context).languageCode ==
-                                        'en' &&
-                                    listViewPracticesRecord.title! ==
-                                        'PROкачай себя') {
-                                  title = 'Better Me';
-                                } else if (FFLocalizations.of(context)
-                                            .languageCode ==
-                                        'en' &&
-                                    listViewPracticesRecord.title! ==
-                                        'Автомобиль') {
-                                  title = 'Car';
-                                } else if (FFLocalizations.of(context)
-                                            .languageCode ==
-                                        'en' &&
-                                    listViewPracticesRecord.title! ==
-                                        'Назад в будущее') {
-                                  title = 'Back to Feauture';
-                                } else {
-                                  title = listViewPracticesRecord.title!;
-                                }
+                      if (currentUserDocument!.moneyspace! &&
+                          currentUserDocument!.status == 'free') {
+                        listViewPracticesRecordList.insert(0, moneyspace);
+                      }
 
-                                if (FFLocalizations.of(context).languageCode ==
-                                        'en' &&
-                                    listViewPracticesRecord.desctiption! ==
-                                        'Отпустите прошлое, крепко встать на ноги в настоящем, на всех парах лететь к светлому будущему') {
-                                  description =
-                                      'Forget about you past, stand strong on your feet in your new reality and life your new bright feature self';
-                                } else {
-                                  description =
-                                      listViewPracticesRecord.desctiption!;
-                                }
+                      if (currentUserDocument!.moneyspace == false) {
+                        listViewPracticesRecordList.remove(moneyspace);
+                      }
 
-                                if (listViewPracticesRecord.title! ==
-                                        'Money Space' &&
-                                    currentUserDocument!.moneyspace! == false) {
-                                  return Container();
-                                }
+                      // if ((currentUserDocument!.status == 'free' ||
+                      //         currentUserDocument!.status == 'start') &&
+                      //     currentUserDocument!.moneyspace == true) {
+                      //   listViewPracticesRecordList.clear();
+                      // }
+                      // if ((currentUserDocument!.status == 'free' ||
+                      //         currentUserDocument!.status == 'start') &&
+                      //     currentUserDocument!.moneyspace == true) {
+                      //   listViewPracticesRecordList.insert(0, moneyspace);
+                      // }
+                      // if ((currentUserDocument!.status == 'free' ||
+                      //         currentUserDocument!.status == 'start') &&
+                      //     currentUserDocument!.moneyspace == true) {
+                      //   listViewPracticesRecordList.add(moneyspace);
+                      // }
+                      return ListView.builder(
+                        padding: EdgeInsets.zero,
+                        scrollDirection: Axis.vertical,
+                        itemCount: listViewPracticesRecordList.length,
+                        itemBuilder: (context, listViewIndex) {
+                          final listViewPracticesRecord =
+                              listViewPracticesRecordList[listViewIndex];
 
-                                return Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 0, 0, 12),
-                                  child: InkWell(
-                                    onTap: () async {
-                                      if (listViewPracticesRecord.audio !=
-                                          null) {
-                                        await Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                MeditationPageWidget(
-                                              audio:
-                                                  listViewPracticesRecord.audio,
-                                            ),
-                                          ),
-                                        );
-                                      } else if (listViewPracticesRecord
-                                              .section !=
-                                          null) {
-                                        await Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                SectionPageWidget(
-                                              section: listViewPracticesRecord
-                                                  .section,
-                                              numlesson: 2,
-                                            ),
-                                          ),
-                                        );
-                                      } else {
-                                        if (listViewPracticesRecord
-                                                .sectionsCustom!.length !=
-                                            0) {
-                                          await Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  PracticeCustomPageWidget(
-                                                practice:
-                                                    listViewPracticesRecord,
-                                              ),
-                                            ),
-                                          );
-                                        } else {
-                                          await Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  PracticePageWidget(
-                                                practice:
-                                                    listViewPracticesRecord,
-                                              ),
-                                            ),
-                                          );
-                                        }
-                                      }
-                                    },
-                                    child: Container(
-                                      width: 100,
-                                      decoration: BoxDecoration(
-                                        color: Color(0xFFFFF6EF),
-                                        borderRadius: BorderRadius.circular(25),
+                          String title;
+                          String description;
+                          if (FFLocalizations.of(context).languageCode ==
+                                  'en' &&
+                              listViewPracticesRecord.title! ==
+                                  'PROкачай себя') {
+                            title = 'Better Me';
+                          } else if (FFLocalizations.of(context).languageCode ==
+                                  'en' &&
+                              listViewPracticesRecord.title! == 'Автомобиль') {
+                            title = 'Car';
+                          } else if (FFLocalizations.of(context).languageCode ==
+                                  'en' &&
+                              listViewPracticesRecord.title! ==
+                                  'Назад в будущее') {
+                            title = 'Back to Feauture';
+                          } else {
+                            title = listViewPracticesRecord.title!;
+                          }
+
+                          if (FFLocalizations.of(context).languageCode ==
+                                  'en' &&
+                              listViewPracticesRecord.desctiption! ==
+                                  'Отпустите прошлое, крепко встать на ноги в настоящем, на всех парах лететь к светлому будущему') {
+                            description =
+                                'Forget about you past, stand strong on your feet in your new reality and life your new bright feature self';
+                          } else {
+                            description = listViewPracticesRecord.desctiption!;
+                          }
+
+                          // if (listViewPracticesRecord.title! == 'Money Space' &&
+                          //     currentUserDocument!.moneyspace! == false) {
+                          //   return Container();
+                          // }
+
+                          return Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(0, 0, 0, 12),
+                            child: InkWell(
+                              onTap: () async {
+                                if (listViewPracticesRecord.audio != null) {
+                                  await Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          MeditationPageWidget(
+                                        audio: listViewPracticesRecord.audio,
                                       ),
-                                      child: Padding(
+                                    ),
+                                  );
+                                } else if (listViewPracticesRecord.section !=
+                                    null) {
+                                  await Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => SectionPageWidget(
+                                        section:
+                                            listViewPracticesRecord.section,
+                                        numlesson: 2,
+                                      ),
+                                    ),
+                                  );
+                                } else {
+                                  if (listViewPracticesRecord
+                                          .sectionsCustom!.length !=
+                                      0) {
+                                    await Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            PracticeCustomPageWidget(
+                                          practice: listViewPracticesRecord,
+                                        ),
+                                      ),
+                                    );
+                                  } else {
+                                    await Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            PracticePageWidget(
+                                          practice: listViewPracticesRecord,
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                }
+                              },
+                              child: Container(
+                                width: 100,
+                                decoration: BoxDecoration(
+                                  color: Color(0xFFFFF6EF),
+                                  borderRadius: BorderRadius.circular(25),
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      10, 10, 10, 10),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
-                                            10, 10, 10, 10),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(0, 2, 0, 2),
-                                              child: ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(20),
-                                                child: CachedNetworkImage(
-                                                  imageUrl:
-                                                      listViewPracticesRecord
-                                                          .cover!,
-                                                  height: 131,
-                                                  width: 93,
-                                                  fit: BoxFit.cover,
-                                                ),
-                                              ),
-                                            ),
-                                            Expanded(
-                                              child: Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(23, 0, 0, 0),
-                                                child: Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Row(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      children: [
-                                                        Text(
-                                                          title,
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyText1
-                                                              .override(
-                                                                fontFamily:
-                                                                    'montserrat',
-                                                                color: Color(
-                                                                    0xFF042433),
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w600,
-                                                                useGoogleFonts:
-                                                                    false,
-                                                              ),
+                                            0, 2, 0, 2),
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                          child: CachedNetworkImage(
+                                            imageUrl:
+                                                listViewPracticesRecord.cover!,
+                                            height: 131,
+                                            width: 93,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  23, 0, 0, 0),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Text(
+                                                    title,
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyText1
+                                                        .override(
+                                                          fontFamily:
+                                                              'montserrat',
+                                                          color:
+                                                              Color(0xFF042433),
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          useGoogleFonts: false,
                                                         ),
-                                                        Container(
-                                                          width: 30,
-                                                          height: 30,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            color: Color(
-                                                                0xFFE7D4C6),
-                                                            shape:
-                                                                BoxShape.circle,
-                                                          ),
-                                                          alignment:
-                                                              AlignmentDirectional(
-                                                                  0, 0),
-                                                          child: Stack(
-                                                            children: [
-                                                              Image.asset(
-                                                                'assets/images/bookmark-svgrepo-com_1.png',
-                                                                width: 16,
-                                                                height: 16,
-                                                                fit: BoxFit
-                                                                    .contain,
-                                                              ),
-                                                            ],
-                                                          ),
+                                                  ),
+                                                  Container(
+                                                    width: 30,
+                                                    height: 30,
+                                                    decoration: BoxDecoration(
+                                                      color: Color(0xFFE7D4C6),
+                                                      shape: BoxShape.circle,
+                                                    ),
+                                                    alignment:
+                                                        AlignmentDirectional(
+                                                            0, 0),
+                                                    child: Stack(
+                                                      children: [
+                                                        Image.asset(
+                                                          'assets/images/bookmark-svgrepo-com_1.png',
+                                                          width: 16,
+                                                          height: 16,
+                                                          fit: BoxFit.contain,
                                                         ),
                                                       ],
                                                     ),
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0, 7, 0, 0),
-                                                      child: Row(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          Container(
-                                                            width: 74,
-                                                            height: 22,
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              color: Color(
-                                                                  0xFFE7D4C6),
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          15),
-                                                            ),
-                                                            alignment:
-                                                                AlignmentDirectional(
-                                                                    0, 0),
-                                                            child: Text(
-                                                              '${listViewPracticesRecord.countLesson} урока',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyText1
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'montserrat',
-                                                                    color: Color(
-                                                                        0xFF08546C),
-                                                                    fontSize:
-                                                                        10,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w600,
-                                                                    useGoogleFonts:
-                                                                        false,
-                                                                  ),
-                                                            ),
-                                                          ),
-                                                          Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        11,
-                                                                        0,
-                                                                        0,
-                                                                        0),
-                                                            child: Text(
-                                                              listViewPracticesRecord
-                                                                          .duration! ==
-                                                                      '0'
-                                                                  ? ''
-                                                                  : listViewPracticesRecord
-                                                                      .duration!,
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyText1
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'montserrat',
-                                                                    color: Color(
-                                                                        0xFF8F8F8F),
-                                                                    fontSize:
-                                                                        10,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w500,
-                                                                    useGoogleFonts:
-                                                                        false,
-                                                                  ),
-                                                            ),
-                                                          ),
-                                                        ],
+                                                  ),
+                                                ],
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(0, 7, 0, 0),
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  children: [
+                                                    Container(
+                                                      width: 74,
+                                                      height: 22,
+                                                      decoration: BoxDecoration(
+                                                        color:
+                                                            Color(0xFFE7D4C6),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(15),
+                                                      ),
+                                                      alignment:
+                                                          AlignmentDirectional(
+                                                              0, 0),
+                                                      child: Text(
+                                                        '${listViewPracticesRecord.countLesson} урока',
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyText1
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'montserrat',
+                                                                  color: Color(
+                                                                      0xFF08546C),
+                                                                  fontSize: 10,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
+                                                                  useGoogleFonts:
+                                                                      false,
+                                                                ),
                                                       ),
                                                     ),
                                                     Padding(
                                                       padding:
                                                           EdgeInsetsDirectional
                                                               .fromSTEB(
-                                                                  0, 19, 0, 0),
-                                                      child: Row(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        children: [
-                                                          Expanded(
-                                                            child: Text(
-                                                              description,
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyText1
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'montserrat',
-                                                                    color: Color(
-                                                                        0xFF8F8F8F),
-                                                                    fontSize:
-                                                                        10,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w500,
-                                                                    useGoogleFonts:
-                                                                        false,
-                                                                  ),
-                                                            ),
-                                                          ),
-                                                        ],
+                                                                  11, 0, 0, 0),
+                                                      child: Text(
+                                                        listViewPracticesRecord
+                                                                    .duration! ==
+                                                                '0'
+                                                            ? ''
+                                                            : listViewPracticesRecord
+                                                                .duration!,
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyText1
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'montserrat',
+                                                                  color: Color(
+                                                                      0xFF8F8F8F),
+                                                                  fontSize: 10,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                  useGoogleFonts:
+                                                                      false,
+                                                                ),
                                                       ),
                                                     ),
                                                   ],
                                                 ),
                                               ),
-                                            ),
-                                          ],
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(0, 19, 0, 0),
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  children: [
+                                                    Expanded(
+                                                      child: Text(
+                                                        description,
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyText1
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'montserrat',
+                                                                  color: Color(
+                                                                      0xFF8F8F8F),
+                                                                  fontSize: 10,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                  useGoogleFonts:
+                                                                      false,
+                                                                ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       ),
-                                    ),
+                                    ],
                                   ),
-                                );
-                              },
-                            );
-                          });
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      );
                     },
                   ),
                 ),

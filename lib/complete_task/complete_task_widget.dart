@@ -135,16 +135,18 @@ class _CompleteTaskWidgetState extends State<CompleteTaskWidget> {
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
-                                      Text(
-                                        widget.task!.description!,
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyText1
-                                            .override(
-                                              fontFamily: 'montserrat',
-                                              color: Color(0xFF5E5E5E),
-                                              fontWeight: FontWeight.normal,
-                                              useGoogleFonts: false,
-                                            ),
+                                      Expanded(
+                                        child: Text(
+                                          widget.task!.description!,
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyText1
+                                              .override(
+                                                fontFamily: 'montserrat',
+                                                color: Color(0xFF5E5E5E),
+                                                fontWeight: FontWeight.normal,
+                                                useGoogleFonts: false,
+                                              ),
+                                        ),
                                       ),
                                     ],
                                   ),

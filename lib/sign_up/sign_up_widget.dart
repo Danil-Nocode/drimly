@@ -454,7 +454,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                       padding: EdgeInsetsDirectional.fromSTEB(37, 0, 37, 25),
                       child: Text(
                         FFLocalizations.of(context).getText(
-                          'nx5rpf11' /* Прододоллжая, Вы соглашаетесь ... */,
+                          'nx5rpf11' /* Продолжая, Вы соглашаетесь ... */,
                         ),
                         textAlign: TextAlign.center,
                         style: FlutterFlowTheme.of(context).bodyText1.override(

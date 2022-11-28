@@ -46,7 +46,11 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
 
   bool? get moneyspace;
 
+  bool? get pro;
+
   DocumentReference? get psychologist;
+
+  DateTime? get endstatus;
 
   BuiltList<DocumentReference>? get clientsPsychologist;
 
@@ -70,6 +74,7 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
     ..isActiveChat = false
     ..isPsychologist = false
     ..moneyspace = false
+    ..pro = false
     ..clientsPsychologist = ListBuilder();
 
   static CollectionReference get collection =>
@@ -109,8 +114,10 @@ Map<String, dynamic> createUsersRecordData({
   bool? isActiveChat,
   bool? isPsychologist,
   bool? moneyspace,
+  bool? pro,
   DocumentReference? psychologist,
   List<DocumentReference>? clientsPsychologist,
+  DateTime? endstatus,
 }) {
   final firestoreData = serializers.toFirestore(
     UsersRecord.serializer,
@@ -131,7 +138,9 @@ Map<String, dynamic> createUsersRecordData({
         ..sessionCount = sessionCount
         ..isActiveChat = isActiveChat
         ..moneyspace = moneyspace
+        ..pro = pro
         ..isPsychologist = isPsychologist
+        ..endstatus = endstatus
         ..psychologist = psychologist,
     ),
   );

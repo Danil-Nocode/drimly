@@ -73,7 +73,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
     },
     '2erhjcoc': {
       'ru':
-          'Прододоллжая, Вы соглашаетесь с Условиями использования и Политикой конфиденциальности',
+          'Продолжая, Вы соглашаетесь с Условиями использования и Политикой конфиденциальности',
       'en': 'By continuing, you agree to the Terms of Use and Privacy Policy',
     },
     '37ryat8e': {
@@ -101,7 +101,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
     },
     '9nuwdoc9': {
       'ru':
-          'Прододоллжая, Вы соглашаетесь с Условиями использования и Политикой конфиденциальности',
+          'Продолжая, Вы соглашаетесь с Условиями использования и Политикой конфиденциальности',
       'en': 'By continuing, you agree to the Terms of Use and Privacy Policy',
     },
     'l10xfhj5': {
@@ -125,7 +125,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
     },
     'jd4ytvvd': {
       'ru':
-          'Прододоллжая, Вы соглашаетесь с Условиями использования и Политикой конфиденциальности',
+          'Продолжая, Вы соглашаетесь с Условиями использования и Политикой конфиденциальности',
       'en': 'By continuing, you agree to the Terms of Use and Privacy Policy',
     },
     'dlt0y2cb': {
@@ -788,7 +788,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
     },
     '2erhjcoc': {
       'ru':
-          'Прододоллжая, Вы соглашаетесь с Условиями использования и Политикой конфиденциальности',
+          'Продолжая, Вы соглашаетесь с Условиями использования и Политикой конфиденциальности',
       'en': 'By continuing, you agree to the Terms of Use and Privacy Policy',
     },
     '37ryat8e': {
@@ -816,7 +816,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
     },
     '9nuwdoc9': {
       'ru':
-          'Прододоллжая, Вы соглашаетесь с Условиями использования и Политикой конфиденциальности',
+          'Продолжая, Вы соглашаетесь с Условиями использования и Политикой конфиденциальности',
       'en': 'By continuing, you agree to the Terms of Use and Privacy Policy',
     },
     'l10xfhj5': {
@@ -840,7 +840,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
     },
     'jd4ytvvd': {
       'ru':
-          'Прододоллжая, Вы соглашаетесь с Условиями использования и Политикой конфиденциальности',
+          'Продолжая, Вы соглашаетесь с Условиями использования и Политикой конфиденциальности',
       'en': 'By continuing, you agree to the Terms of Use and Privacy Policy',
     },
     'dlt0y2cb': {

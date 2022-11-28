@@ -54,7 +54,7 @@ class _SectionCustomPageWidgetState extends State<SectionCustomPageWidget> {
               mainAxisSize: MainAxisSize.max,
               children: [
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 32, 0, 0),
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 44, 0, 0),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -68,24 +68,28 @@ class _SectionCustomPageWidgetState extends State<SectionCustomPageWidget> {
                             Stack(
                               alignment: AlignmentDirectional(-1, 0),
                               children: [
-                                Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Expanded(
-                                      child: Text(
-                                        widget.section!.title!,
-                                        textAlign: TextAlign.center,
-                                        style: FlutterFlowTheme.of(context)
-                                            .subtitle1
-                                            .override(
-                                              fontFamily: 'montserrat',
-                                              color: Color(0xFF042433),
-                                              useGoogleFonts: false,
-                                            ),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(42, 0, 42, 0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Expanded(
+                                        child: Text(
+                                          widget.section!.title!,
+                                          textAlign: TextAlign.center,
+                                          style: FlutterFlowTheme.of(context)
+                                              .subtitle1
+                                              .override(
+                                                fontFamily: 'montserrat',
+                                                color: Color(0xFF042433),
+                                                useGoogleFonts: false,
+                                              ),
+                                        ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                                 Row(
                                   mainAxisSize: MainAxisSize.max,
@@ -275,6 +279,13 @@ class _SectionCustomPageWidgetState extends State<SectionCustomPageWidget> {
                           ),
                         ),
                       ],
+                    ),
+                  ),
+                if (widget.section!.videos!.toList().length == 0)
+                  Expanded(
+                    flex: 4,
+                    child: Column(
+                      children: [],
                     ),
                   ),
                 if (widget.section!.audios!.toList().length != 0)

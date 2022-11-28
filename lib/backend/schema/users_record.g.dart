@@ -132,6 +132,13 @@ class _$UsersRecordSerializer implements StructuredSerializer<UsersRecord> {
         ..add(
             serializers.serialize(value, specifiedType: const FullType(bool)));
     }
+    value = object.pro;
+    if (value != null) {
+      result
+        ..add('pro')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
     value = object.psychologist;
     if (value != null) {
       result
@@ -139,6 +146,13 @@ class _$UsersRecordSerializer implements StructuredSerializer<UsersRecord> {
         ..add(serializers.serialize(value,
             specifiedType: const FullType(
                 DocumentReference, const [const FullType.nullable(Object)])));
+    }
+    value = object.endstatus;
+    if (value != null) {
+      result
+        ..add('endstatus')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(DateTime)));
     }
     value = object.clientsPsychologist;
     if (value != null) {
@@ -239,11 +253,19 @@ class _$UsersRecordSerializer implements StructuredSerializer<UsersRecord> {
           result.moneyspace = serializers.deserialize(value,
               specifiedType: const FullType(bool)) as bool?;
           break;
+        case 'pro':
+          result.pro = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
+          break;
         case 'psychologist':
           result.psychologist = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
                 const FullType.nullable(Object)
               ])) as DocumentReference<Object?>?;
+          break;
+        case 'endstatus':
+          result.endstatus = serializers.deserialize(value,
+              specifiedType: const FullType(DateTime)) as DateTime?;
           break;
         case 'clientsPsychologist':
           result.clientsPsychologist.replace(serializers.deserialize(value,
@@ -299,7 +321,11 @@ class _$UsersRecord extends UsersRecord {
   @override
   final bool? moneyspace;
   @override
+  final bool? pro;
+  @override
   final DocumentReference<Object?>? psychologist;
+  @override
+  final DateTime? endstatus;
   @override
   final BuiltList<DocumentReference<Object?>>? clientsPsychologist;
   @override
@@ -325,7 +351,9 @@ class _$UsersRecord extends UsersRecord {
       this.isActiveChat,
       this.isPsychologist,
       this.moneyspace,
+      this.pro,
       this.psychologist,
+      this.endstatus,
       this.clientsPsychologist,
       this.ffRef})
       : super._();
@@ -357,7 +385,9 @@ class _$UsersRecord extends UsersRecord {
         isActiveChat == other.isActiveChat &&
         isPsychologist == other.isPsychologist &&
         moneyspace == other.moneyspace &&
+        pro == other.pro &&
         psychologist == other.psychologist &&
+        endstatus == other.endstatus &&
         clientsPsychologist == other.clientsPsychologist &&
         ffRef == other.ffRef;
   }
@@ -382,31 +412,24 @@ class _$UsersRecord extends UsersRecord {
                                                                 $jc(
                                                                     $jc(
                                                                         $jc(
-                                                                            $jc(
-                                                                                0,
-                                                                                email
-                                                                                    .hashCode),
-                                                                            displayName
-                                                                                .hashCode),
-                                                                        photoUrl
-                                                                            .hashCode),
-                                                                    uid
-                                                                        .hashCode),
-                                                                createdTime
-                                                                    .hashCode),
-                                                            phoneNumber
-                                                                .hashCode),
-                                                        question1.hashCode),
-                                                    question2.hashCode),
-                                                rating.hashCode),
-                                            listenAudio.hashCode),
-                                        status.hashCode),
-                                    minuteListen.hashCode),
-                                sessionCount.hashCode),
-                            isActiveChat.hashCode),
-                        isPsychologist.hashCode),
-                    moneyspace.hashCode),
-                psychologist.hashCode),
+                                                                            $jc($jc($jc(0, email.hashCode), displayName.hashCode),
+                                                                                photoUrl.hashCode),
+                                                                            uid.hashCode),
+                                                                        createdTime.hashCode),
+                                                                    phoneNumber.hashCode),
+                                                                question1.hashCode),
+                                                            question2.hashCode),
+                                                        rating.hashCode),
+                                                    listenAudio.hashCode),
+                                                status.hashCode),
+                                            minuteListen.hashCode),
+                                        sessionCount.hashCode),
+                                    isActiveChat.hashCode),
+                                isPsychologist.hashCode),
+                            moneyspace.hashCode),
+                        pro.hashCode),
+                    psychologist.hashCode),
+                endstatus.hashCode),
             clientsPsychologist.hashCode),
         ffRef.hashCode));
   }
@@ -430,7 +453,9 @@ class _$UsersRecord extends UsersRecord {
           ..add('isActiveChat', isActiveChat)
           ..add('isPsychologist', isPsychologist)
           ..add('moneyspace', moneyspace)
+          ..add('pro', pro)
           ..add('psychologist', psychologist)
+          ..add('endstatus', endstatus)
           ..add('clientsPsychologist', clientsPsychologist)
           ..add('ffRef', ffRef))
         .toString();
@@ -507,10 +532,18 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
   bool? get moneyspace => _$this._moneyspace;
   set moneyspace(bool? moneyspace) => _$this._moneyspace = moneyspace;
 
+  bool? _pro;
+  bool? get pro => _$this._pro;
+  set pro(bool? pro) => _$this._pro = pro;
+
   DocumentReference<Object?>? _psychologist;
   DocumentReference<Object?>? get psychologist => _$this._psychologist;
   set psychologist(DocumentReference<Object?>? psychologist) =>
       _$this._psychologist = psychologist;
+
+  DateTime? _endstatus;
+  DateTime? get endstatus => _$this._endstatus;
+  set endstatus(DateTime? endstatus) => _$this._endstatus = endstatus;
 
   ListBuilder<DocumentReference<Object?>>? _clientsPsychologist;
   ListBuilder<DocumentReference<Object?>> get clientsPsychologist =>
@@ -547,7 +580,9 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
       _isActiveChat = $v.isActiveChat;
       _isPsychologist = $v.isPsychologist;
       _moneyspace = $v.moneyspace;
+      _pro = $v.pro;
       _psychologist = $v.psychologist;
+      _endstatus = $v.endstatus;
       _clientsPsychologist = $v.clientsPsychologist?.toBuilder();
       _ffRef = $v.ffRef;
       _$v = null;
@@ -590,7 +625,9 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
               isActiveChat: isActiveChat,
               isPsychologist: isPsychologist,
               moneyspace: moneyspace,
+              pro: pro,
               psychologist: psychologist,
+              endstatus: endstatus,
               clientsPsychologist: _clientsPsychologist?.build(),
               ffRef: ffRef);
     } catch (_) {

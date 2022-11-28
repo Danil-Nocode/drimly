@@ -231,7 +231,7 @@ class _ForgotPasswordWidgetState extends State<ForgotPasswordWidget> {
                           padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 25),
                           child: Text(
                             FFLocalizations.of(context).getText(
-                              'jd4ytvvd' /* Прододоллжая, Вы соглашаетесь ... */,
+                              'jd4ytvvd' /* Продолжая, Вы соглашаетесь ... */,
                             ),
                             textAlign: TextAlign.center,
                             style:
