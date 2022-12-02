@@ -1,3 +1,4 @@
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:just_audio_background/just_audio_background.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
@@ -201,10 +202,23 @@ class _OfflineAudioWidgetState extends State<OfflineAudioWidget> {
                                   Row(
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
-                                      Icon(
-                                        Icons.chevron_right_rounded,
-                                        color: Colors.black,
-                                        size: 24,
+                                      InkWell(
+                                        onTap: () async {
+                                          setState(() {
+                                            DefaultCacheManager()
+                                                .removeFile(fileItem);
+                                            FFAppState().removeFromCacheAudios(
+                                                fileItem);
+                                            FFAppState().removeFromTitleAudios(
+                                                FFAppState()
+                                                    .titleAudios[fileIndex]);
+                                          });
+                                        },
+                                        child: Icon(
+                                          FontAwesomeIcons.trashCan,
+                                          color: Color(0xFFE7D4C6),
+                                          size: 20,
+                                        ),
                                       ),
                                     ],
                                   ),
