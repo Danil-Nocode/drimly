@@ -115,24 +115,10 @@ class _OfflineAudioWidgetState extends State<OfflineAudioWidget> {
                                           onTap: () async {
                                             var fetchedFile =
                                                 await DefaultCacheManager()
-                                                    .getFileFromCache(fileItem);
-
-                                            final audioSource =
-                                                LockCachingAudioSource(
-                                              Uri.parse(
-                                                  fetchedFile!.originalUrl),
-                                              tag: MediaItem(
-                                                id: '1',
-                                                album: "Медитации Елены Друма",
-                                                title: FFAppState()
-                                                    .titleAudios[fileIndex],
-                                                // artUri: Uri.parse(
-                                                //     widget.audio!.cover!),
-                                              ),
-                                            );
+                                                    .getSingleFile(fileItem);
 
                                             await player!
-                                                .setAudioSource(audioSource);
+                                                .setAsset(fetchedFile.path);
 
                                             if (player!.playing) {
                                               setState(() {
