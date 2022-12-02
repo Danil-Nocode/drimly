@@ -1,6 +1,6 @@
 import 'package:just_audio/just_audio.dart';
 import 'package:just_audio_background/just_audio_background.dart';
-
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import '../components/audio_service.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -112,9 +112,14 @@ class _OfflineAudioWidgetState extends State<OfflineAudioWidget> {
                                       children: [
                                         InkWell(
                                           onTap: () async {
+                                            var fetchedFile =
+                                                await DefaultCacheManager()
+                                                    .getFileFromCache(fileItem);
+
                                             final audioSource =
                                                 LockCachingAudioSource(
-                                              Uri.parse(fileItem),
+                                              Uri.parse(
+                                                  fetchedFile!.originalUrl),
                                               tag: MediaItem(
                                                 id: '1',
                                                 album: "Медитации Елены Друма",
@@ -124,6 +129,7 @@ class _OfflineAudioWidgetState extends State<OfflineAudioWidget> {
                                                 //     widget.audio!.cover!),
                                               ),
                                             );
+
                                             await player!
                                                 .setAudioSource(audioSource);
 

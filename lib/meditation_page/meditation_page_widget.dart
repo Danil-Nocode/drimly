@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:drimly/auth/firebase_user_provider.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:just_audio_background/just_audio_background.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
 import '../backend/backend.dart';
 import '../components/audio_player_widget.dart';
@@ -40,8 +41,8 @@ class MeditationPageWidget extends StatefulWidget {
 
 class _MeditationPageWidgetState extends State<MeditationPageWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  // Stream<double>? downloadAudio;
-  // LockCachingAudioSource? audioSource;
+  Stream<FileResponse>? streamFile;
+
   Stream<PositionData> get _positionDataStream =>
       Rx.combineLatest3<Duration, Duration, Duration?, PositionData>(
           player!.positionStream,
@@ -49,9 +50,21 @@ class _MeditationPageWidgetState extends State<MeditationPageWidget> {
           player!.durationStream,
           (position, bufferedPosition, duration) => PositionData(
               position, bufferedPosition, duration ?? Duration.zero));
+
+  // Stream<PositionData> get positionDataCachesStream =>
+  //     Rx.combineLatest3<Duration, double, Duration?, PositionData>(
+  //         playerCaches!.positionStream,
+  //         audioSource!.downloadProgressStream,
+  //         playerCaches!.durationStream,
+  //         (position, downloadProgress, reportedDuration) {
+  //       final duration = reportedDuration ?? Duration.zero;
+  //       final bufferedPosition = duration * downloadProgress;
+  //       return PositionData(position, bufferedPosition, duration);
+  //     });
   @override
   void initState() {
     super.initState();
+
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       setState(() => FFAppState().lastAudio = widget.audio!);
@@ -60,7 +73,6 @@ class _MeditationPageWidgetState extends State<MeditationPageWidget> {
 
   @override
   Widget build(BuildContext context) {
-    //final player = AudioPlayer();
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -163,119 +175,136 @@ class _MeditationPageWidgetState extends State<MeditationPageWidget> {
                                           children: [
                                             InkWell(
                                               onTap: () async {
+                                                setState(() {
+                                                  streamFile =
+                                                      DefaultCacheManager()
+                                                          .getFileStream(
+                                                              containerAudiosRecord
+                                                                  .audio!,
+                                                              withProgress:
+                                                                  true);
+                                                });
+
+                                                // DefaultCacheManager()
+                                                //     .removeFile(
+                                                //         containerAudiosRecord
+                                                //             .audio!);
                                                 // FFAppState().cacheAudios = [];
                                                 // FFAppState().titleAudios = [];
-                                                if (!FFAppState()
-                                                    .cacheAudios
-                                                    .contains(
-                                                        containerAudiosRecord
-                                                            .audio!)) {
-                                                  setState(() {
-                                                    final audioSource =
-                                                        LockCachingAudioSource(
-                                                      Uri.parse(
-                                                          containerAudiosRecord
-                                                              .audio!),
-                                                      tag: MediaItem(
-                                                        id: '1',
-                                                        album:
-                                                            "Медитации Елены Друма",
-                                                        title:
-                                                            containerAudiosRecord
-                                                                .title!,
-                                                        // artUri: Uri.parse(
-                                                        //     widget.audio!.cover!),
-                                                      ),
-                                                    );
-                                                  });
-                                                  FFAppState().addToCacheAudios(
-                                                      containerAudiosRecord
-                                                          .audio!);
-                                                  FFAppState().addToTitleAudios(
-                                                      containerAudiosRecord
-                                                          .title!);
-                                                } else {
-                                                  ScaffoldMessenger.of(context)
-                                                      .showSnackBar(
-                                                    SnackBar(
-                                                        content: Text(
-                                                            'Аудио уже загружено')),
-                                                  );
-                                                }
-
-                                                // print(audioSource
-                                                //     .downloadProgressStream);
-                                                // FFAppState().cacheAudios = [];
-                                                // FFAppState().titleAudios = [];
-
-                                                // await AudioPlayer.clearAssetCache();
-
-                                                // await audioSource.clearCache();
                                               },
                                               child: Row(
                                                 children: [
-                                                  // if (audioSource != null)
-                                                  //   StreamBuilder<double>(
-                                                  //       stream: audioSource!
-                                                  //           .downloadProgressStream,
-                                                  //       builder: (context,
-                                                  //           snapshot) {
-                                                  //         if (!snapshot
-                                                  //             .hasData) {
-                                                  //           return Center(
-                                                  //             child: SizedBox(
-                                                  //               width: 30,
-                                                  //               height: 30,
-                                                  //               child:
-                                                  //                   CircularProgressIndicator(
-                                                  //                 color: FlutterFlowTheme.of(
-                                                  //                         context)
-                                                  //                     .primaryColor,
-                                                  //               ),
-                                                  //             ),
-                                                  //           );
-                                                  //         }
+                                                  if (streamFile != null)
+                                                    StreamBuilder<FileResponse>(
+                                                        stream: streamFile,
+                                                        builder: (context,
+                                                            snapshot) {
+                                                          if (!snapshot
+                                                              .hasData) {
+                                                            print('Тут1');
+                                                            return Container();
+                                                          }
 
-                                                  //         double progress =
-                                                  //             snapshot.data!;
-                                                  //         print(progress);
-                                                  //         return Center(
-                                                  //           child: SizedBox(
-                                                  //             width: 18,
-                                                  //             height: 18,
-                                                  //             child:
-                                                  //                 CircularProgressIndicator(
-                                                  //               strokeWidth: 3,
-                                                  //               valueColor:
-                                                  //                   AlwaysStoppedAnimation<
-                                                  //                           Color>(
-                                                  //                       Color(
-                                                  //                           0xFF959CD8)),
-                                                  //               value: progress,
-                                                  //               color: Color(
-                                                  //                   0xFF959CD8),
-                                                  //               backgroundColor:
-                                                  //                   Colors
-                                                  //                       .white,
-                                                  //             ),
-                                                  //           ),
-                                                  //         );
-                                                  //       }),
-                                                  // if (audioSource == null)
-                                                  Icon(
-                                                    Icons.download,
-                                                    color: FFAppState()
-                                                            .cacheAudios
-                                                            .contains(
-                                                                containerAudiosRecord
-                                                                    .audio!)
-                                                        ? Color(
-                                                            0xFF959CD8) // Color(0xFFBC7EFD)
-                                                        : FlutterFlowTheme.of(
-                                                                context)
-                                                            .primaryBtnText,
-                                                    size: 24,
-                                                  ),
+                                                          var progress =
+                                                              snapshot.data!;
+
+                                                          if (progress
+                                                                  .runtimeType ==
+                                                              DownloadProgress) {
+                                                            progress = progress
+                                                                as DownloadProgress;
+                                                            print(progress
+                                                                .progress);
+                                                          }
+
+                                                          if (progress
+                                                                  .runtimeType ==
+                                                              FileInfo) {
+                                                            progress = progress
+                                                                as FileInfo;
+                                                            if (!FFAppState()
+                                                                .cacheAudios
+                                                                .contains(
+                                                                    containerAudiosRecord
+                                                                        .audio!)) {
+                                                              print(
+                                                                  containerAudiosRecord
+                                                                      .audio);
+                                                              print(
+                                                                  containerAudiosRecord
+                                                                      .title);
+                                                              FFAppState()
+                                                                  .addToCacheAudios(
+                                                                      containerAudiosRecord
+                                                                          .audio!);
+                                                              FFAppState()
+                                                                  .addToTitleAudios(
+                                                                      containerAudiosRecord
+                                                                          .title!);
+                                                            }
+                                                          }
+
+                                                          if (progress
+                                                                  .runtimeType ==
+                                                              DownloadProgress) {
+                                                            progress = progress
+                                                                as DownloadProgress;
+                                                            print('Тут2');
+                                                            return Center(
+                                                              child: SizedBox(
+                                                                width: 18,
+                                                                height: 18,
+                                                                child:
+                                                                    CircularProgressIndicator(
+                                                                  strokeWidth:
+                                                                      3,
+                                                                  // valueColor: AlwaysStoppedAnimation<
+                                                                  //         Color>(
+                                                                  //     Color(
+                                                                  //         0xFF959CD8)),
+                                                                  value: progress
+                                                                      .progress,
+                                                                  color: Color(
+                                                                      0xFF959CD8),
+                                                                  backgroundColor:
+                                                                      Colors
+                                                                          .white,
+                                                                ),
+                                                              ),
+                                                            );
+                                                          } else {
+                                                            print('Тут3');
+                                                            return Icon(
+                                                              Icons.download,
+                                                              color: FFAppState()
+                                                                      .cacheAudios
+                                                                      .contains(
+                                                                          containerAudiosRecord
+                                                                              .audio!)
+                                                                  ? Color(
+                                                                      0xFF959CD8) // Color(0xFFBC7EFD)
+                                                                  : FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primaryBtnText,
+                                                              size: 24,
+                                                            );
+                                                          }
+                                                        }),
+                                                  if (streamFile == null)
+                                                    Icon(
+                                                      Icons.download,
+                                                      color: FFAppState()
+                                                              .cacheAudios
+                                                              .contains(
+                                                                  containerAudiosRecord
+                                                                      .audio!)
+                                                          ? Color(
+                                                              0xFF959CD8) // Color(0xFFBC7EFD)
+                                                          : FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primaryBtnText,
+                                                      size: 24,
+                                                    ),
                                                 ],
                                               ),
                                             ),
