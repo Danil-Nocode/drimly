@@ -94,6 +94,20 @@ class _$PracticesRecordSerializer
         ..add('countLesson')
         ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
+    value = object.isPaid;
+    if (value != null) {
+      result
+        ..add('isPaid')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
+    value = object.isVisible;
+    if (value != null) {
+      result
+        ..add('isVisible')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
     value = object.sectionsCustom;
     if (value != null) {
       result
@@ -174,6 +188,14 @@ class _$PracticesRecordSerializer
           result.countLesson = serializers.deserialize(value,
               specifiedType: const FullType(int)) as int?;
           break;
+        case 'isPaid':
+          result.isPaid = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
+          break;
+        case 'isVisible':
+          result.isVisible = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
+          break;
         case 'sectionsCustom':
           result.sectionsCustom.replace(serializers.deserialize(value,
               specifiedType: const FullType(BuiltList, const [
@@ -216,6 +238,10 @@ class _$PracticesRecord extends PracticesRecord {
   @override
   final int? countLesson;
   @override
+  final bool? isPaid;
+  @override
+  final bool? isVisible;
+  @override
   final BuiltList<DocumentReference<Object?>>? sectionsCustom;
   @override
   final DocumentReference<Object?>? ffRef;
@@ -234,6 +260,8 @@ class _$PracticesRecord extends PracticesRecord {
       this.audio,
       this.index,
       this.countLesson,
+      this.isPaid,
+      this.isVisible,
       this.sectionsCustom,
       this.ffRef})
       : super._();
@@ -260,6 +288,8 @@ class _$PracticesRecord extends PracticesRecord {
         audio == other.audio &&
         index == other.index &&
         countLesson == other.countLesson &&
+        isPaid == other.isPaid &&
+        isVisible == other.isVisible &&
         sectionsCustom == other.sectionsCustom &&
         ffRef == other.ffRef;
   }
@@ -276,16 +306,20 @@ class _$PracticesRecord extends PracticesRecord {
                                 $jc(
                                     $jc(
                                         $jc(
-                                            $jc($jc(0, title.hashCode),
-                                                desctiption.hashCode),
-                                            cover.hashCode),
-                                        duration.hashCode),
-                                    sections.hashCode),
-                                coverBig.hashCode),
-                            section.hashCode),
-                        audio.hashCode),
-                    index.hashCode),
-                countLesson.hashCode),
+                                            $jc(
+                                                $jc(
+                                                    $jc($jc(0, title.hashCode),
+                                                        desctiption.hashCode),
+                                                    cover.hashCode),
+                                                duration.hashCode),
+                                            sections.hashCode),
+                                        coverBig.hashCode),
+                                    section.hashCode),
+                                audio.hashCode),
+                            index.hashCode),
+                        countLesson.hashCode),
+                    isPaid.hashCode),
+                isVisible.hashCode),
             sectionsCustom.hashCode),
         ffRef.hashCode));
   }
@@ -303,6 +337,8 @@ class _$PracticesRecord extends PracticesRecord {
           ..add('audio', audio)
           ..add('index', index)
           ..add('countLesson', countLesson)
+          ..add('isPaid', isPaid)
+          ..add('isVisible', isVisible)
           ..add('sectionsCustom', sectionsCustom)
           ..add('ffRef', ffRef))
         .toString();
@@ -355,6 +391,14 @@ class PracticesRecordBuilder
   int? get countLesson => _$this._countLesson;
   set countLesson(int? countLesson) => _$this._countLesson = countLesson;
 
+  bool? _isPaid;
+  bool? get isPaid => _$this._isPaid;
+  set isPaid(bool? isPaid) => _$this._isPaid = isPaid;
+
+  bool? _isVisible;
+  bool? get isVisible => _$this._isVisible;
+  set isVisible(bool? isVisible) => _$this._isVisible = isVisible;
+
   ListBuilder<DocumentReference<Object?>>? _sectionsCustom;
   ListBuilder<DocumentReference<Object?>> get sectionsCustom =>
       _$this._sectionsCustom ??= new ListBuilder<DocumentReference<Object?>>();
@@ -382,6 +426,8 @@ class PracticesRecordBuilder
       _audio = $v.audio;
       _index = $v.index;
       _countLesson = $v.countLesson;
+      _isPaid = $v.isPaid;
+      _isVisible = $v.isVisible;
       _sectionsCustom = $v.sectionsCustom?.toBuilder();
       _ffRef = $v.ffRef;
       _$v = null;
@@ -418,6 +464,8 @@ class PracticesRecordBuilder
               audio: audio,
               index: index,
               countLesson: countLesson,
+              isPaid: isPaid,
+              isVisible: isVisible,
               sectionsCustom: _sectionsCustom?.build(),
               ffRef: ffRef);
     } catch (_) {

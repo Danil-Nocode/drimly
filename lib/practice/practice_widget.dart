@@ -196,7 +196,10 @@ class _PracticeWidgetState extends State<PracticeWidget> {
                 child: Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(24, 70, 24, 4),
                   child: StreamBuilder<List<PracticesRecord>>(
-                    stream: queryPracticesRecord(),
+                    stream: queryPracticesRecord(
+                      queryBuilder: (practicesRecord) =>
+                          practicesRecord.where('isVisible', isEqualTo: true),
+                    ),
                     builder: (context, snapshot) {
                       // Customize what your widget looks like when it's loading.
                       if (!snapshot.hasData) {
@@ -222,6 +225,14 @@ class _PracticeWidgetState extends State<PracticeWidget> {
                               (practice) => practice.title == 'PROкачай себя')
                           .first;
 
+                      PracticesRecord? magic;
+                      try {
+                        magic = listViewPracticesRecordList
+                            .where((practice) =>
+                                practice.title == 'Магическая психология')
+                            .first;
+                      } catch (e) {}
+
                       if (currentUserDocument!.status == 'free' &&
                           currentUserDocument!.moneyspace != true &&
                           currentUserDocument!.pro != true) {
@@ -246,6 +257,12 @@ class _PracticeWidgetState extends State<PracticeWidget> {
                           currentUserDocument!.pro!) {
                         listViewPracticesRecordList.add(pro);
                       }
+                      try {
+                        if (currentUserDocument!.status == 'free' &&
+                            currentUserDocument!.magic!) {
+                          listViewPracticesRecordList.add(magic!);
+                        }
+                      } catch (e) {}
 
                       if (currentUserDocument!.moneyspace! &&
                           currentUserDocument!.status == 'free') {
@@ -254,6 +271,10 @@ class _PracticeWidgetState extends State<PracticeWidget> {
 
                       if (currentUserDocument!.moneyspace == false) {
                         listViewPracticesRecordList.remove(moneyspace);
+                      }
+
+                      if (currentUserDocument!.magic == false) {
+                        listViewPracticesRecordList.remove(magic);
                       }
 
                       // if ((currentUserDocument!.status == 'free' ||
@@ -412,20 +433,23 @@ class _PracticeWidgetState extends State<PracticeWidget> {
                                                     MainAxisAlignment
                                                         .spaceBetween,
                                                 children: [
-                                                  Text(
-                                                    title,
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyText1
-                                                        .override(
-                                                          fontFamily:
-                                                              'montserrat',
-                                                          color:
-                                                              Color(0xFF042433),
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          useGoogleFonts: false,
-                                                        ),
+                                                  Expanded(
+                                                    child: Text(
+                                                      title,
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .bodyText1
+                                                          .override(
+                                                            fontFamily:
+                                                                'montserrat',
+                                                            color: Color(
+                                                                0xFF042433),
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                            useGoogleFonts:
+                                                                false,
+                                                          ),
+                                                    ),
                                                   ),
                                                   Container(
                                                     width: 30,

@@ -1,10 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:just_audio/just_audio.dart';
-
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
+import '../flutter_flow/functions.dart';
 import '../main.dart';
 import '../meditation_page/meditation_page_widget.dart';
 import 'package:flutter/material.dart';
@@ -283,7 +284,7 @@ class _MeditationListWidgetState extends State<MeditationListWidget> {
                                   },
                                   child: Container(
                                     width: 100,
-                                    height: 80,
+                                    // height: 80,
                                     decoration: BoxDecoration(
                                       color: Color(0xFF33325C),
                                       borderRadius: BorderRadius.circular(25),
@@ -314,7 +315,7 @@ class _MeditationListWidgetState extends State<MeditationListWidget> {
                                           child: Padding(
                                             padding:
                                                 EdgeInsetsDirectional.fromSTEB(
-                                                    20, 0, 0, 0),
+                                                    20, 0, 12, 0),
                                             child: Column(
                                               mainAxisSize: MainAxisSize.max,
                                               mainAxisAlignment:
@@ -322,17 +323,21 @@ class _MeditationListWidgetState extends State<MeditationListWidget> {
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: [
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(0, 0, 18, 4),
-                                                  child: Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    children: [
-                                                      Expanded(
+                                                Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  children: [
+                                                    Expanded(
+                                                      child: Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(0, 0,
+                                                                    10, 0),
                                                         child: Text(
                                                           containerAudiosRecord
                                                               .title!,
@@ -346,85 +351,156 @@ class _MeditationListWidgetState extends State<MeditationListWidget> {
                                                                     .white,
                                                                 useGoogleFonts:
                                                                     false,
-                                                                fontSize: 14,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
                                                               ),
                                                         ),
                                                       ),
-                                                      Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    5, 0, 0, 0),
-                                                        child: Container(
-                                                          width: 30,
-                                                          height: 30,
-                                                          decoration:
-                                                              BoxDecoration(
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  1, 0, 0, 0),
+                                                      child: Container(
+                                                        width: 31,
+                                                        height: 31,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          shape:
+                                                              BoxShape.circle,
+                                                          border: Border.all(
                                                             color: Color(
-                                                                0x82C4C4C4),
-                                                            shape:
-                                                                BoxShape.circle,
+                                                                0xFFEE3957),
+                                                            width: 1,
                                                           ),
-                                                          alignment:
-                                                              AlignmentDirectional(
-                                                                  0, 0),
-                                                          child: Stack(
-                                                            children: [
-                                                              if ((currentUserDocument
-                                                                          ?.listenAudio
-                                                                          ?.toList() ??
-                                                                      [])
-                                                                  .contains(
-                                                                      containerAudiosRecord
-                                                                          .reference))
-                                                                AuthUserStreamWidget(
-                                                                  child: Image
-                                                                      .asset(
-                                                                    'assets/images/Vector-2.png',
-                                                                    width: 11,
-                                                                    height: 16,
-                                                                    fit: BoxFit
-                                                                        .contain,
+                                                        ),
+                                                        alignment:
+                                                            AlignmentDirectional(
+                                                                0, 0),
+                                                        child: Column(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            Text(
+                                                              '${containerAudiosRecord.minute}\nмин',
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .center,
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .bodyText1
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        'montserrat',
+                                                                    color: Color(
+                                                                        0xFFEE3957),
+                                                                    fontSize: 8,
+                                                                    useGoogleFonts:
+                                                                        false,
                                                                   ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(0, 10, 0, 0),
+                                                  child: Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      Expanded(
+                                                        child: Text(
+                                                          'Сложность медитации',
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyText1
+                                                              .override(
+                                                                fontFamily:
+                                                                    'montserrat',
+                                                                fontSize: 10,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                useGoogleFonts:
+                                                                    false,
+                                                              ),
+                                                        ),
+                                                      ),
+                                                      RatingBarIndicator(
+                                                        itemBuilder:
+                                                            (context, index) =>
+                                                                Icon(
+                                                          Icons.star_rounded,
+                                                          color:
+                                                              Color(0xFFF8CD37),
+                                                        ),
+                                                        direction:
+                                                            Axis.horizontal,
+                                                        rating:
+                                                            containerAudiosRecord
+                                                                .difficult!
+                                                                .toDouble(),
+                                                        unratedColor:
+                                                            Color(0xFF9E9E9E),
+                                                        itemCount:
+                                                            containerAudiosRecord
+                                                                .difficult!,
+                                                        itemSize: 9,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(0, 4, 0, 0),
+                                                  child: Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      Image.asset(
+                                                        'assets/images/listen_now.png',
+                                                        width: 18,
+                                                        height: 18,
+                                                        fit: BoxFit.contain,
+                                                      ),
+                                                      Expanded(
+                                                        child: Padding(
+                                                          padding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(2,
+                                                                      0, 0, 0),
+                                                          child: Text(
+                                                            '${userListenNow(containerAudiosRecord.listenNow)} слушают сейчас',
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyText1
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'montserrat',
+                                                                  fontSize: 10,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .normal,
+                                                                  useGoogleFonts:
+                                                                      false,
                                                                 ),
-                                                              if (!(currentUserDocument
-                                                                          ?.listenAudio
-                                                                          ?.toList() ??
-                                                                      [])
-                                                                  .contains(
-                                                                      containerAudiosRecord
-                                                                          .reference))
-                                                                AuthUserStreamWidget(
-                                                                  child: Image
-                                                                      .asset(
-                                                                    'assets/images/Vector.png',
-                                                                    width: 11,
-                                                                    height: 16,
-                                                                    fit: BoxFit
-                                                                        .contain,
-                                                                  ),
-                                                                ),
-                                                            ],
                                                           ),
                                                         ),
                                                       ),
                                                     ],
                                                   ),
-                                                ),
-                                                Text(
-                                                  '${containerAudiosRecord.minute} минут',
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyText1
-                                                      .override(
-                                                        fontFamily:
-                                                            'montserrat',
-                                                        fontSize: 12,
-                                                        useGoogleFonts: false,
-                                                      ),
                                                 ),
                                               ],
                                             ),

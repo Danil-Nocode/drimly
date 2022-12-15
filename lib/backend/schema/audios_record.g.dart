@@ -68,6 +68,18 @@ class _$AudiosRecordSerializer implements StructuredSerializer<AudiosRecord> {
         ..add(
             serializers.serialize(value, specifiedType: const FullType(bool)));
     }
+    value = object.difficult;
+    if (value != null) {
+      result
+        ..add('difficult')
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
+    }
+    value = object.listenNow;
+    if (value != null) {
+      result
+        ..add('listenNow')
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
+    }
     value = object.filesStorage;
     if (value != null) {
       result
@@ -127,6 +139,14 @@ class _$AudiosRecordSerializer implements StructuredSerializer<AudiosRecord> {
           result.tasks = serializers.deserialize(value,
               specifiedType: const FullType(bool)) as bool?;
           break;
+        case 'difficult':
+          result.difficult = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int?;
+          break;
+        case 'listenNow':
+          result.listenNow = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int?;
+          break;
         case 'filesStorage':
           result.filesStorage.replace(serializers.deserialize(value,
                   specifiedType: const FullType(
@@ -162,6 +182,10 @@ class _$AudiosRecord extends AudiosRecord {
   @override
   final bool? tasks;
   @override
+  final int? difficult;
+  @override
+  final int? listenNow;
+  @override
   final BuiltList<String>? filesStorage;
   @override
   final DocumentReference<Object?>? ffRef;
@@ -177,6 +201,8 @@ class _$AudiosRecord extends AudiosRecord {
       this.coverMini,
       this.files,
       this.tasks,
+      this.difficult,
+      this.listenNow,
       this.filesStorage,
       this.ffRef})
       : super._();
@@ -199,6 +225,8 @@ class _$AudiosRecord extends AudiosRecord {
         coverMini == other.coverMini &&
         files == other.files &&
         tasks == other.tasks &&
+        difficult == other.difficult &&
+        listenNow == other.listenNow &&
         filesStorage == other.filesStorage &&
         ffRef == other.ffRef;
   }
@@ -211,12 +239,18 @@ class _$AudiosRecord extends AudiosRecord {
                 $jc(
                     $jc(
                         $jc(
-                            $jc($jc($jc(0, title.hashCode), audio.hashCode),
-                                cover.hashCode),
-                            minute.hashCode),
-                        coverMini.hashCode),
-                    files.hashCode),
-                tasks.hashCode),
+                            $jc(
+                                $jc(
+                                    $jc(
+                                        $jc($jc(0, title.hashCode),
+                                            audio.hashCode),
+                                        cover.hashCode),
+                                    minute.hashCode),
+                                coverMini.hashCode),
+                            files.hashCode),
+                        tasks.hashCode),
+                    difficult.hashCode),
+                listenNow.hashCode),
             filesStorage.hashCode),
         ffRef.hashCode));
   }
@@ -231,6 +265,8 @@ class _$AudiosRecord extends AudiosRecord {
           ..add('coverMini', coverMini)
           ..add('files', files)
           ..add('tasks', tasks)
+          ..add('difficult', difficult)
+          ..add('listenNow', listenNow)
           ..add('filesStorage', filesStorage)
           ..add('ffRef', ffRef))
         .toString();
@@ -269,6 +305,14 @@ class AudiosRecordBuilder
   bool? get tasks => _$this._tasks;
   set tasks(bool? tasks) => _$this._tasks = tasks;
 
+  int? _difficult;
+  int? get difficult => _$this._difficult;
+  set difficult(int? difficult) => _$this._difficult = difficult;
+
+  int? _listenNow;
+  int? get listenNow => _$this._listenNow;
+  set listenNow(int? listenNow) => _$this._listenNow = listenNow;
+
   ListBuilder<String>? _filesStorage;
   ListBuilder<String> get filesStorage =>
       _$this._filesStorage ??= new ListBuilder<String>();
@@ -293,6 +337,8 @@ class AudiosRecordBuilder
       _coverMini = $v.coverMini;
       _files = $v.files;
       _tasks = $v.tasks;
+      _difficult = $v.difficult;
+      _listenNow = $v.listenNow;
       _filesStorage = $v.filesStorage?.toBuilder();
       _ffRef = $v.ffRef;
       _$v = null;
@@ -326,6 +372,8 @@ class AudiosRecordBuilder
               coverMini: coverMini,
               files: files,
               tasks: tasks,
+              difficult: difficult,
+              listenNow: listenNow,
               filesStorage: _filesStorage?.build(),
               ffRef: ffRef);
     } catch (_) {

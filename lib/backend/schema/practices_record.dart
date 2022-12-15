@@ -31,6 +31,10 @@ abstract class PracticesRecord
 
   int? get countLesson;
 
+  bool? get isPaid;
+
+  bool? get isVisible;
+
   BuiltList<DocumentReference>? get sectionsCustom;
 
   @BuiltValueField(wireName: kDocumentReferenceField)
@@ -46,6 +50,8 @@ abstract class PracticesRecord
     ..sectionsCustom = ListBuilder()
     ..coverBig = ''
     ..index = 0
+    ..isPaid = false
+    ..isVisible = true
     ..countLesson = 0;
 
   static CollectionReference get collection =>
@@ -78,6 +84,8 @@ Map<String, dynamic> createPracticesRecordData({
   DocumentReference? section,
   DocumentReference? audio,
   int? index,
+  bool? isPaid,
+  bool? isVisible,
   int? countLesson,
 }) {
   final firestoreData = serializers.toFirestore(
@@ -94,6 +102,8 @@ Map<String, dynamic> createPracticesRecordData({
         ..section = section
         ..audio = audio
         ..index = index
+        ..isPaid = isPaid
+        ..isVisible = isVisible
         ..countLesson = countLesson,
     ),
   );
