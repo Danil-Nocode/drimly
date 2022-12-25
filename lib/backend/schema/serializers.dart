@@ -4,6 +4,7 @@ import 'package:built_value/standard_json_plugin.dart';
 import 'package:drimly/backend/schema/section_custom_record.dart';
 import 'package:from_css_color/from_css_color.dart';
 
+import 'meditations_n_y_record.dart';
 import 'users_record.dart';
 import 'practices_record.dart';
 import 'notes_record.dart';
@@ -39,6 +40,7 @@ const kDocumentReferenceField = 'Document__Reference__Field';
   TasksRecord,
   CompleteTaskRecord,
   SectionCustomRecord,
+  MeditationsNYRecord,
 ])
 final Serializers serializers = (_$serializers.toBuilder()
       ..add(DocumentReferenceSerializer())

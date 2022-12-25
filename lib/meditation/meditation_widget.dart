@@ -3,6 +3,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../backend/schema/chats_record.dart';
+import '../backend/schema/meditations_n_y_record.dart';
+import '../backend/schema/section_custom_record.dart';
 import '../chat/chat_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
@@ -10,6 +12,8 @@ import '../main.dart';
 import '../meditation_list/meditation_list_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../section_custom_page/section_custom_page_widget.dart';
 
 class MeditationWidget extends StatefulWidget {
   const MeditationWidget({Key? key}) : super(key: key);
@@ -224,200 +228,388 @@ class _MeditationWidgetState extends State<MeditationWidget> {
               ),
               Expanded(
                 child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(24, 64, 24, 4),
-                  child: StreamBuilder<List<MeditationRecord>>(
-                    stream: queryMeditationRecord(),
-                    builder: (context, snapshot) {
-                      // Customize what your widget looks like when it's loading.
-                      if (!snapshot.hasData) {
-                        return Center(
-                          child: SizedBox(
-                            width: 30,
-                            height: 30,
-                            child: CircularProgressIndicator(
-                              color: FlutterFlowTheme.of(context).primaryColor,
-                            ),
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 64, 0, 0),
+                  child: ListView(
+                    padding: EdgeInsets.zero,
+                    scrollDirection: Axis.vertical,
+                    children: [
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(24, 0, 24, 22),
+                        child: StreamBuilder<List<MeditationsNYRecord>>(
+                          stream: queryMeditationsNYRecord(
+                            queryBuilder: (meditationsNYRecord) =>
+                                meditationsNYRecord.where('isView',
+                                    isEqualTo: true),
+                            singleRecord: true,
                           ),
-                        );
-                      }
-                      List<MeditationRecord> gridViewMeditationRecordList =
-                          snapshot.data!;
-
-                      gridViewMeditationRecordList
-                          .sort((a, b) => a.index!.compareTo(b.index!));
-
-                      gridViewMeditationRecordList =
-                          gridViewMeditationRecordList
-                              .where((meditation) => (meditation.isView!))
-                              .toList();
-
-                      // if (currentUserDocument!.status == 'free') {
-                      //   return SizedBox(
-                      //     //height: MediaQuery.of(context).size.height * 1,
-                      //     child: Text(
-                      //       'Купите платный пакет, чтобы прослушивать медитации',
-                      //       textAlign: TextAlign.center,
-                      //       style:
-                      //           FlutterFlowTheme.of(context).bodyText1.override(
-                      //                 fontFamily: 'montserrat',
-                      //                 color: Colors.white,
-                      //                 fontSize: 16,
-                      //                 useGoogleFonts: false,
-                      //               ),
-                      //     ),
-                      //   );
-                      // }
-                      return GridView.builder(
-                        padding: EdgeInsets.zero,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          crossAxisSpacing: 10,
-                          mainAxisSpacing: 10,
-                          childAspectRatio: 0.92,
-                        ),
-                        scrollDirection: Axis.vertical,
-                        itemCount: gridViewMeditationRecordList.length,
-                        itemBuilder: (context, gridViewIndex) {
-                          final gridViewMeditationRecord =
-                              gridViewMeditationRecordList[gridViewIndex];
-
-                          return Container(
-                            width: 100,
-                            height: 100,
-                            decoration: BoxDecoration(
-                              color: Color(0xFF33325C),
-                              borderRadius: BorderRadius.circular(25),
-                            ),
-                            child: Stack(
-                              children: [
-                                InkWell(
-                                  onTap: () async {
-                                    await Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            MeditationListWidget(
-                                          meditation: gridViewMeditationRecord,
+                          builder: (context, snapshot) {
+                            // Customize what your widget looks like when it's loading.
+                            if (!snapshot.hasData) {
+                              return Center(
+                                child: SizedBox(
+                                  width: 30,
+                                  height: 30,
+                                  child: CircularProgressIndicator(
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryColor,
+                                  ),
+                                ),
+                              );
+                            }
+                            List<MeditationsNYRecord>
+                                containerMeditationsNYRecordList =
+                                snapshot.data!;
+                            // Return an empty Container when the item does not exist.
+                            if (snapshot.data!.isEmpty) {
+                              return Container();
+                            }
+                            final containerMeditationsNYRecord =
+                                containerMeditationsNYRecordList.isNotEmpty
+                                    ? containerMeditationsNYRecordList.first
+                                    : null;
+                            return Container(
+                              width: 100,
+                              decoration: BoxDecoration(
+                                color: Color(0xFF33325C),
+                                borderRadius: BorderRadius.circular(25),
+                              ),
+                              child: StreamBuilder<SectionCustomRecord>(
+                                stream: SectionCustomRecord.getDocument(
+                                    containerMeditationsNYRecord!.section!),
+                                builder: (context, snapshot) {
+                                  // Customize what your widget looks like when it's loading.
+                                  if (!snapshot.hasData) {
+                                    return Center(
+                                      child: SizedBox(
+                                        width: 30,
+                                        height: 30,
+                                        child: CircularProgressIndicator(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryColor,
                                         ),
                                       ),
                                     );
-                                    // await Navigator.push(
-                                    //   context,
-                                    //   MaterialPageRoute(
-                                    //     builder: (context) => NavBarPage(
-                                    //       initialPage: 'MeditationList',
-                                    //       meditationRecord:
-                                    //           gridViewMeditationRecord,
-                                    //     ),
-                                    //   ),
-                                    // );
-                                  },
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      ClipRRect(
-                                        borderRadius: BorderRadius.only(
-                                          bottomLeft: Radius.circular(0),
-                                          bottomRight: Radius.circular(0),
-                                          topLeft: Radius.circular(25),
-                                          topRight: Radius.circular(25),
+                                  }
+                                  final containerSectionCustomRecord =
+                                      snapshot.data!;
+                                  return InkWell(
+                                    onTap: () async {
+                                      await Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              SectionCustomPageWidget(
+                                            section:
+                                                containerSectionCustomRecord,
+                                            numlesson: 1,
+                                          ),
                                         ),
-                                        child: CachedNetworkImage(
-                                          imageUrl:
-                                              gridViewMeditationRecord.cover!,
-                                          width:
-                                              MediaQuery.of(context).size.width,
-                                          height: 126,
-                                          fit: BoxFit.cover,
-                                        ),
+                                      );
+                                    },
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(25),
                                       ),
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            18, 8, 8, 0),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          ClipRRect(
+                                            borderRadius: BorderRadius.only(
+                                              bottomLeft: Radius.circular(0),
+                                              bottomRight: Radius.circular(0),
+                                              topLeft: Radius.circular(25),
+                                              topRight: Radius.circular(25),
+                                            ),
+                                            child: Image.network(
+                                              containerMeditationsNYRecord
+                                                  .coverMini!,
+                                              width: double.infinity,
+                                              height: 126,
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    18, 9, 18, 10),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  children: [
+                                                    Text(
+                                                      containerMeditationsNYRecord
+                                                          .title!,
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyText1
+                                                              .override(
+                                                                fontFamily:
+                                                                    'montserrat',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primaryBackground,
+                                                                fontSize: 10,
+                                                                useGoogleFonts:
+                                                                    false,
+                                                              ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(0, 4, 0, 0),
+                                                  child: Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    children: [
+                                                      Text(
+                                                        containerMeditationsNYRecord
+                                                            .countLesson!,
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyText1
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'montserrat',
+                                                                  fontSize: 10,
+                                                                  useGoogleFonts:
+                                                                      false,
+                                                                ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(24, 0, 24, 4),
+                        child: StreamBuilder<List<MeditationRecord>>(
+                          stream: queryMeditationRecord(),
+                          builder: (context, snapshot) {
+                            // Customize what your widget looks like when it's loading.
+                            if (!snapshot.hasData) {
+                              return Center(
+                                child: SizedBox(
+                                  width: 30,
+                                  height: 30,
+                                  child: CircularProgressIndicator(
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryColor,
+                                  ),
+                                ),
+                              );
+                            }
+                            List<MeditationRecord>
+                                gridViewMeditationRecordList = snapshot.data!;
+
+                            gridViewMeditationRecordList
+                                .sort((a, b) => a.index!.compareTo(b.index!));
+
+                            gridViewMeditationRecordList =
+                                gridViewMeditationRecordList
+                                    .where((meditation) => (meditation.isView!))
+                                    .toList();
+
+                            // if (currentUserDocument!.status == 'free') {
+                            //   return SizedBox(
+                            //     //height: MediaQuery.of(context).size.height * 1,
+                            //     child: Text(
+                            //       'Купите платный пакет, чтобы прослушивать медитации',
+                            //       textAlign: TextAlign.center,
+                            //       style:
+                            //           FlutterFlowTheme.of(context).bodyText1.override(
+                            //                 fontFamily: 'montserrat',
+                            //                 color: Colors.white,
+                            //                 fontSize: 16,
+                            //                 useGoogleFonts: false,
+                            //               ),
+                            //     ),
+                            //   );
+                            // }
+                            return GridView.builder(
+                              padding: EdgeInsets.zero,
+                              gridDelegate:
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                crossAxisSpacing: 10,
+                                mainAxisSpacing: 10,
+                                childAspectRatio: 0.92,
+                              ),
+                              primary: false,
+                              shrinkWrap: true,
+                              scrollDirection: Axis.vertical,
+                              itemCount: gridViewMeditationRecordList.length,
+                              itemBuilder: (context, gridViewIndex) {
+                                final gridViewMeditationRecord =
+                                    gridViewMeditationRecordList[gridViewIndex];
+
+                                return Container(
+                                  width: 100,
+                                  height: 100,
+                                  decoration: BoxDecoration(
+                                    color: Color(0xFF33325C),
+                                    borderRadius: BorderRadius.circular(25),
+                                  ),
+                                  child: Stack(
+                                    children: [
+                                      InkWell(
+                                        onTap: () async {
+                                          await Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  MeditationListWidget(
+                                                meditation:
+                                                    gridViewMeditationRecord,
+                                              ),
+                                            ),
+                                          );
+                                          // await Navigator.push(
+                                          //   context,
+                                          //   MaterialPageRoute(
+                                          //     builder: (context) => NavBarPage(
+                                          //       initialPage: 'MeditationList',
+                                          //       meditationRecord:
+                                          //           gridViewMeditationRecord,
+                                          //     ),
+                                          //   ),
+                                          // );
+                                        },
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(0, 0, 0, 2),
-                                              child: Text(
-                                                gridViewMeditationRecord.title!,
-                                                style: FlutterFlowTheme.of(
-                                                        context)
-                                                    .bodyText1
-                                                    .override(
-                                                        fontFamily:
-                                                            'montserrat',
-                                                        color: Colors.white,
-                                                        fontSize: 12,
-                                                        useGoogleFonts: false,
-                                                        fontWeight:
-                                                            FontWeight.w500),
+                                            ClipRRect(
+                                              borderRadius: BorderRadius.only(
+                                                bottomLeft: Radius.circular(0),
+                                                bottomRight: Radius.circular(0),
+                                                topLeft: Radius.circular(25),
+                                                topRight: Radius.circular(25),
+                                              ),
+                                              child: CachedNetworkImage(
+                                                imageUrl:
+                                                    gridViewMeditationRecord
+                                                        .cover!,
+                                                width: MediaQuery.of(context)
+                                                    .size
+                                                    .width,
+                                                height: 126,
+                                                fit: BoxFit.cover,
                                               ),
                                             ),
-                                            Text(
-                                              '${gridViewMeditationRecord.audios!.toList().length.toString()} уроков',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyText1
-                                                      .override(
-                                                        fontFamily:
-                                                            'montserrat',
-                                                        fontSize: 10,
-                                                        useGoogleFonts: false,
-                                                      ),
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(18, 8, 8, 0),
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.max,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(
+                                                                0, 0, 0, 2),
+                                                    child: Text(
+                                                      gridViewMeditationRecord
+                                                          .title!,
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .bodyText1
+                                                          .override(
+                                                              fontFamily:
+                                                                  'montserrat',
+                                                              color:
+                                                                  Colors.white,
+                                                              fontSize: 12,
+                                                              useGoogleFonts:
+                                                                  false,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500),
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    '${gridViewMeditationRecord.audios!.toList().length.toString()} уроков',
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyText1
+                                                        .override(
+                                                          fontFamily:
+                                                              'montserrat',
+                                                          fontSize: 10,
+                                                          useGoogleFonts: false,
+                                                        ),
+                                                  ),
+                                                ],
+                                              ),
                                             ),
                                           ],
                                         ),
                                       ),
-                                    ],
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      8, 8, 8, 8),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      Container(
-                                        width: 30,
-                                        height: 30,
-                                        decoration: BoxDecoration(
-                                          color: Color(0x82C4C4C4),
-                                          shape: BoxShape.circle,
-                                        ),
-                                        alignment: AlignmentDirectional(0, 0),
-                                        child: Stack(
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            8, 8, 8, 8),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
                                           children: [
-                                            // Image.asset(
-                                            //   'assets/images/Vector-2.png',
-                                            //   width: 11,
-                                            //   height: 16,
-                                            //   fit: BoxFit.contain,
-                                            // ),
-                                            Image.asset(
-                                              'assets/images/Vector.png',
-                                              width: 11,
-                                              height: 16,
-                                              fit: BoxFit.contain,
+                                            Container(
+                                              width: 30,
+                                              height: 30,
+                                              decoration: BoxDecoration(
+                                                color: Color(0x82C4C4C4),
+                                                shape: BoxShape.circle,
+                                              ),
+                                              alignment:
+                                                  AlignmentDirectional(0, 0),
+                                              child: Stack(
+                                                children: [
+                                                  // Image.asset(
+                                                  //   'assets/images/Vector-2.png',
+                                                  //   width: 11,
+                                                  //   height: 16,
+                                                  //   fit: BoxFit.contain,
+                                                  // ),
+                                                  Image.asset(
+                                                    'assets/images/Vector.png',
+                                                    width: 11,
+                                                    height: 16,
+                                                    fit: BoxFit.contain,
+                                                  ),
+                                                ],
+                                              ),
                                             ),
                                           ],
                                         ),
                                       ),
                                     ],
                                   ),
-                                ),
-                              ],
-                            ),
-                          );
-                        },
-                      );
-                    },
+                                );
+                              },
+                            );
+                          },
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),

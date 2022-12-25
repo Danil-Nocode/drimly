@@ -1,5 +1,6 @@
 import 'package:built_value/serializer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:drimly/backend/schema/meditations_n_y_record.dart';
 import 'package:drimly/backend/schema/section_custom_record.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -577,6 +578,48 @@ Future<FFFirestorePage<SectionCustomRecord>> querySectionCustomRecordPage({
     queryCollectionPage(
       SectionCustomRecord.collection,
       SectionCustomRecord.serializer,
+      queryBuilder: queryBuilder,
+      nextPageMarker: nextPageMarker,
+      pageSize: pageSize,
+      isStream: isStream,
+    );
+
+/// Functions to query MeditationsNYRecords (as a Stream and as a Future).
+Stream<List<MeditationsNYRecord>> queryMeditationsNYRecord({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      MeditationsNYRecord.collection,
+      MeditationsNYRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<MeditationsNYRecord>> queryMeditationsNYRecordOnce({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      MeditationsNYRecord.collection,
+      MeditationsNYRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<FFFirestorePage<MeditationsNYRecord>> queryMeditationsNYRecordPage({
+  Query Function(Query)? queryBuilder,
+  DocumentSnapshot? nextPageMarker,
+  required int pageSize,
+  required bool isStream,
+}) =>
+    queryCollectionPage(
+      MeditationsNYRecord.collection,
+      MeditationsNYRecord.serializer,
       queryBuilder: queryBuilder,
       nextPageMarker: nextPageMarker,
       pageSize: pageSize,
