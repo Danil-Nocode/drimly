@@ -233,142 +233,118 @@ class _MeditationWidgetState extends State<MeditationWidget> {
                     padding: EdgeInsets.zero,
                     scrollDirection: Axis.vertical,
                     children: [
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(24, 0, 24, 22),
-                        child: StreamBuilder<List<MeditationsNYRecord>>(
-                          stream: queryMeditationsNYRecord(
-                            queryBuilder: (meditationsNYRecord) =>
-                                meditationsNYRecord.where('isView',
-                                    isEqualTo: true),
-                            singleRecord: true,
-                          ),
-                          builder: (context, snapshot) {
-                            // Customize what your widget looks like when it's loading.
-                            if (!snapshot.hasData) {
-                              return Center(
-                                child: SizedBox(
-                                  width: 30,
-                                  height: 30,
-                                  child: CircularProgressIndicator(
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryColor,
+                      if (currentUserDocument!.status != 'free' ||
+                          currentUserDocument!.newyear!)
+                        Padding(
+                          padding:
+                              EdgeInsetsDirectional.fromSTEB(24, 0, 24, 22),
+                          child: StreamBuilder<List<MeditationsNYRecord>>(
+                            stream: queryMeditationsNYRecord(
+                              queryBuilder: (meditationsNYRecord) =>
+                                  meditationsNYRecord.where('isView',
+                                      isEqualTo: true),
+                              singleRecord: true,
+                            ),
+                            builder: (context, snapshot) {
+                              // Customize what your widget looks like when it's loading.
+                              if (!snapshot.hasData) {
+                                return Center(
+                                  child: SizedBox(
+                                    width: 30,
+                                    height: 30,
+                                    child: CircularProgressIndicator(
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryColor,
+                                    ),
                                   ),
+                                );
+                              }
+                              List<MeditationsNYRecord>
+                                  containerMeditationsNYRecordList =
+                                  snapshot.data!;
+                              // Return an empty Container when the item does not exist.
+                              if (snapshot.data!.isEmpty) {
+                                return Container();
+                              }
+                              final containerMeditationsNYRecord =
+                                  containerMeditationsNYRecordList.isNotEmpty
+                                      ? containerMeditationsNYRecordList.first
+                                      : null;
+                              return Container(
+                                width: 100,
+                                decoration: BoxDecoration(
+                                  color: Color(0xFF33325C),
+                                  borderRadius: BorderRadius.circular(25),
                                 ),
-                              );
-                            }
-                            List<MeditationsNYRecord>
-                                containerMeditationsNYRecordList =
-                                snapshot.data!;
-                            // Return an empty Container when the item does not exist.
-                            if (snapshot.data!.isEmpty) {
-                              return Container();
-                            }
-                            final containerMeditationsNYRecord =
-                                containerMeditationsNYRecordList.isNotEmpty
-                                    ? containerMeditationsNYRecordList.first
-                                    : null;
-                            return Container(
-                              width: 100,
-                              decoration: BoxDecoration(
-                                color: Color(0xFF33325C),
-                                borderRadius: BorderRadius.circular(25),
-                              ),
-                              child: StreamBuilder<SectionCustomRecord>(
-                                stream: SectionCustomRecord.getDocument(
-                                    containerMeditationsNYRecord!.section!),
-                                builder: (context, snapshot) {
-                                  // Customize what your widget looks like when it's loading.
-                                  if (!snapshot.hasData) {
-                                    return Center(
-                                      child: SizedBox(
-                                        width: 30,
-                                        height: 30,
-                                        child: CircularProgressIndicator(
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryColor,
-                                        ),
-                                      ),
-                                    );
-                                  }
-                                  final containerSectionCustomRecord =
-                                      snapshot.data!;
-                                  return InkWell(
-                                    onTap: () async {
-                                      await Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              SectionCustomPageWidget(
-                                            section:
-                                                containerSectionCustomRecord,
-                                            numlesson: 1,
+                                child: StreamBuilder<SectionCustomRecord>(
+                                  stream: SectionCustomRecord.getDocument(
+                                      containerMeditationsNYRecord!.section!),
+                                  builder: (context, snapshot) {
+                                    // Customize what your widget looks like when it's loading.
+                                    if (!snapshot.hasData) {
+                                      return Center(
+                                        child: SizedBox(
+                                          width: 30,
+                                          height: 30,
+                                          child: CircularProgressIndicator(
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryColor,
                                           ),
                                         ),
                                       );
-                                    },
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(25),
-                                      ),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          ClipRRect(
-                                            borderRadius: BorderRadius.only(
-                                              bottomLeft: Radius.circular(0),
-                                              bottomRight: Radius.circular(0),
-                                              topLeft: Radius.circular(25),
-                                              topRight: Radius.circular(25),
-                                            ),
-                                            child: Image.network(
-                                              containerMeditationsNYRecord
-                                                  .coverMini!,
-                                              width: double.infinity,
-                                              height: 126,
-                                              fit: BoxFit.cover,
+                                    }
+                                    final containerSectionCustomRecord =
+                                        snapshot.data!;
+                                    return InkWell(
+                                      onTap: () async {
+                                        await Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                SectionCustomPageWidget(
+                                              section:
+                                                  containerSectionCustomRecord,
+                                              numlesson: 1,
                                             ),
                                           ),
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    18, 9, 18, 10),
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  children: [
-                                                    Text(
-                                                      containerMeditationsNYRecord
-                                                          .title!,
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyText1
-                                                              .override(
-                                                                fontFamily:
-                                                                    'montserrat',
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primaryBackground,
-                                                                fontSize: 10,
-                                                                useGoogleFonts:
-                                                                    false,
-                                                              ),
-                                                    ),
-                                                  ],
-                                                ),
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(0, 4, 0, 0),
-                                                  child: Row(
+                                        );
+                                      },
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(25),
+                                        ),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            ClipRRect(
+                                              borderRadius: BorderRadius.only(
+                                                bottomLeft: Radius.circular(0),
+                                                bottomRight: Radius.circular(0),
+                                                topLeft: Radius.circular(25),
+                                                topRight: Radius.circular(25),
+                                              ),
+                                              child: Image.network(
+                                                containerMeditationsNYRecord
+                                                    .coverMini!,
+                                                width: double.infinity,
+                                                height: 126,
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(18, 9, 18, 10),
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  Row(
                                                     mainAxisSize:
                                                         MainAxisSize.max,
                                                     children: [
                                                       Text(
                                                         containerMeditationsNYRecord
-                                                            .countLesson!,
+                                                            .title!,
                                                         style:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -376,6 +352,9 @@ class _MeditationWidgetState extends State<MeditationWidget> {
                                                                 .override(
                                                                   fontFamily:
                                                                       'montserrat',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primaryBackground,
                                                                   fontSize: 10,
                                                                   useGoogleFonts:
                                                                       false,
@@ -383,20 +362,45 @@ class _MeditationWidgetState extends State<MeditationWidget> {
                                                       ),
                                                     ],
                                                   ),
-                                                ),
-                                              ],
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(
+                                                                0, 4, 0, 0),
+                                                    child: Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      children: [
+                                                        Text(
+                                                          containerMeditationsNYRecord
+                                                              .countLesson!,
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyText1
+                                                              .override(
+                                                                fontFamily:
+                                                                    'montserrat',
+                                                                fontSize: 10,
+                                                                useGoogleFonts:
+                                                                    false,
+                                                              ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                  );
-                                },
-                              ),
-                            );
-                          },
+                                    );
+                                  },
+                                ),
+                              );
+                            },
+                          ),
                         ),
-                      ),
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(24, 0, 24, 4),
                         child: StreamBuilder<List<MeditationRecord>>(

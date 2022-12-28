@@ -235,7 +235,8 @@ class _PracticeWidgetState extends State<PracticeWidget> {
 
                       if (currentUserDocument!.status == 'free' &&
                           currentUserDocument!.moneyspace != true &&
-                          currentUserDocument!.pro != true) {
+                          currentUserDocument!.pro != true &&
+                          currentUserDocument!.magic != true) {
                         return SizedBox(
                           child: Text(
                             'Скоро мы добавим сюда контент',
@@ -257,12 +258,12 @@ class _PracticeWidgetState extends State<PracticeWidget> {
                           currentUserDocument!.pro!) {
                         listViewPracticesRecordList.add(pro);
                       }
-                      try {
-                        if (currentUserDocument!.status == 'free' &&
-                            currentUserDocument!.magic!) {
-                          listViewPracticesRecordList.add(magic!);
-                        }
-                      } catch (e) {}
+                      // try {
+                      if (currentUserDocument!.status == 'free' &&
+                          currentUserDocument!.magic!) {
+                        listViewPracticesRecordList.add(magic!);
+                      }
+                      // } catch (e) {}
 
                       if (currentUserDocument!.moneyspace! &&
                           currentUserDocument!.status == 'free') {

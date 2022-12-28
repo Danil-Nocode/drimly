@@ -146,6 +146,13 @@ class _$UsersRecordSerializer implements StructuredSerializer<UsersRecord> {
         ..add(
             serializers.serialize(value, specifiedType: const FullType(bool)));
     }
+    value = object.newyear;
+    if (value != null) {
+      result
+        ..add('newyear')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
     value = object.psychologist;
     if (value != null) {
       result
@@ -268,6 +275,10 @@ class _$UsersRecordSerializer implements StructuredSerializer<UsersRecord> {
           result.magic = serializers.deserialize(value,
               specifiedType: const FullType(bool)) as bool?;
           break;
+        case 'newyear':
+          result.newyear = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
+          break;
         case 'psychologist':
           result.psychologist = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -336,6 +347,8 @@ class _$UsersRecord extends UsersRecord {
   @override
   final bool? magic;
   @override
+  final bool? newyear;
+  @override
   final DocumentReference<Object?>? psychologist;
   @override
   final DateTime? endstatus;
@@ -366,6 +379,7 @@ class _$UsersRecord extends UsersRecord {
       this.moneyspace,
       this.pro,
       this.magic,
+      this.newyear,
       this.psychologist,
       this.endstatus,
       this.clientsPsychologist,
@@ -401,6 +415,7 @@ class _$UsersRecord extends UsersRecord {
         moneyspace == other.moneyspace &&
         pro == other.pro &&
         magic == other.magic &&
+        newyear == other.newyear &&
         psychologist == other.psychologist &&
         endstatus == other.endstatus &&
         clientsPsychologist == other.clientsPsychologist &&
@@ -427,22 +442,22 @@ class _$UsersRecord extends UsersRecord {
                                                                 $jc(
                                                                     $jc(
                                                                         $jc(
-                                                                            $jc($jc($jc($jc(0, email.hashCode), displayName.hashCode), photoUrl.hashCode),
-                                                                                uid.hashCode),
-                                                                            createdTime.hashCode),
-                                                                        phoneNumber.hashCode),
-                                                                    question1.hashCode),
-                                                                question2.hashCode),
-                                                            rating.hashCode),
-                                                        listenAudio.hashCode),
-                                                    status.hashCode),
-                                                minuteListen.hashCode),
-                                            sessionCount.hashCode),
-                                        isActiveChat.hashCode),
-                                    isPsychologist.hashCode),
-                                moneyspace.hashCode),
-                            pro.hashCode),
-                        magic.hashCode),
+                                                                            $jc($jc($jc($jc($jc(0, email.hashCode), displayName.hashCode), photoUrl.hashCode), uid.hashCode),
+                                                                                createdTime.hashCode),
+                                                                            phoneNumber.hashCode),
+                                                                        question1.hashCode),
+                                                                    question2.hashCode),
+                                                                rating.hashCode),
+                                                            listenAudio.hashCode),
+                                                        status.hashCode),
+                                                    minuteListen.hashCode),
+                                                sessionCount.hashCode),
+                                            isActiveChat.hashCode),
+                                        isPsychologist.hashCode),
+                                    moneyspace.hashCode),
+                                pro.hashCode),
+                            magic.hashCode),
+                        newyear.hashCode),
                     psychologist.hashCode),
                 endstatus.hashCode),
             clientsPsychologist.hashCode),
@@ -470,6 +485,7 @@ class _$UsersRecord extends UsersRecord {
           ..add('moneyspace', moneyspace)
           ..add('pro', pro)
           ..add('magic', magic)
+          ..add('newyear', newyear)
           ..add('psychologist', psychologist)
           ..add('endstatus', endstatus)
           ..add('clientsPsychologist', clientsPsychologist)
@@ -556,6 +572,10 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
   bool? get magic => _$this._magic;
   set magic(bool? magic) => _$this._magic = magic;
 
+  bool? _newyear;
+  bool? get newyear => _$this._newyear;
+  set newyear(bool? newyear) => _$this._newyear = newyear;
+
   DocumentReference<Object?>? _psychologist;
   DocumentReference<Object?>? get psychologist => _$this._psychologist;
   set psychologist(DocumentReference<Object?>? psychologist) =>
@@ -602,6 +622,7 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
       _moneyspace = $v.moneyspace;
       _pro = $v.pro;
       _magic = $v.magic;
+      _newyear = $v.newyear;
       _psychologist = $v.psychologist;
       _endstatus = $v.endstatus;
       _clientsPsychologist = $v.clientsPsychologist?.toBuilder();
@@ -648,6 +669,7 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
               moneyspace: moneyspace,
               pro: pro,
               magic: magic,
+              newyear: newyear,
               psychologist: psychologist,
               endstatus: endstatus,
               clientsPsychologist: _clientsPsychologist?.build(),
